@@ -13,7 +13,9 @@ export class CotizacionService {
   _cotizaciones: BehaviorSubject<Cotizacion[] | null> = new BehaviorSubject(null);
   _companias: BehaviorSubject<Compania[] | null> = new BehaviorSubject(null);
   _ramo: BehaviorSubject<Ramo[] | null> = new BehaviorSubject(null);
+  _ramoSelected: BehaviorSubject<Ramo[] | null> = new BehaviorSubject(null);
   _producto: BehaviorSubject<Producto[] | null> = new BehaviorSubject(null);
+  _productoSelected: BehaviorSubject<Producto[] | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient) { }
 
@@ -53,6 +55,7 @@ export class CotizacionService {
     return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}` + 'api/producto/').pipe(
       tap((result) => {
         this._producto.next(result.body);
+        this._productoSelected.next(result.body);
 
       })
     );
@@ -70,7 +73,7 @@ export class CotizacionService {
   getListaDeProductosPorRamo(cod_ramo): Observable<UserResponseModel> {
     return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}` + 'api/producto/' + cod_ramo).pipe(
       tap((result) => {
-        this._producto.next(result.body);
+        this._productoSelected.next(result.body);
 
       })
     );

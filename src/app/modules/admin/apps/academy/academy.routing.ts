@@ -2,7 +2,7 @@ import { Route } from '@angular/router';
 import { AcademyComponent } from 'app/modules/admin/apps/academy/academy.component';
 import { AcademyListComponent } from 'app/modules/admin/apps/academy/list/list.component';
 import { AcademyDetailsComponent } from 'app/modules/admin/apps/academy/details/details.component';
-import { AcademyCategoriesResolver, AcademyCourseResolver, AcademyCoursesResolver, CompaniaResolver, CotizacionesResolver, ProductoResolver, RamoResolver } from 'app/modules/admin/apps/academy/academy.resolvers';
+import { AcademyCategoriesResolver, AcademyCourseResolver, AcademyCoursesResolver, CompaniaResolver, CotizacionesResolver, PolizaResolver, ProductoResolver, RamoResolver } from 'app/modules/admin/apps/academy/academy.resolvers';
 
 export const academyRoutes: Route[] = [
     {
@@ -28,7 +28,8 @@ export const academyRoutes: Route[] = [
                     cotizacion : CotizacionesResolver,
                     producto: ProductoResolver,
                     ramo : RamoResolver,
-                    compania: CompaniaResolver
+                    compania: CompaniaResolver,
+                    poliza: PolizaResolver
                 }
             }
         ]

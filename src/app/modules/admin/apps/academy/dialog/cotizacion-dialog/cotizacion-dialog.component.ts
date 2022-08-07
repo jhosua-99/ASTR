@@ -33,7 +33,7 @@ export class CotizacionDialogComponent implements OnInit, OnDestroy {
 
     this.companias$ = this._cotizacion_service._companias;
     this.ramos$ = this._cotizacion_service._ramo;
-    this.productos$ = this._cotizacion_service._producto;
+    this.productos$ = this._cotizacion_service._productoSelected;
     this.isEdit = this.data.isEdit;
     console.log(this.isEdit);
 

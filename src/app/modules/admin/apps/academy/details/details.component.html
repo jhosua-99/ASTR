@@ -470,7 +470,8 @@
                                         <div class="flex">
                                             <!-- Save -->
                                             <button class="flex items-center justify-center" mat-flat-button
-                                                [color]="'primary'" [matTooltip]="'Save'" (click)="openEditCotiDialog(i)">
+                                                [color]="'primary'" [matTooltip]="'Save'"
+                                                (click)="openEditCotiDialog(i)">
                                                 Editar
                                             </button>
 
@@ -637,6 +638,7 @@
                                     lab et fugiat id magnam minus nemo quam
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
+                                
                                 <div class="flex sm:items-center">
                                     <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
                                     <div class="ml-6 leading-6">
@@ -648,7 +650,7 @@
                                 <br>
                                 <div class="flex">
                                     <mat-form-field class="flex-auto">
-                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
+                                        <mat-select [formControlName]="'cod_usuario'" [placeholder]="'Seleccionar'"
                                             required>
                                             <mat-option value="country-1">Country 1</mat-option>
                                             <mat-option value="country-2">Country 2</mat-option>
@@ -658,57 +660,126 @@
                                     </mat-form-field>
                                 </div>
                                 <hr>
+                                <form [formGroup]="phaseSeguimientoForm">
+                                    <ng-container
+                                        *ngFor="let poliza of phaseSeguimientoForm.get('poliza')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                        <h3>
+                                            Poliza {{i+1}}
+                                        </h3>
 
-                                <h3>
-                                    Póliza
-                                </h3>
-                                <!-- Name -->
-                                <mat-form-field class="w-full">
-                                    <mat-label>Nombre de Seguro</mat-label>
-                                    <input matInput>
-                                </mat-form-field>
+                                        <div class="flex">
+                                            <mat-form-field class="w-1/3 pr-1">
+                                                <mat-label>Fecha Expedición</mat-label>
+                                                <input matInput [matDatepicker]="birthdayDatepicker" [placeholder]="'dd/mm/aaaa'"
+                                                [formControl]="poliza.get('fecha_expedicion')" [disabled]="true">
+                                    
+                                                <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #birthdayDatepicker></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/3 pl-0">
+                                                <mat-label>Vigencia Desde</mat-label>
+                                                <input matInput [matDatepicker]="birthdayDatepicker2" [placeholder]="'dd/mm/aaaa'"
+                                                [formControl]="poliza.get('fecha_vigencia_desde')" [disabled]="true"
+                                                    >
+                                    
+                                                <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker2">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #birthdayDatepicker2></mat-datepicker>
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/3 pl-1">
+                                                <mat-label>Vigencia Hasta</mat-label>
+                                                <input matInput [matDatepicker]="birthdayDatepicker3" [placeholder]="'dd/mm/aaaa'"
+                                                [formControl]="poliza.get('fecha_vigencia_hasta')" [disabled]="true"
+                                                    >
+                                    
+                                                <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker3">
+                                                    </mat-datepicker-toggle>
+                                                    <mat-datepicker #birthdayDatepicker3></mat-datepicker>
+                                            </mat-form-field>
+                                        </div>
+                                    
+                                    
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Número de Póliza</mat-label>
+                                            <input matInput [formControl]="poliza.get('numero_poliza')" [readonly]="true">
+                                        </mat-form-field>
+                                    
+                                        <div class="flex">
+                                            <mat-form-field class="w-1/3 pr-2">
+                                                <mat-label>Compañia</mat-label>
+                                                <ng-container *ngIf="companias$ | async as companias">
+                                                    <mat-select [formControl]="poliza.get('cod_compania')"
+                                                        [placeholder]="'Seleccionar'" [disabled]="true" required>
+                                                        <mat-option
+                                                            *ngFor="let compania of companias; let i = index; trackBy: trackByFn"
+                                                            [value]="compania.cod_compania">{{compania.nom_compania}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </ng-container>
 
-                                <mat-form-field class="w-full">
-                                    <mat-label>Número de Póliza</mat-label>
-                                    <input matInput>
-                                </mat-form-field>
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/3 pl-2">
+                                                <mat-label>Ramo</mat-label>
+                                                <ng-container *ngIf="ramos$ | async as ramos">
+                                                    <mat-select [placeholder]="'Seleccionar'" [formControl]="poliza.get('cod_ramo')"  required  [disabled]="true">
+                                                        <mat-option *ngFor="let ramo of ramos; let i = index; trackBy: trackByFn"
+                                                            [value]="ramo.cod_ramo" (click)="selectRamo(ramo.cod_ramo)">{{ramo.nom_ramo}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </ng-container>
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/3 pl-2">
+                                                <mat-label>Producto</mat-label>
+                                                <ng-container *ngIf="productos$ | async as productos">
+                                                    <mat-select [placeholder]="'Seleccionar'" required [formControl]="poliza.get('cod_producto')"  [disabled]="true">
+                                    
+                                                        <mat-option *ngFor="let producto of productos; let i = index; trackBy: trackByFn"
+                                                            [value]="producto.cod_producto">{{producto.nom_producto}}
+                                                        </mat-option>
+                                                    </mat-select>
+                                                </ng-container>
+                                            </mat-form-field>
+                                        </div>
+                                        <mat-form-field class="w-full">
+                                            <mat-label>Valor</mat-label>
+                                            <span matPrefix>$</span>
+                                            <input matInput [formControl]="poliza.get('valor_total')" [readonly]="true">
+                                        </mat-form-field>
+                                    
+                                        <div class="flex">
+                                            <mat-form-field class="w-1/2 pr-2">
+                                                <mat-label>Nombre de archivo</mat-label>
+                                                <input matInput [readonly]="true">
+                                            </mat-form-field>
+                                            <mat-form-field class="w-1/2 pl-2">
+                                                <mat-label>Link de póliza</mat-label>
+                                                <input matInput [formControl]="poliza.get('link')" [readonly]="true" >
+                                            </mat-form-field>
+                                        </div>
+                                        <div class="flex">
+                                            <!-- Save -->
+                                            <button class="w-full" mat-flat-button [color]="'primary'" [matTooltip]="'Save'" >
+                                                Renovar
+                                            </button>
+                                    
+                                        </div> 
 
-                                <div class="flex">
-                                    <mat-form-field class="w-1/3 pr-2">
-                                        <mat-label>Código</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                    <mat-form-field class="w-1/3 pl-2">
-                                        <mat-label>Compañia</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                    <mat-form-field class="w-1/3 pl-2">
-                                        <mat-label>Tipo</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
+                                        <hr>
+                                    </ng-container>
+
+    
+                                </form>
+                               
+
+                                <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                                        (click)="openCreatePoliDialog()">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
+                                        </mat-icon>
+                                        <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar
+                                            Póliza</span>
                                 </div>
-                                <div class="flex">
-                                    <mat-form-field class="w-1/2 pr-2">
-                                        <mat-label>Valor</mat-label>
-                                        <span matPrefix>$</span>
-                                        <input matInput [formControlName]="'cost'">
-                                    </mat-form-field>
-                                    <mat-form-field class="w-1/2 pl-2">
-                                        <mat-label>Fecha de renovación</mat-label>
-                                        <span matPrefix>DD/MM/YYYY</span>
-                                        <input matInput>
-                                    </mat-form-field>
-                                </div>
-                                <div class="flex">
-                                    <mat-form-field class="w-1/2 pr-2">
-                                        <mat-label>Nombre de póliza</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                    <mat-form-field class="w-1/2 pl-2">
-                                        <mat-label>Link de póliza</mat-label>
-                                        <input matInput>
-                                    </mat-form-field>
-                                </div>
+                                
 
 
                             </div>

@@ -1,0 +1,130 @@
+<div class="myContent">
+    <form [formGroup]="phaseSelectCotiForm">
+        <div class="flex sm:items-center">
+            <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
+            <div class="ml-6 leading-6">
+                <strong>Seleccionar Cotizacion</strong>
+    
+            </div>
+    
+        </div>
+        <br>
+        <div class="flex">
+            <ng-container *ngIf="cotizaciones$ | async as cotizaciones">
+    
+                <mat-form-field class="w-full">
+                    <mat-select [formControlName]="'cod_cot_selected'" [placeholder]="'Seleccionar'" required>
+                        <mat-option *ngFor="let cotizacion of cotizaciones; let i = index; trackBy: trackByFn"
+                            [value]="cotizacion.cod_cotizacion" (click)="selectCot(cotizacion.cod_cotizacion)">
+                            {{cotizacion.numero_cotizacion}}
+                        </mat-option>
+                    </mat-select>
+    
+                </mat-form-field>
+    
+            </ng-container>
+    
+    
+        </div>
+    
+        <hr>
+    
+        <h3>
+            Póliza
+        </h3>
+        <div class="flex">
+            <mat-form-field class="w-1/3 pr-1">
+                <mat-label>Fecha Expedición</mat-label>
+                <input matInput [matDatepicker]="birthdayDatepicker" [placeholder]="'dd/mm/aaaa'"
+                    [formControlName]="'fecha_expedicion'">
+    
+                <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #birthdayDatepicker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="w-1/3 pl-0">
+                <mat-label>Vigencia Desde</mat-label>
+                <input matInput [matDatepicker]="birthdayDatepicker2" [placeholder]="'dd/mm/aaaa'"
+                    [formControlName]="'fecha_vigencia_desde'">
+    
+                <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker2">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #birthdayDatepicker2></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="w-1/3 pl-1">
+                <mat-label>Vigencia Hasta</mat-label>
+                <input matInput [matDatepicker]="birthdayDatepicker3" [placeholder]="'dd/mm/aaaa'"
+                    [formControlName]="'fecha_vigencia_hasta'">
+    
+                <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker3">
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #birthdayDatepicker3></mat-datepicker>
+            </mat-form-field>
+        </div>
+    
+    
+        <mat-form-field class="w-full">
+            <mat-label>Número de Póliza</mat-label>
+            <input matInput [formControlName]="'numero_poliza'">
+        </mat-form-field>
+    
+        <div class="flex">
+            <mat-form-field class="w-1/3 pr-2">
+                <mat-label>Compañia</mat-label>
+                <ng-container *ngIf="companias$ | async as companias">
+                    <mat-select [placeholder]="'Seleccionar'" [formControlName]="'cod_compania'" required  [disabled]="true">
+                        <mat-option *ngFor="let compania of companias; let i = index; trackBy: trackByFn"
+                            [value]="compania.cod_compania" (click)="selectCompany(compania.cod_compania)">
+                            {{compania.nom_compania}}
+                        </mat-option>
+                    </mat-select>
+                </ng-container>
+            </mat-form-field>
+            <mat-form-field class="w-1/3 pl-2">
+                <mat-label>Ramo</mat-label>
+                <ng-container *ngIf="ramos$ | async as ramos">
+                    <mat-select [placeholder]="'Seleccionar'" [formControlName]="'cod_ramo'" required  [disabled]="true">
+                        <mat-option *ngFor="let ramo of ramos; let i = index; trackBy: trackByFn"
+                            [value]="ramo.cod_ramo" (click)="selectRamo(ramo.cod_ramo)">{{ramo.nom_ramo}}
+                        </mat-option>
+                    </mat-select>
+                </ng-container>
+            </mat-form-field>
+            <mat-form-field class="w-1/3 pl-2">
+                <mat-label>Producto</mat-label>
+                <ng-container *ngIf="productos$ | async as productos">
+                    <mat-select [placeholder]="'Seleccionar'" required [formControlName]="'cod_producto'"  [disabled]="true">
+    
+                        <mat-option *ngFor="let producto of productos; let i = index; trackBy: trackByFn"
+                            [value]="producto.cod_producto">{{producto.nom_producto}}
+                        </mat-option>
+                    </mat-select>
+                </ng-container>
+            </mat-form-field>
+        </div>
+        <mat-form-field class="w-full">
+            <mat-label>Valor</mat-label>
+            <span matPrefix>$</span>
+            <input matInput [formControlName]="'valor_total'">
+        </mat-form-field>
+    
+        <div class="flex">
+            <mat-form-field class="w-1/2 pr-2">
+                <mat-label>Nombre de archivo</mat-label>
+                <input matInput [formControlName]="'nombreArchivo'">
+            </mat-form-field>
+            <mat-form-field class="w-1/2 pl-2">
+                <mat-label>Link de póliza</mat-label>
+                <input matInput [formControlName]="'link'">
+            </mat-form-field>
+        </div>
+        <div class="flex">
+            <!-- Save -->
+            <button class="w-full" mat-flat-button [color]="'primary'" [matTooltip]="'Save'" mat-dialog-close (click)="savePoliza()">
+                Guardar
+            </button>
+    
+        </div> 
+    </form>
+    
+</div>

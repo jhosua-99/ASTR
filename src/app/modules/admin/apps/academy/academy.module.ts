@@ -24,13 +24,15 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { CotizacionDialogComponent } from './dialog/cotizacion-dialog/cotizacion-dialog.component';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
+import { PolizaDialogComponent } from './dialog/poliza-dialog/poliza-dialog.component';
 
 @NgModule({
     declarations: [
         AcademyComponent,
         AcademyDetailsComponent,
         AcademyListComponent,
-        CotizacionDialogComponent
+        CotizacionDialogComponent,
+        PolizaDialogComponent
     ],
     imports     : [
         RouterModule.forChild(academyRoutes),
@@ -68,7 +70,7 @@ import { MatDialogModule } from '@angular/material/dialog';
             }
         }
     ],
-    entryComponents: [CotizacionDialogComponent]
+    entryComponents: [CotizacionDialogComponent,PolizaDialogComponent]
 
 })
 export class AcademyModule

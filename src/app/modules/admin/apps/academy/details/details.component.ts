@@ -13,6 +13,9 @@ import { Cotizacion } from 'app/services/cotizacion/cotizacion.type';
 import { Compania, Producto, Ramo } from 'app/services/cotizacion/compania.type';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { CotizacionDialogComponent } from '../dialog/cotizacion-dialog/cotizacion-dialog.component';
+import { PolizaDialogComponent } from '../dialog/poliza-dialog/poliza-dialog.component';
+import { PolizaService } from 'app/services/poliza/poliza.service';
+import { Poliza } from 'app/services/poliza/poliza.type';
 
 @Component({
     selector: 'academy-details',
@@ -27,6 +30,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     companias$: Observable<Compania[]>;
     ramos$: Observable<Ramo[]>;
     productos$: Observable<Producto[]>;
+    cotizaciones$: Observable<Cotizacion[]>;
+    polizas$: Observable<Poliza[]>;
 
     course: Course;
     currentStep: number = 0;
@@ -40,6 +45,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
      */
     phase1Form: FormGroup;
     phaseCotizacionForm: FormGroup;
+    phaseSeguimientoForm: FormGroup;
+    phaseSelectCotiForm: FormGroup;
 
     /**
      * Constructor
@@ -53,6 +60,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         private _fuseMediaWatcherService: FuseMediaWatcherService,
         private _procesoService: ProcesoService,
         private _cotizacion_service: CotizacionService,
+        private _polizaService: PolizaService,
         private matDialog: MatDialog
     ) {
     }
@@ -69,13 +77,24 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         this.companias$ = this._cotizacion_service._companias;
         this.ramos$ = this._cotizacion_service._ramo;
         this.productos$ = this._cotizacion_service._producto;
-
+        this.cotizaciones$ = this._cotizacion_service._cotizaciones;
+        this.polizas$ = this._polizaService._polizas;
 
 
         // Create the contact form
         this.phase1Form = this._formBuilder.group({
             emails: this._formBuilder.array([]),
         });
+
+        this.phaseSelectCotiForm = this._formBuilder.group({
+        
+            cod_cot_selected : [''] 
+        })
+
+        this.phaseSeguimientoForm = this._formBuilder.group({
+            cod_usuario : [''],
+            cod_cot_selected : [''] 
+        })
 
         this.phaseCotizacionForm = this._formBuilder.group({
             cotizacion: this._formBuilder.array([]),
@@ -112,6 +131,47 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
                 // Add the email form groups to the correos form array
                 cotizacionFormGroups.forEach((cotizationFormGroup) => {
                     (this.phaseCotizacionForm.get('cotizacion') as FormArray).push(cotizationFormGroup);
+                });
+                // Mark for check
+                this._changeDetectorRef.markForCheck();
+            });
+
+            this.phaseSeguimientoForm = this._formBuilder.group({
+                poliza: this._formBuilder.array([]),
+            });
+            this.phaseSeguimientoForm.disable();
+
+            this.polizas$.pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((list: Poliza[]) => {
+
+                // Get the categories
+                (this.phaseSeguimientoForm.get('poliza') as FormArray).clear();
+                const cotizacionFormGroups = [];
+
+                if (list.length > 0) {
+                    list.forEach((cot) => {
+                        console.log('fec '+cot.fecha_creada);
+                        
+                        cotizacionFormGroups.push(
+                            this._formBuilder.group({
+
+                                cod_cot_selected: [''],
+                                fecha_expedicion: [cot.fecha_expedicion],
+                                fecha_vigencia_desde: [cot.fecha_vigencia_desde],
+                                fecha_vigencia_hasta: [cot.fecha_vigencia_hasta],
+                                numero_poliza: [cot.numero_poliza],
+                                cod_compania: [cot.cod_compania],
+                                cod_ramo: [cot.cod_ramo],
+                                cod_producto: [cot.cod_proceso],
+                                valor_total: [cot.valor_total],
+                                link: [cot.link],
+                              })
+                        );
+                    })
+                } 
+                // Add the email form groups to the correos form array
+                cotizacionFormGroups.forEach((cotizationFormGroup) => {
+                    (this.phaseSeguimientoForm.get('poliza') as FormArray).push(cotizationFormGroup);
                 });
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
@@ -335,6 +395,23 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
                 dataKey: this.course.proceso.cod_proceso
             }
         });
+    }
+
+    openCreatePoliDialog() {
+        const dialogConfig = new MatDialogConfig();
+        this.matDialog.open(PolizaDialogComponent, {
+            data: {
+                isEdit: false,
+                dataKey: this.course.proceso.cod_proceso
+            }
+        });
+    }
+
+    saveCoti(){
+        const stepForm = this.phaseSelectCotiForm.getRawValue();
+
+
+
     }
 
 }
