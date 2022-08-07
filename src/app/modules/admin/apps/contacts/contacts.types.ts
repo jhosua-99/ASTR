@@ -33,6 +33,17 @@ export interface Country
     flagImagePos: string;
 }
 
+export interface ContactExport
+{
+    nom_cliente: string,
+    apellido_cliente: string,
+    ocupacion: string,
+    company: string,
+    direccion: string,
+    email: string;
+    numero: string;
+}
+
 export interface Tag
 {
     id?: string;

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, filter, map, Observable, of, switchMap, take, tap, throwError } from 'rxjs';
-import { Contact, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.types';
+import { Contact, ContactExport, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.types';
 import { UserResponseModel } from 'app/core/user/user.response.model';
 import { assign, cloneDeep } from 'lodash-es';
 import { environment } from '../../../../../environments/environment';
@@ -13,7 +13,9 @@ export class ContactsService
     // Private
     private _contact: BehaviorSubject<Contact | null> = new BehaviorSubject(null);
     private _contacts: BehaviorSubject<Contact[] | null> = new BehaviorSubject(null);
+    private _contactsExport: BehaviorSubject<ContactExport[] | null> = new BehaviorSubject(null);
     private _contactsList: any[] = [];
+    private _contactsListExport: any[] = [];
     private _countries: BehaviorSubject<Country[] | null> = new BehaviorSubject(null);
     private _tags: BehaviorSubject<Tag[] | null> = new BehaviorSubject(null);
 
@@ -34,6 +36,11 @@ export class ContactsService
     get contact$(): Observable<Contact>
     {
         return this._contact.asObservable();
+    }
+
+    get contactsExport$(): Observable<ContactExport[]>
+    {
+        return this._contactsExport.asObservable();
     }
 
     /**
@@ -67,8 +74,19 @@ export class ContactsService
     /**
      * Get contacts
      */
+
+     getContactsExport(): Observable<UserResponseModel>
+     {
+      
+        
+        
+        return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}`+'api/exports')
+     }
+
     getContacts(): Observable<UserResponseModel>
     {
+        console.log("holaaa2");
+        
         var token = localStorage.getItem('accessToken');
         var header = new HttpHeaders({
             'Authorization': 'Bearer ' + token
