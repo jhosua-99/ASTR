@@ -5,8 +5,10 @@ import { FormControl } from '@angular/forms';
 import { MatDrawer } from '@angular/material/sidenav';
 import { filter, fromEvent, Observable, Subject, switchMap, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
-import { Contact, Country } from 'app/modules/admin/apps/contacts/contacts.types';
+import { Contact, Country, ContactExport } from 'app/modules/admin/apps/contacts/contacts.types';
 import { ContactsService } from 'app/modules/admin/apps/contacts/contacts.service';
+import * as XLSX from 'xlsx';
+
 
 @Component({
     selector       : 'contacts-list',
@@ -19,6 +21,7 @@ export class ContactsListComponent implements OnInit, OnDestroy
     @ViewChild('matDrawer', {static: true}) matDrawer: MatDrawer;
 
     contacts$: Observable<Contact[]>;
+    contactsExport$;
 
     contactsCount: number = 0;
     contactsTableColumns: string[] = ['name', 'email', 'phoneNumber', 'job'];
@@ -47,11 +50,34 @@ export class ContactsListComponent implements OnInit, OnDestroy
     // @ Lifecycle hooks
     // -----------------------------------------------------------------------------------------------------
 
+    export() {
+      
+        
+        console.log(this.contactsExport$);
+        
+    
+        const workBook = XLSX.utils.book_new(); // create a new blank book
+        const workSheet = XLSX.utils.json_to_sheet(this.contactsExport$);
+    
+        XLSX.utils.book_append_sheet(workBook, workSheet, 'data'); // add the worksheet to the book
+        XLSX.writeFile(workBook, 'clientes.xlsx'); // initiate a file download in browser
+      }
+
     /**
      * On init
      */
     ngOnInit(): void
     {
+        // Get contacts to export
+        
+        this._contactsService.getContactsExport().subscribe(resp => {
+            console.log(resp.body);           
+            this.contactsExport$ = resp.body;
+        })
+        
+    
+     
+
         // Get the contacts
         this.contacts$ = this._contactsService.contacts$;
         this._contactsService.contacts$
@@ -66,6 +92,8 @@ export class ContactsListComponent implements OnInit, OnDestroy
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+        
+
 
         // Get the contact
         this._contactsService.contact$

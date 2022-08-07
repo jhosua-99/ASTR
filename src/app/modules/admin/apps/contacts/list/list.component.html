@@ -43,10 +43,14 @@
                             </mat-form-field>
                         </div>
                         <br>
-                        <!-- Add contact button -->
+                        <!-- Export contact button -->
                         <button class="ml-4" mat-flat-button [color]="'primary'" (click)="createContact()">
                             <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
                             <span class="ml-2 mr-1">Agregar</span>
+                        </button>
+                        <button class="ml-4" mat-flat-button [color]="'primary'" (click)="export()">
+                            <mat-icon [svgIcon]="'heroicons_outline:plus'"></mat-icon>
+                            <span class="ml-2 mr-1">Exportar</span>
                         </button>
                     </div>
                     <div class="flex items-center mt-4 sm:mt-0 md:mt-4">
