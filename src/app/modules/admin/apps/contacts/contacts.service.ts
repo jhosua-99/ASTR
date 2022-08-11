@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { BehaviorSubject, filter, map, Observable, of, switchMap, take, tap, throwError } from 'rxjs';
-import { Contact, ContactExport, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.types';
+import { Contact, ContactExport, ContactRelative, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.types';
 import { UserResponseModel } from 'app/core/user/user.response.model';
 import { assign, cloneDeep } from 'lodash-es';
 import { environment } from '../../../../../environments/environment';
@@ -12,6 +12,7 @@ export class ContactsService
 {
     // Private
     private _contact: BehaviorSubject<Contact | null> = new BehaviorSubject(null);
+    private _contactRelative: BehaviorSubject<ContactRelative | null> = new BehaviorSubject(null);
     private _contacts: BehaviorSubject<Contact[] | null> = new BehaviorSubject(null);
     private _contactsExport: BehaviorSubject<ContactExport[] | null> = new BehaviorSubject(null);
     private _contactsList: any[] = [];
@@ -41,6 +42,11 @@ export class ContactsService
     get contactsExport$(): Observable<ContactExport[]>
     {
         return this._contactsExport.asObservable();
+    }
+
+    get relatives$():Observable<ContactRelative>
+    {
+        return this._contactRelative.asObservable();
     }
 
     /**
@@ -75,11 +81,22 @@ export class ContactsService
      * Get contacts
      */
 
+    getRelatives(id:number):Observable<UserResponseModel>{
+        
+        return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}`+'api/relatives/'+id);
+    }
+
+     /**
+     * Update Relative
+     */
+
+    updateRelatives(relative: any):Observable<UserResponseModel>{
+        return this._httpClient.put<UserResponseModel>(`${environment.APIEndpoint}` + 'api/relatives/', relative)
+   }
+
      getContactsExport(): Observable<UserResponseModel>
      {
-      
-        
-        
+
         return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}`+'api/exports')
      }
 
@@ -163,6 +180,7 @@ export class ContactsService
      */
     getContactById(id: string): Observable<UserResponseModel>
     {
+              
         return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}`+'api/client/'+id).pipe(
             tap((contact) => {
                 console.log('here -> '+contact.body)
@@ -216,6 +234,8 @@ export class ContactsService
             ))
         );
     }
+
+   
 
     /**
      * Update contact

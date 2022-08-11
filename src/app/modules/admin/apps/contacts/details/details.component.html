@@ -163,6 +163,25 @@
                         </div>
                     </ng-container>
 
+                     <!-- Relatives -->
+                    <ng-container>
+                        <div class="flex sm:items-center" (click)="mostrarParientes()">
+                            <mat-icon>👨‍👨‍👧‍👧</mat-icon>
+                            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                            <div class="mt-3 text-3xl font-bold truncate"> Parientes</div>
+                        </div>
+                    </ng-container>
+
+                    <ng-container *ngIf="!relativeNull && showrelatives">
+                        <div class="flex sm:items-center">
+                            <mat-icon></mat-icon>
+                            <div class="mt-3 text-1xl font-bold truncate"><li *ngFor="let relative of contactRelativeA">
+                                {{relative.nom_pariente}}&nbsp;{{relative.apellido_pariente}} - {{relative.telefono_pariente}}
+                            </li></div>
+                            
+                        </div>
+                    </ng-container>
+
                     <!-- Notes -->
                     <ng-container *ngIf="contact.notes">
                         <div class="flex">
@@ -523,38 +542,186 @@
                                 matTextareaAutosize></textarea>
                         </mat-form-field>
                     </div>
-
-                    <!-- Actions -->
-                    <div class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent">
-                        <!-- Delete -->
-                        <button
-                            mat-button
-                            [color]="'warn'"
-                            [matTooltip]="'Delete'"
-                            (click)="deleteContact()">
-                            Borrar
-                        </button>
-                        <!-- Cancel -->
-                        <button
-                            class="ml-auto"
-                            mat-button
-                            [matTooltip]="'Cancel'"
-                            (click)="toggleEditMode(false)">
-                            Cancelar
-                        </button>
-                        <!-- Save -->
-                        <button
-                            class="ml-2"
-                            mat-flat-button
-                            [color]="'primary'"
-                            [disabled]="contactForm.invalid"
-                            [matTooltip]="'Save'"
-                            (click)="updateContact()">
-                            Guardar
-                        </button>
-                    </div>
-
                 </form>
+
+                <!--Form Relatives-->
+                <form [formGroup]="relativesForm">
+                    <!--Relative 1-->
+                    <!-- Name Relative 1 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Nombre Pariente 1</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'nom_pariente1'"
+                                [placeholder]="'nom_pariente1'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div>        
+                    
+                    <!-- Apellido Relative 1 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Apellido Pariente 1</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'apellido_pariente1'"
+                                [placeholder]="'apellido_pariente1'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div> 
+
+                    <!-- Telefono Relative 1 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Telefono Pariente 1</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'telefono_pariente1'"
+                                [placeholder]="'telefono_pariente1'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div> 
+
+                    <!--Relative 2-->
+                    <!-- Name Relative 2 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Nombre Pariente 2</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'nom_pariente2'"
+                                [placeholder]="'nom_pariente2'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div>        
+                    
+                    <!-- Apellido Relative 2 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Apellido Pariente 2</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'apellido_pariente2'"
+                                [placeholder]="'apellido_pariente2'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div> 
+
+                    <!-- Telefono Relative 2 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Telefono Pariente 2</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'telefono_pariente2'"
+                                [placeholder]="'telefono_pariente2'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div> 
+
+                    <!--Relative 3-->
+                    <!-- Name Relative 3 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Nombre Pariente 3</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'nom_pariente3'"
+                                [placeholder]="'nom_pariente3'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div>        
+                    
+                    <!-- Apellido Relative 3 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Apellido Pariente 3</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:user-circle'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'apellido_pariente3'"
+                                [placeholder]="'apellido_pariente3'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div> 
+
+                    <!-- Telefono Relative 3 -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Telefono Pariente 3</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:phone'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'telefono_pariente3'"
+                                [placeholder]="'telefono_pariente3'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div> 
+                </form> 
+                <!-- Actions -->
+                <div class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent">
+                    <!-- Delete -->
+                    <button
+                        mat-button
+                        [color]="'warn'"
+                        [matTooltip]="'Delete'"
+                        (click)="deleteContact()">
+                        Borrar
+                    </button>
+                    <!-- Cancel -->
+                    <button
+                        class="ml-auto"
+                        mat-button
+                        [matTooltip]="'Cancel'"
+                        (click)="toggleEditMode(false)">
+                        Cancelar
+                    </button>
+                    <!-- Save -->
+                    <button
+                        class="ml-2"
+                        mat-flat-button
+                        [color]="'primary'"
+                        [disabled]="contactForm.invalid"
+                        [matTooltip]="'Save'"
+                        (click)="updateContact()">
+                        Guardar
+                    </button>
+                </div>
             </div>
         </div>
     </ng-container>
