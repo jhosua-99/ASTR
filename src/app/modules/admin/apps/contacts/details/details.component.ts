@@ -6,9 +6,10 @@ import { Overlay, OverlayRef } from '@angular/cdk/overlay';
 import { MatDrawerToggleResult } from '@angular/material/sidenav';
 import { debounceTime, Subject, takeUntil } from 'rxjs';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
-import { Contact, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.types';
+import { Contact, ContactRelative, Country, Tag } from 'app/modules/admin/apps/contacts/contacts.types';
 import { ContactsListComponent } from 'app/modules/admin/apps/contacts/list/list.component';
 import { ContactsService } from 'app/modules/admin/apps/contacts/contacts.service';
+
 
 @Component({
     selector       : 'contacts-details',
@@ -26,10 +27,21 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
     tags: Tag[];
     tagsEditMode: boolean = false;
     filteredTags: Tag[];
-    contact: Contact;
+    contact: Contact;    
     contactForm: FormGroup;
     contacts: Contact[];
     countries: Country[];
+
+    //Relavites variables
+    contactRelativeA: ContactRelative[];
+    contactRelative1: ContactRelative;
+    contactRelative2: ContactRelative;
+    contactRelative3: ContactRelative;
+    relativeNull = true;
+    showrelatives = false;
+    relativesForm: FormGroup;
+    showFormRel = false;
+
     private _tagsPanelOverlayRef: OverlayRef;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
@@ -60,6 +72,8 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+
+
         // Open the drawer
         this._contactsListComponent.matDrawer.open();
 
@@ -77,8 +91,32 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
             birth_date    : [null],
             direccion     : [null],
             notes       : [null],
-            tags        : [[]]
+            tags        : [[]],
+
+          
+
+    
         });
+
+        this.relativesForm = this._formBuilder.group({
+            cod_pariente1        : [''],
+            cod_cliente1         : [''],            
+            nom_pariente1        : [''],
+            apellido_pariente1   : [''],
+            telefono_pariente1   : [''],
+            cod_pariente2        : [''],
+            cod_cliente2         : [''],            
+            nom_pariente2        : [''],
+            apellido_pariente2   : [''],
+            telefono_pariente2   : [''],
+            cod_pariente3        : [''],
+            cod_cliente3         : [''],            
+            nom_pariente3        : [''],
+            apellido_pariente3   : [''],
+            telefono_pariente3   : ['']
+
+        });
+
 
         // Get the contacts
         this._contactsService.contacts$
@@ -89,6 +127,10 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
+
+          
+            
+        
 
         // Get the contact
         this._contactsService.contact$
@@ -186,6 +228,49 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                 this._changeDetectorRef.markForCheck();
             });
 
+       
+       
+            //get relatives
+               
+            this._contactsService.getRelatives(this.contact.cod_cliente).subscribe(resp =>{
+    
+                this.contactRelativeA = resp.body;
+
+                //Cambiar Valores de formulario
+                
+                // valor pariente 1
+                if(resp.body[0]!=null){
+                    this.contactRelative1 = resp.body[0]; 
+                    this.relativesForm.get('cod_pariente1').patchValue(this.contactRelative1.cod_pariente);
+                    this.relativesForm.get('nom_pariente1').patchValue(this.contactRelative1.nom_pariente);
+                    this.relativesForm.get('apellido_pariente1').patchValue(this.contactRelative1.apellido_pariente);
+                    this.relativesForm.get('telefono_pariente1').patchValue(this.contactRelative1.telefono_pariente);
+                    if(resp.body[1]!=null){
+                        // valor pariente 2
+                        this.contactRelative2 = resp.body[1];  
+                        this.relativesForm.get('cod_pariente2').patchValue(this.contactRelative2.cod_pariente);
+                        this.relativesForm.get('nom_pariente2').patchValue(this.contactRelative2.nom_pariente);
+                        this.relativesForm.get('apellido_pariente2').patchValue(this.contactRelative2.apellido_pariente);
+                        this.relativesForm.get('telefono_pariente2').patchValue(this.contactRelative2.telefono_pariente);
+                        if(resp.body[2]!=null){
+                            // valor pariente 3
+                            this.contactRelative3 = resp.body[2];  
+                            this.relativesForm.get('cod_pariente3').patchValue(this.contactRelative3.cod_pariente);
+                            this.relativesForm.get('nom_pariente3').patchValue(this.contactRelative3.nom_pariente);
+                            this.relativesForm.get('apellido_pariente3').patchValue(this.contactRelative3.apellido_pariente);
+                            this.relativesForm.get('telefono_pariente3').patchValue(this.contactRelative3.telefono_pariente);
+                        }
+                    }
+                }
+                
+                
+                this.relativeNull = false;
+            })
+            
+        
+
+
+
         // Get the country telephone codes
         this._contactsService.countries$
             .pipe(takeUntil(this._unsubscribeAll))
@@ -256,11 +341,35 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         this._changeDetectorRef.markForCheck();
     }
 
+    getRelatives():void{
+        this._contactsService.getRelatives(this.contact.cod_cliente).subscribe(resp =>{
+    
+            this.contactRelativeA = resp.body;
+            this.relativeNull = false;
+        })
+    }
+
     /**
      * Update the contact
      */
     updateContact(): void
     {
+
+        // get values relatives form
+        const relativeAux = this.relativesForm.getRawValue();   
+        relativeAux.cod_pariente1 = this.contactRelative1.cod_pariente
+        relativeAux.cod_pariente2 = this.contactRelative2.cod_pariente
+        relativeAux.cod_pariente3 = this.contactRelative3.cod_pariente
+        //console.log("------------------->"+relativeAux.telefono_pariente3);
+
+        this._contactsService.updateRelatives(relativeAux).subscribe(() => {
+
+            // Toggle the edit mode off
+            this.toggleEditMode(false);
+        });
+
+         this.getRelatives();
+
         // Get the contact object
         const contact = this.contactForm.getRawValue();
         
@@ -276,9 +385,27 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
         // Update the contact on the server
         this._contactsService.updateContact(contact.cod_cliente, contact).subscribe(() => {
 
+            
+
             // Toggle the edit mode off
             this.toggleEditMode(false);
         });
+
+        
+    }
+
+    mostrarParientes(){
+        if(this.showrelatives==false)
+            this.showrelatives=true;
+        else
+            this.showrelatives=false;                
+    }
+
+    mostrarFormParientes(){
+        if(this.showFormRel==false)
+            this.showFormRel=true;
+        else
+            this.showFormRel=false;                
     }
 
     /**
@@ -303,6 +430,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
             // If the confirm button pressed...
             if ( result === 'confirmed' )
             {
+                
                 // Get the current contact's id
                 const id = this.contact.cod_cliente;
 
@@ -322,10 +450,10 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
                         }
 
                         // Navigate to the next contact if available
-                        if ( nextContactId )
-                        {
-                            this._router.navigate(['../', nextContactId], {relativeTo: this._activatedRoute});
-                        }
+                        // if ( nextContactId )
+                        // {
+                        //     this._router.navigate(['../', nextContactId], {relativeTo: this._activatedRoute});
+                        // }
                         // Otherwise, navigate to the parent
                         else
                         {
@@ -500,7 +628,7 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
             // Clear the input
             event.target.value = '';
 
-            // Return
+            // ReturntactFor
             return;
         }
 
