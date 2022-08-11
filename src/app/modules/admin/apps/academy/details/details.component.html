@@ -576,33 +576,13 @@
                                     lab et fugiat id magnam minus nemo quam
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Empleado Asignado</strong>
-
-                                    </div>
-
-                                </div>
-                                <br>
-                                <div class="flex">
-                                    <mat-form-field class="flex-auto">
-                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
-                                            required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
-                                        </mat-select>
-
-                                    </mat-form-field>
-                                </div>
-
+                                
 
                                 <hr>
-                                <div class="flex">
+                                <div class="flex"  *ngFor="let camp of phaseRecabacionForm.get('campos')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
                                     <mat-form-field class="fuse-mat-no-subscript flex-auto">
-                                        <mat-label>Cedula</mat-label>
-                                        <input matInput>
+                                        <mat-label>{{camp.get("name").value}}</mat-label>
+                                        <input matInput [formControl]="camp.get('valor')">
                                         <mat-icon class="icon-size-5" matPrefix [svgIcon]="'heroicons_solid:pencil'">
                                         </mat-icon>
                                     </mat-form-field>
@@ -610,12 +590,20 @@
                                     <mat-form-field
                                         class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-90 ml-2 sm:ml-4">
                                         <mat-label></mat-label>
-                                        <input matInput [placeholder]="'URL'">
+                                        <input matInput [placeholder]="'URL'" [formControl]="camp.get('url')">
                                         <mat-icon class="icon-size-5" matPrefix
                                             [svgIcon]="'heroicons_outline:paper-clip'">
                                         </mat-icon>
                                     </mat-form-field>
                                 </div>
+                                <hr>
+                                <div class="flex">
+                                    <!-- Save -->
+                                    <button class="w-full" mat-flat-button [color]="'primary'" [matTooltip]="'Save'" (click)="saveRecabacionDocsForm()">
+                                        Guardar
+                                    </button>
+                            
+                                </div> 
 
 
                             </div>
