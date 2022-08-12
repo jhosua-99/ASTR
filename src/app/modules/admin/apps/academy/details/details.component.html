@@ -206,9 +206,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Empleado 1</mat-option>
-                                            <mat-option value="country-2">Empleado 2</mat-option>
-                                            <mat-option value="country-3">Empleado 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -230,9 +229,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Empleado 1</mat-option>
-                                            <mat-option value="country-2">Empleado 2</mat-option>
-                                            <mat-option value="country-3">Empleado 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -264,28 +262,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                                <!-- cedula -->
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_solid:identification'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Documento de Identidad</strong>
-                                        <ul>
-                                            <li>{{course.proceso.nom_cliente}}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <hr>
-                                <!-- fecha  -->
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Fecha de nacimiento</strong>
-                                        <ul>
-                                            <li>{{course.proceso.nom_cliente}}</li>
-                                        </ul>
-                                    </div>
-                                </div>
-                                <hr>
+                               
                                 <!--Comentarios-->
                                 <div class="mt-8">
                                     <div class="flex">
@@ -306,69 +283,6 @@
                                 <hr>
 
                                 <!--listoooooooooooo-->
-
-
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:collection'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Documentos</strong>
-                                        <p>
-                                            Registrar aquellos documentos necesarios para la Cotización.
-                                        </p>
-                                    </div>
-
-                                </div>
-                                <ng-container
-                                    *ngFor="let email of phase1Form.get('emails')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
-                                    <div class="flex">
-                                        <mat-form-field
-                                            class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ">
-                                            <mat-label *ngIf="first">Etiqueta</mat-label>
-                                            <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                                [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-                                            <input matInput [formControl]="email.get('label')" [placeholder]="'Label'">
-                                        </mat-form-field>
-                                        <mat-form-field
-                                            class="fuse-mat-no-subscript flex-auto w-full max-w-28 sm:max-w-40 ml-2 sm:ml-4">
-                                            <mat-label *ngIf="first">Valor</mat-label>
-
-                                            <input matInput [formControl]="email.get('value')" [placeholder]="'Label'">
-                                        </mat-form-field>
-
-                                        <mat-form-field class="fuse-mat-no-subscript flex-auto ml-2 sm:ml-4">
-                                            <mat-label *ngIf="first">Link</mat-label>
-
-                                            <input matInput [formControl]="email.get('email')"
-                                                [placeholder]="'Email address'" [spellcheck]="false">
-                                        </mat-form-field>
-
-                                        <!-- Remove email -->
-                                        <ng-container *ngIf="!(first && last)">
-                                            <div class="flex items-center w-10 pl-2" [ngClass]="{'mt-6': first}">
-                                                <button class="w-8 h-8 min-h-8" mat-icon-button
-                                                    (click)="removeEmailField(i)" matTooltip="Remove">
-                                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'">
-                                                    </mat-icon>
-                                                </button>
-                                            </div>
-                                        </ng-container>
-                                    </div>
-                                    <ng-container *ngIf="!(last)">
-                                        <br>
-                                    </ng-container>
-
-
-                                </ng-container>
-
-                                <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
-                                    (click)="addEmailField()">
-                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                                    <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar un
-                                        campo</span>
-                                </div>
-                                <br>
-
-
 
                             </div>
                         </ng-template>
@@ -404,9 +318,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -545,9 +458,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -611,9 +523,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -674,9 +585,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'cod_usuario'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
