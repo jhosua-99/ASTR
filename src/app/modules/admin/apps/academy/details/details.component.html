@@ -189,10 +189,32 @@
                                 <h2 class="text-2xl sm:text-3xl">Iniciación</h2>
 
                                 <p class="lead">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam
-                                    lab et fugiat id magnam minus nemo quam
-                                    voluptatem. Culpa deleniti explica nisi quod soluta.
+                                    Se recolectara los documentos necesarios para realizar la cotización.
+
                                 </p>
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+                                    <div class="ml-6 leading-6">
+                                        <strong>Empleado quien realiza la cotización</strong>
+
+                                    </div>
+
+                                </div>
+
+                                <br>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
+                                            required>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
+
+                                <hr>
+
                                 <div class="flex sm:items-center">
                                     <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
                                     <div class="ml-6 leading-6">
@@ -201,152 +223,66 @@
                                     </div>
 
                                 </div>
+
                                 <br>
                                 <div class="flex">
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
                                 </div>
 
                                 <hr>
+
                                 <div class="flex sm:items-center">
                                     <mat-icon [svgIcon]="'heroicons_outline:view-boards'"></mat-icon>
                                     <div class="ml-6 leading-6">
                                         <strong>Seguro</strong>
-
+                                        <ul>
+                                            <li>{{course.proceso.nom_tipo_seguro}}</li>
+                                        </ul>
                                     </div>
-
                                 </div>
-                                <br>
-                                <div class="flex">
-                                    <mat-form-field class="flex-auto">
-                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
-                                            required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
-                                        </mat-select>
 
-                                    </mat-form-field>
-                                </div>
                                 <hr>
+
+                                <!--listooooooooo -->
+                                <!-- Name -->
                                 <div class="flex sm:items-center">
                                     <mat-icon [svgIcon]="'heroicons_outline:user'"></mat-icon>
                                     <div class="ml-6 leading-6">
                                         <strong>Cliente</strong>
-
-                                    </div>
-
-                                </div>
-                                <br>
-                                <div class="flex">
-                                    <mat-form-field class="flex-auto">
-                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
-                                            required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
-                                        </mat-select>
-
-                                    </mat-form-field>
-                                </div>
-                                <hr>
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:cash'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Presupuesto</strong>
-
-                                    </div>
-
-                                </div>
-                                <br>
-
-                                <div class="flex">
-                                    <mat-form-field class="flex-auto">
-                                        <input matInput [formControlName]="'email'" [placeholder]="'$ 000.000'"
-                                            required>
-
-                                    </mat-form-field>
-                                </div>
-                                <hr>
-                                <div class="flex">
-                                    <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
-                                    <div class="max-w-none ml-6 prose prose-sm">
-                                        <strong>Comentarios</strong>
-                                        <textarea matInput [formControlName]="'notes'" [placeholder]="'notas'"
-                                            [rows]="5" [spellcheck]="false" matTextareaAutosize></textarea>
+                                        <ul>
+                                            <li>{{course.proceso.nom_cliente}}</li>
+                                        </ul>
                                     </div>
                                 </div>
                                 <hr>
-
-
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:collection'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Documentos</strong>
-                                        <p>
-                                            Registrar aquellos documentos necesarios para la Cotización.
-                                        </p>
-                                    </div>
-
-                                </div>
-                                <ng-container
-                                    *ngFor="let email of phase1Form.get('emails')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                               
+                                <!--Comentarios-->
+                                <div class="mt-8">
                                     <div class="flex">
-                                        <mat-form-field
-                                            class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ">
-                                            <mat-label *ngIf="first">Etiqueta</mat-label>
-                                            <mat-icon matPrefix class="hidden sm:flex icon-size-5"
-                                                [svgIcon]="'heroicons_solid:tag'"></mat-icon>
-                                            <input matInput [formControl]="email.get('label')" [placeholder]="'Label'">
-                                        </mat-form-field>
-                                        <mat-form-field
-                                            class="fuse-mat-no-subscript flex-auto w-full max-w-28 sm:max-w-40 ml-2 sm:ml-4">
-                                            <mat-label *ngIf="first">Valor</mat-label>
-
-                                            <input matInput [formControl]="email.get('value')" [placeholder]="'Label'">
-                                        </mat-form-field>
-
-                                        <mat-form-field class="fuse-mat-no-subscript flex-auto ml-2 sm:ml-4">
-                                            <mat-label *ngIf="first">Link</mat-label>
-
-                                            <input matInput [formControl]="email.get('email')"
-                                                [placeholder]="'Email address'" [spellcheck]="false">
-                                        </mat-form-field>
-
-                                        <!-- Remove email -->
-                                        <ng-container *ngIf="!(first && last)">
-                                            <div class="flex items-center w-10 pl-2" [ngClass]="{'mt-6': first}">
-                                                <button class="w-8 h-8 min-h-8" mat-icon-button
-                                                    (click)="removeEmailField(i)" matTooltip="Remove">
-                                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:trash'">
-                                                    </mat-icon>
-                                                </button>
-                                            </div>
-                                        </ng-container>
+                                        <mat-icon [svgIcon]="'heroicons_outline:chat-alt'"></mat-icon>
+                                        <div class="max-w-none ml-6 prose prose-sm">
+                                            <strong>Comentarios</strong>
+                                            <br>
+                                        </div>
                                     </div>
-                                    <ng-container *ngIf="!(last)">
-                                        <br>
-                                    </ng-container>
-
-
-                                </ng-container>
-
-                                <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
-                                    (click)="addEmailField()">
-                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'"></mat-icon>
-                                    <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar un
-                                        campo</span>
+                                    <br>
+                                    <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
+                                        <mat-icon matPrefix class="hidden sm:flex icon-size-5"
+                                            [svgIcon]="'heroicons_solid:menu-alt-2'"></mat-icon>
+                                        <textarea matInput [formControlName]="'notes'" [placeholder]="'Notas'"
+                                            [rows]="5" [spellcheck]="false" matTextareaAutosize></textarea>
+                                    </mat-form-field>
                                 </div>
-                                <br>
+                                <hr>
 
-
+                                <!--listoooooooooooo-->
 
                             </div>
                         </ng-template>
@@ -382,9 +318,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -523,9 +458,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -576,7 +510,25 @@
                                     lab et fugiat id magnam minus nemo quam
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
-                                
+                                <div class="flex sm:items-center">
+                                    <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
+                                    <div class="ml-6 leading-6">
+                                        <strong>Empleado Asignado</strong>
+
+                                    </div>
+
+                                </div>
+                                <br>
+                                <div class="flex">
+                                    <mat-form-field class="flex-auto">
+                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
+                                            required>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
+                                        </mat-select>
+
+                                    </mat-form-field>
+                                </div>
 
                                 <hr>
                                 <div class="flex"  *ngFor="let camp of phaseRecabacionForm.get('campos')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
@@ -626,7 +578,7 @@
                                     lab et fugiat id magnam minus nemo quam
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
-                                
+
                                 <div class="flex sm:items-center">
                                     <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
                                     <div class="ml-6 leading-6">
@@ -640,9 +592,8 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'cod_usuario'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option value="country-1">Country 1</mat-option>
-                                            <mat-option value="country-2">Country 2</mat-option>
-                                            <mat-option value="country-3">Country 3</mat-option>
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
+                                         
                                         </mat-select>
 
                                     </mat-form-field>
@@ -658,41 +609,45 @@
                                         <div class="flex">
                                             <mat-form-field class="w-1/3 pr-1">
                                                 <mat-label>Fecha Expedición</mat-label>
-                                                <input matInput [matDatepicker]="birthdayDatepicker" [placeholder]="'dd/mm/aaaa'"
-                                                [formControl]="poliza.get('fecha_expedicion')" [disabled]="true">
-                                    
+                                                <input matInput [matDatepicker]="birthdayDatepicker"
+                                                    [placeholder]="'dd/mm/aaaa'"
+                                                    [formControl]="poliza.get('fecha_expedicion')" [disabled]="true">
+
                                                 <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #birthdayDatepicker></mat-datepicker>
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #birthdayDatepicker></mat-datepicker>
                                             </mat-form-field>
                                             <mat-form-field class="w-1/3 pl-0">
                                                 <mat-label>Vigencia Desde</mat-label>
-                                                <input matInput [matDatepicker]="birthdayDatepicker2" [placeholder]="'dd/mm/aaaa'"
-                                                [formControl]="poliza.get('fecha_vigencia_desde')" [disabled]="true"
-                                                    >
-                                    
+                                                <input matInput [matDatepicker]="birthdayDatepicker2"
+                                                    [placeholder]="'dd/mm/aaaa'"
+                                                    [formControl]="poliza.get('fecha_vigencia_desde')"
+                                                    [disabled]="true">
+
                                                 <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker2">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #birthdayDatepicker2></mat-datepicker>
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #birthdayDatepicker2></mat-datepicker>
                                             </mat-form-field>
                                             <mat-form-field class="w-1/3 pl-1">
                                                 <mat-label>Vigencia Hasta</mat-label>
-                                                <input matInput [matDatepicker]="birthdayDatepicker3" [placeholder]="'dd/mm/aaaa'"
-                                                [formControl]="poliza.get('fecha_vigencia_hasta')" [disabled]="true"
-                                                    >
-                                    
+                                                <input matInput [matDatepicker]="birthdayDatepicker3"
+                                                    [placeholder]="'dd/mm/aaaa'"
+                                                    [formControl]="poliza.get('fecha_vigencia_hasta')"
+                                                    [disabled]="true">
+
                                                 <mat-datepicker-toggle matSuffix [for]="birthdayDatepicker3">
-                                                    </mat-datepicker-toggle>
-                                                    <mat-datepicker #birthdayDatepicker3></mat-datepicker>
+                                                </mat-datepicker-toggle>
+                                                <mat-datepicker #birthdayDatepicker3></mat-datepicker>
                                             </mat-form-field>
                                         </div>
-                                    
-                                    
+
+
                                         <mat-form-field class="w-full">
                                             <mat-label>Número de Póliza</mat-label>
-                                            <input matInput [formControl]="poliza.get('numero_poliza')" [readonly]="true">
+                                            <input matInput [formControl]="poliza.get('numero_poliza')"
+                                                [readonly]="true">
                                         </mat-form-field>
-                                    
+
                                         <div class="flex">
                                             <mat-form-field class="w-1/3 pr-2">
                                                 <mat-label>Compañia</mat-label>
@@ -710,9 +665,13 @@
                                             <mat-form-field class="w-1/3 pl-2">
                                                 <mat-label>Ramo</mat-label>
                                                 <ng-container *ngIf="ramos$ | async as ramos">
-                                                    <mat-select [placeholder]="'Seleccionar'" [formControl]="poliza.get('cod_ramo')"  required  [disabled]="true">
-                                                        <mat-option *ngFor="let ramo of ramos; let i = index; trackBy: trackByFn"
-                                                            [value]="ramo.cod_ramo" (click)="selectRamo(ramo.cod_ramo)">{{ramo.nom_ramo}}
+                                                    <mat-select [placeholder]="'Seleccionar'"
+                                                        [formControl]="poliza.get('cod_ramo')" required
+                                                        [disabled]="true">
+                                                        <mat-option
+                                                            *ngFor="let ramo of ramos; let i = index; trackBy: trackByFn"
+                                                            [value]="ramo.cod_ramo" (click)="selectRamo(ramo.cod_ramo)">
+                                                            {{ramo.nom_ramo}}
                                                         </mat-option>
                                                     </mat-select>
                                                 </ng-container>
@@ -720,9 +679,11 @@
                                             <mat-form-field class="w-1/3 pl-2">
                                                 <mat-label>Producto</mat-label>
                                                 <ng-container *ngIf="productos$ | async as productos">
-                                                    <mat-select [placeholder]="'Seleccionar'" required [formControl]="poliza.get('cod_producto')"  [disabled]="true">
-                                    
-                                                        <mat-option *ngFor="let producto of productos; let i = index; trackBy: trackByFn"
+                                                    <mat-select [placeholder]="'Seleccionar'" required
+                                                        [formControl]="poliza.get('cod_producto')" [disabled]="true">
+
+                                                        <mat-option
+                                                            *ngFor="let producto of productos; let i = index; trackBy: trackByFn"
                                                             [value]="producto.cod_producto">{{producto.nom_producto}}
                                                         </mat-option>
                                                     </mat-select>
@@ -734,7 +695,7 @@
                                             <span matPrefix>$</span>
                                             <input matInput [formControl]="poliza.get('valor_total')" [readonly]="true">
                                         </mat-form-field>
-                                    
+
                                         <div class="flex">
                                             <mat-form-field class="w-1/2 pr-2">
                                                 <mat-label>Nombre de archivo</mat-label>
@@ -742,32 +703,33 @@
                                             </mat-form-field>
                                             <mat-form-field class="w-1/2 pl-2">
                                                 <mat-label>Link de póliza</mat-label>
-                                                <input matInput [formControl]="poliza.get('link')" [readonly]="true" >
+                                                <input matInput [formControl]="poliza.get('link')" [readonly]="true">
                                             </mat-form-field>
                                         </div>
                                         <div class="flex">
                                             <!-- Save -->
-                                            <button class="w-full" mat-flat-button [color]="'primary'" [matTooltip]="'Save'" >
+                                            <button class="w-full" mat-flat-button [color]="'primary'"
+                                                [matTooltip]="'Save'">
                                                 Renovar
                                             </button>
-                                    
-                                        </div> 
+
+                                        </div>
 
                                         <hr>
                                     </ng-container>
 
-    
+
                                 </form>
-                               
+
 
                                 <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
-                                        (click)="openCreatePoliDialog()">
-                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
-                                        </mat-icon>
-                                        <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar
-                                            Póliza</span>
+                                    (click)="openCreatePoliDialog()">
+                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
+                                    </mat-icon>
+                                    <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar
+                                        Póliza</span>
                                 </div>
-                                
+
 
 
                             </div>

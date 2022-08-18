@@ -16,8 +16,13 @@ import { CotizacionDialogComponent } from '../dialog/cotizacion-dialog/cotizacio
 import { PolizaDialogComponent } from '../dialog/poliza-dialog/poliza-dialog.component';
 import { PolizaService } from 'app/services/poliza/poliza.service';
 import { Poliza } from 'app/services/poliza/poliza.type';
+import { EmpleadoService } from '../../empleados/empleado.service';
+import { Empleado } from '../../empleados/empleados.types';
+import { response } from 'express';
+
 import { Anexo } from 'app/services/anexo/anexo.type';
 import { AnexoService } from 'app/services/anexo/anexo.service';
+
 
 @Component({
     selector: 'academy-details',
@@ -34,6 +39,9 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     productos$: Observable<Producto[]>;
     cotizaciones$: Observable<Cotizacion[]>;
     polizas$: Observable<Poliza[]>;
+
+    empleados$: Observable<Empleado[]>;
+
     anexos$ : Observable<Anexo[]>;
 
     course: Course;
@@ -57,6 +65,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
      */
     constructor(
         @Inject(DOCUMENT) private _document: Document,
+        private _empleadoService: EmpleadoService,
         private _academyService: AcademyService,
         private _changeDetectorRef: ChangeDetectorRef,
         private _elementRef: ElementRef,
@@ -85,6 +94,15 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         this.cotizaciones$ = this._cotizacion_service._cotizaciones;
         this.polizas$ = this._polizaService._polizas;
         this.anexos$ = this._anexoService._anexos;
+
+
+
+
+        this._empleadoService.getContacts().subscribe(response => {
+            this.empleados$ = response.body
+        }
+        );
+        
 
 
         // Create the contact form
