@@ -44,6 +44,15 @@ export interface ContactExport
     numero: string;
 }
 
+export interface ContactRelative
+{
+    cod_pariente: number,
+    cod_cliente: number,
+    nom_pariente: string,
+    apellido_pariente: string,
+    telefono_pariente: number
+}
+
 export interface Tag
 {
     id?: string;

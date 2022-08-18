@@ -20,6 +20,10 @@ import { EmpleadoService } from '../../empleados/empleado.service';
 import { Empleado } from '../../empleados/empleados.types';
 import { response } from 'express';
 
+import { Anexo } from 'app/services/anexo/anexo.type';
+import { AnexoService } from 'app/services/anexo/anexo.service';
+
+
 @Component({
     selector: 'academy-details',
     templateUrl: './details.component.html',
@@ -35,7 +39,10 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     productos$: Observable<Producto[]>;
     cotizaciones$: Observable<Cotizacion[]>;
     polizas$: Observable<Poliza[]>;
+
     empleados$: Observable<Empleado[]>;
+
+    anexos$ : Observable<Anexo[]>;
 
     course: Course;
     currentStep: number = 0;
@@ -51,6 +58,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     phaseCotizacionForm: FormGroup;
     phaseSeguimientoForm: FormGroup;
     phaseSelectCotiForm: FormGroup;
+    phaseRecabacionForm: FormGroup;
 
     /**
      * Constructor
@@ -66,6 +74,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         private _procesoService: ProcesoService,
         private _cotizacion_service: CotizacionService,
         private _polizaService: PolizaService,
+        private _anexoService : AnexoService,
         private matDialog: MatDialog
     ) {
     }
@@ -84,6 +93,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         this.productos$ = this._cotizacion_service._producto;
         this.cotizaciones$ = this._cotizacion_service._cotizaciones;
         this.polizas$ = this._polizaService._polizas;
+        this.anexos$ = this._anexoService._anexos;
 
 
 
@@ -110,12 +120,28 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
             cod_cot_selected : [''] 
         })
 
+        this.phaseRecabacionForm = this._formBuilder.group({
+            campos: this._formBuilder.array([])
+        })
+
         this.phaseCotizacionForm = this._formBuilder.group({
             cotizacion: this._formBuilder.array([]),
         });
         this.phaseCotizacionForm.disable();
 
-
+        this.anexos$.pipe(takeUntil(this._unsubscribeAll)).subscribe((anexos: Anexo[]) =>{
+            console.log('guena '+anexos.length);
+            for (let campo of anexos) {
+                const campoFormGroup = this._formBuilder.group({
+                    cod_anexo_proceso : [campo.cod_anexo_proceso],
+                    name: [campo.etiqueta],
+                    valor: [campo.valor],
+                    url: [campo.url]
+                });
+                (this.phaseRecabacionForm.get('campos') as FormArray).push(campoFormGroup);
+            }
+            
+        })
         this._cotizacion_service._cotizaciones.pipe(takeUntil(this._unsubscribeAll))
             .subscribe((cotizaiones: Cotizacion[]) => {
 
@@ -426,6 +452,23 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
 
 
 
+    }
+
+    saveRecabacionDocsForm(){
+        const stepForm = this.phaseRecabacionForm.getRawValue();
+        let req = {
+            "proceso": this.course.proceso.cod_proceso,
+            "campos": stepForm.campos
+        }
+        this._anexoService.updateProceso(req).subscribe(() => {
+            
+
+        }, (response) => {
+        });
+
+        console.log(stepForm);
+        
+        
     }
 
 }
