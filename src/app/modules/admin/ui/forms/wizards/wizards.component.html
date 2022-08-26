@@ -156,18 +156,18 @@
                             <div class="flex flex-col mt-8 gt-sm:mt-0 gt-sm:ml-16">
                                 <span class="font-medium mb-2">Selecciona la fase</span>
                                 <mat-radio-group class="flex flex-col" [color]="'primary'"
-                                    [formControlName]="'pushNotifications'">
-                                    <mat-radio-button class="mb-2" [value]="'everything'">
+                                    [formControlName]="'faseProceso'">
+                                    <mat-radio-button class="mb-2" [value]="'1'">
                                         Inicio
                                     </mat-radio-button>
-                                    <mat-radio-button class="mb-2" [value]="'just-good'">
+                                    <mat-radio-button class="mb-2" [value]="'2'">
                                         Cotización
                                     </mat-radio-button>
-                                    <mat-radio-button [value]="'no-push'">
-                                        Activa
+                                    <mat-radio-button class="mb-2" [value]="'4'">
+                                        Recabación de documentos
                                     </mat-radio-button>
-                                    <mat-radio-button [value]="'no-push'">
-                                        Finalizada
+                                    <mat-radio-button class="mb-2" [value]="'3'">
+                                        Seguimiento
                                     </mat-radio-button>
                                 </mat-radio-group>
                             </div>
@@ -191,17 +191,7 @@
                             formulario y ser verá reflejada en la lista de procesos.
                         </p>
 
-                        <p class="my-6 font-medium">
-                            Otros usuarios que eligieron este seguro tambien se han sentido conformes con estos otros.<br>
-                            Este cliente es susceptible a adquirir los siguientes seguros:<br>
-                            A. Mascotas:80% <br>
-                            B. Casa:75% <br>
-                            C. Autos:40% <br>
-                        </p>
-                        
-                        <p class="my-6 font-medium">
-                            Inserte Grafica
-                        </p>
+                    
                         
                         <div class="flex justify-end mt-8">
                             <button class="px-8 mr-2" mat-flat-button [color]="'accent'" type="button"

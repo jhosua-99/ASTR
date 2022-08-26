@@ -4,7 +4,7 @@
 
 export const environment = {
     production: false,
-    APIEndpoint: 'https://astr-api-app.herokuapp.com/'
+    APIEndpoint: 'https://apiesquiviaseguros.tk/'
 };
 
 /*

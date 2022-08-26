@@ -178,12 +178,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
 
             }),
             step3: this._formBuilder.group({
-                byEmail: this._formBuilder.group({
-                    companyNews: [true],
-                    featuredProducts: [false],
-                    messages: [true]
-                }),
-                pushNotifications: ['everything', Validators.required]
+                faseProceso: ['1', Validators.required]
             })
 
         });
@@ -198,11 +193,12 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         const stepForm = this.horizontalStepperForm.getRawValue();
         console.log(stepForm);
         const currentDate = new Date();
+        
         let proceso = {
             "cod_seguro": stepForm.step1.seguroSeleccionado,
             "cod_usuario": stepForm.step1.empleadoSeleccionado,
             "cod_cliente": stepForm.step1.clienteSeleccionado,
-            "cod_status": 1,
+            "cod_status": stepForm.step3.faseProceso,
             "fecha_inicio": formatDate(currentDate, 'yyyy-MM-dd', 'en-US'),
             "fecha_final": "2022-04-24"
         }

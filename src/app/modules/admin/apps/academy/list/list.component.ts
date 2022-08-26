@@ -22,7 +22,7 @@ import { fuseAnimations } from '@fuse/animations';
                 grid-template-columns: 48px auto 40px;
 
                 @screen sm {
-                    grid-template-columns: 48px auto 112px 72px 72px;
+                    grid-template-columns: 48px auto 112px 72px 88px;
                 } 
 
                 @screen md {
@@ -156,7 +156,8 @@ export class AcademyListComponent implements OnInit, AfterViewInit, OnDestroy
         this._inventoryService.pagination$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((pagination: InventoryPagination) => {
-
+                console.log('pagination '+pagination);
+                
                 // Update the pagination
                 this.pagination = pagination;
 
