@@ -21,17 +21,22 @@
                                     'text-green-800 bg-green-100 dark:text-green-50 dark:bg-green-500': category.slug === 'android',
                                     'text-pink-800 bg-pink-100 dark:text-pink-50 dark:bg-pink-500': category.slug === 'cerrado',
                                     'text-amber-800 bg-amber-100 dark:text-amber-50 dark:bg-amber-500': category.slug === 'firebase'}">
-                        Abierto
+                                    {{course.proceso.nom_status}}
                     </div>
                 </ng-container>
                 <!-- Course title & description -->
-                <div class="mt-3 text-2xl font-semibold">Nombre del Seguro</div>
-                <div class="text-secondary">Nombre del Cliente</div>
-                <!-- Course time -->
+                <div class="mt-3 text-2xl font-semibold">{{course.proceso.nom_tipo_seguro}}</div>
+                <div class="text-secondary">{{course.proceso.nom_cliente}} {{course.proceso.apellido_cliente}}</div>
+                <!-- Course time 
                 <div class="mt-6 flex items-center leading-5 text-md text-secondary">
                     <mat-icon class="icon-size-5 text-hint" [svgIcon]="'heroicons_solid:clock'"></mat-icon>
-                    <div class="ml-1.5">Última fecha de actualización</div>
-                </div>
+                    <div class="ml-1.5">
+                        
+                        Última fecha de actualización
+                        <br>
+                        10/15/2022
+                    </div>
+                </div>-->
             </div>
 
             <!-- Steps -->
@@ -432,67 +437,7 @@
                     <!-- END OF FASE 2 -------------------------------->
 
 
-                    <!--FASE 3 ---->
-                    <mat-tab>
-                        <ng-template matTabContent>
-                            <div
-                                class="prose prose-sm max-w-3xl mx-auto sm:my-2 lg:mt-4 p-6 sm:p-10 sm:py-12 rounded-2xl shadow overflow-hidden bg-card">
-
-                                <h2 class="text-2xl sm:text-3xl">Negociación</h2>
-
-                                <p class="lead">
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam
-                                    lab et fugiat id magnam minus nemo quam
-                                    voluptatem. Culpa deleniti explica nisi quod soluta.
-                                </p>
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Empleado Asignado</strong>
-
-                                    </div>
-
-                                </div>
-                                <br>
-                                <div class="flex">
-                                    <mat-form-field class="flex-auto">
-                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
-                                            required>
-                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
-                                         
-                                        </mat-select>
-
-                                    </mat-form-field>
-                                </div>
-
-
-                                <hr>
-
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:annotation'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Resultado de la negociación</strong>
-
-                                    </div>
-
-                                </div>
-                                <br>
-                                <div class="flex">
-                                    <mat-form-field class="flex-auto">
-                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
-                                            required>
-                                            <mat-option value="country-1">Aceptar y seguir</mat-option>
-                                            <mat-option value="country-2">Negar y parar</mat-option>
-
-                                        </mat-select>
-
-                                    </mat-form-field>
-                                </div>
-
-                            </div>
-                        </ng-template>
-
-                    </mat-tab>
+                    
 
                     <!-- END OF FASE 3 -------------------------------->
 

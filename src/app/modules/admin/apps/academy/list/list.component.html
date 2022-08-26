@@ -46,12 +46,12 @@
                             <div [mat-sort-header]="'nameE'">Empleado</div>
 
                             <div class="hidden lg:block" [mat-sort-header]="'porcentaje'">
-                                porcentaje
+                                Porcentaje
                             </div>
 
 
                             <div class="hidden lg:block" [mat-sort-header]="'complete'">
-                                Completado
+                                Fase
                             </div>
 
                             <div class="hidden lg:block" [mat-sort-header]="'complete'">
@@ -110,16 +110,8 @@
 
 
 
-                                    <!-- Active -->
-                                    <div class="hidden lg:block">
-                                        <ng-container *ngIf="product.nom_status != 'Completado'">
-                                            <mat-icon class="text-red-400 icon-size-5" [svgIcon]="'heroicons_solid:x'">
-                                            </mat-icon>
-                                        </ng-container>
-                                        <ng-container *ngIf="product.nom_status ==  'Finalizada'">
-                                            <mat-icon class="text-green-400 icon-size-5"
-                                                [svgIcon]="'heroicons_solid:check'"></mat-icon>
-                                        </ng-container>
+                                    <div class="truncate">
+                                        {{product.nom_status}}
                                     </div>
 
 
