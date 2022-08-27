@@ -6,14 +6,12 @@
             <div class="flex flex-col sm:flex-row flex-auto sm:items-center min-w-0 my-8 sm:my-12">
                 <!-- Avatar and name -->
                 <div class="flex flex-auto items-center min-w-0">
-                    <div class="flex-0 w-16 h-16 rounded-full overflow-hidden">
-                        <img
-                            class="w-full h-full object-cover"
-                            src="assets/images/avatars/brian-hughes.jpg">
-                    </div>
+
                     <div class="flex flex-col min-w-0 ml-4">
                         <ng-container *transloco="let t">
-                            <div class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">{{t('Bienvenido de vuelta ')}}, {{user.nom_usuario}}!</div>
+                            <div
+                                class="text-2xl md:text-5xl font-semibold tracking-tight leading-7 md:leading-snug truncate">
+                                {{t('Bienvenido de vuelta ')}}, {{user.nom_usuario}} {{user.apellido_usuario}}!</div>
                         </ng-container>
                         <div class="flex items-center">
                             <!--<mat-icon
@@ -34,14 +32,9 @@
                             [svgIcon]="'heroicons_solid:mail'"></mat-icon>
                         <span class="ml-2">Mensajes</span>
                     </button>-->
-                    <button
-                        class="fuse-mat-button-rounded"
-                        mat-flat-button
-                        [routerLink]="['/pages/settings']"
+                    <button class="fuse-mat-button-rounded" mat-flat-button [routerLink]="['/pages/settings']"
                         [color]="'primary'">
-                        <mat-icon
-                            class="icon-size-5"
-                            [svgIcon]="'heroicons_solid:cog'"></mat-icon>
+                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:cog'"></mat-icon>
                         <span class="ml-2">Ajustes</span>
                     </button>
                 </div>
@@ -89,9 +82,7 @@
     <div class="flex-auto border-t -mt-px pt-4 sm:pt-6">
         <div class="w-full max-w-screen-xl mx-auto">
             <!-- Tabs -->
-            <mat-tab-group
-                class="sm:px-2"
-                [animationDuration]="'0'">
+            <mat-tab-group class="sm:px-2" [animationDuration]="'0'">
 
                 <!-- Home -->
                 <mat-tab label="Inicio">
@@ -117,18 +108,21 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-center mt-2">
-                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">21</div>
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-blue-500">
+                                        {{pannelData.proceso_actual[0].count}}</div>
                                     <div class="text-lg font-medium text-blue-600 dark:text-blue-500">Este Mes</div>
                                     <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
                                         <div class="text-md font-medium truncate">Mes Pasado:</div>
-                                        <div class="ml-1.5 text-lg font-semibold">13</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{pannelData.proceso_pasado[0].count}}</div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Overdue -->
                             <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
                                 <div class="flex items-start justify-between">
-                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Cotizaciones</div>
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Procesos en estado Cotizacion
+                                    </div>
                                     <div class="ml-2 -mt-2 -mr-3">
                                         <!--<button
                                             mat-icon-button
@@ -145,18 +139,20 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-center mt-2">
-                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500">17</div>
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-red-500">
+                                        {{pannelData.cotizacion_actual[0].count}}</div>
                                     <div class="text-lg font-medium text-red-600 dark:text-red-500">Este Mes</div>
                                     <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
                                         <div class="text-md font-medium truncate">Mes Pasado:</div>
-                                        <div class="ml-1.5 text-lg font-semibold">9</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{pannelData.cotizacion_pasado[0].count}}</div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Issues -->
                             <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
                                 <div class="flex items-start justify-between">
-                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Clientes</div>
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Procesos en Seguimiento</div>
                                     <div class="ml-2 -mt-2 -mr-3">
                                         <!--<button
                                             mat-icon-button
@@ -173,18 +169,20 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-center mt-2">
-                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500">24</div>
-                                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500">Activos</div>
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-amber-500">
+                                        {{pannelData.seguimiento_actual[0].count}}</div>
+                                    <div class="text-lg font-medium text-amber-600 dark:text-amber-500">Este Mes</div>
                                     <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
-                                        <div class="text-md font-medium truncate">Prospectos:</div>
-                                        <div class="ml-1.5 text-lg font-semibold">19</div>
+                                        <div class="text-md font-medium truncate">Mes pasado:</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{pannelData.seguimiento_pasado[0].count}}</div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Features -->
                             <div class="flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
                                 <div class="flex items-start justify-between">
-                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Seguros</div>
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Nuevos Clientes</div>
                                     <div class="ml-2 -mt-2 -mr-3">
                                         <!--<button
                                             mat-icon-button
@@ -201,132 +199,77 @@
                                     </div>
                                 </div>
                                 <div class="flex flex-col items-center mt-2">
-                                    <div class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500">38</div>
-                                    <div class="text-lg font-medium text-green-600 dark:text-green-500">Activos</div>
+                                    <div
+                                        class="text-7xl sm:text-8xl font-bold tracking-tight leading-none text-green-500">
+                                        {{pannelData.clientes_actual[0].count}}</div>
+                                    <div class="text-lg font-medium text-green-600 dark:text-green-500">Este mes</div>
                                     <div class="flex items-baseline justify-center w-full mt-5 text-secondary">
-                                        <div class="text-md font-medium truncate">Deshabilitados:</div>
-                                        <div class="ml-1.5 text-lg font-semibold">16</div>
+                                        <div class="text-md font-medium truncate">Mes Pasado:</div>
+                                        <div class="ml-1.5 text-lg font-semibold">{{pannelData.clientes_pasado[0].count}}</div>
                                     </div>
                                 </div>
                             </div>
                             <!-- Github issues summary -->
-                            
+
                             <!-- Schedule -->
-                            <div class="sm:col-span-2 md:col-span-4 lg:col-span-2 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                            <div
+                                class="sm:col-span-2 md:col-span-4 lg:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
                                 <div class="flex flex-col sm:flex-row items-start justify-between">
-                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Resumen de Procesos</div>
-                                    <div class="mt-3 sm:mt-0 sm:ml-2">
-                                        <mat-button-toggle-group
-                                            value="today"
-                                            #scheduleDaySelector="matButtonToggleGroup">
-                                            <mat-button-toggle value="today">General</mat-button-toggle>
-                                            <!--<mat-button-toggle value="tomorrow">Tomorrow</mat-button-toggle>-->
-                                        </mat-button-toggle-group>
-                                    </div>
+                                    <div class="text-lg font-medium tracking-tight leading-6 truncate">Procesos próximos
+                                        a renovar</div>
+
                                 </div>
                                 <div class="flex flex-col mt-2 divide-y">
-                                    <ng-container *ngFor="let scheduleItem of data.schedule[scheduleDaySelector.value]; trackBy: trackByFn">
+                                    <ng-container *ngFor="let scheduleItem of data; trackBy: trackByFn">
                                         <div class="flex flex-row items-center justify-between py-4 px-0.5">
                                             <div class="flex flex-col">
-                                                <div class="font-medium">{{scheduleItem.title}}</div>
-                                                <div class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
-                                                    <ng-container *ngIf="scheduleItem.time">
+                                                <div class="font-medium">{{scheduleItem.nom_tipo_seguro}}</div>
+                                                <div
+                                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                                    <ng-container *ngIf="scheduleItem.nom_cliente">
                                                         <div class="flex items-center">
-                                                            <mat-icon
-                                                                class="icon-size-5 text-hint"
+                                                            <mat-icon class="icon-size-5 text-hint"
                                                                 [svgIcon]="'heroicons_outline:user'"></mat-icon>
-                                                            <div class="ml-1.5 text-md text-secondary">{{scheduleItem.time}}</div>
+                                                            <div class="ml-1.5 text-md text-secondary">
+                                                                {{scheduleItem.nom_cliente}}
+                                                                {{scheduleItem.apellido_cliente}}</div>
                                                         </div>
                                                     </ng-container>
-                                                    <ng-container *ngIf="scheduleItem.location">
-                                                        <div class="flex items-center">
-                                                            <!--<mat-icon
-                                                                class="icon-size-5 text-hint"
-                                                                [svgIcon]="'heroicons_solid:location-marker'"></mat-icon>
-                                                            <div class="ml-1.5 text-md text-secondary">{{scheduleItem.location}}</div>-->
-                                                        </div>
+
+                                                </div>
+                                                <hr>
+                                                <div class="flex items-center">
+                                                    <ng-container *ngIf="scheduleItem.numero_poliza">
+                                                        <mat-icon class="icon-size-5 text-hint"
+                                                            [svgIcon]="'heroicons_solid:bookmark'"></mat-icon>
+                                                        <div class="ml-1.5 text-md text-secondary  pr-2">
+                                                            {{scheduleItem.numero_poliza}}</div>
                                                     </ng-container>
+
+                                                    <ng-container *ngIf="scheduleItem.fecha_vigencia_hasta">
+                                                        <mat-icon class="icon-size-5 text-hint"
+                                                            [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                                        <div class="ml-1.5 text-md text-secondary">
+                                                            {{scheduleItem.fecha_vigencia_hasta}}</div>
+                                                    </ng-container>
+
                                                 </div>
                                             </div>
-                                            <button mat-icon-button>
+                                            <button mat-icon-button (click)="redirect(scheduleItem.cod_proceso)">
                                                 <mat-icon [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
                                             </button>
                                         </div>
                                     </ng-container>
+                                    
                                 </div>
                             </div>
                         </div>
                     </ng-template>
                 </mat-tab>
 
-                <!-- Budget -->
-                <mat-tab label="Seguros">
-                    <ng-template matTabContent>
-                        <div class="grid grid-cols-1 sm:grid-cols-6 gap-6 w-full min-w-0">
-                            <!-- Budget distribution -->
-                            <div class="sm:col-span-6 lg:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
-                                <div class="text-lg font-medium tracking-tight leading-6 truncate">Seguros Adquiridos</div>
-                                <div class="flex flex-col flex-auto">
-                                    <apx-chart
-                                        class="flex-auto w-full h-80"
-                                        [chart]="chartBudgetDistribution.chart"
-                                        [colors]="chartBudgetDistribution.colors"
-                                        [dataLabels]="chartBudgetDistribution.dataLabels"
-                                        [markers]="chartBudgetDistribution.markers"
-                                        [plotOptions]="chartBudgetDistribution.plotOptions"
-                                        [series]="chartBudgetDistribution.series"
-                                        [stroke]="chartBudgetDistribution.stroke"
-                                        [tooltip]="chartBudgetDistribution.tooltip"
-                                        [xaxis]="chartBudgetDistribution.xaxis"
-                                        [yaxis]="chartBudgetDistribution.yaxis"></apx-chart>
-                                </div>
-                            </div>
-                            
-                            
-                        </div>
-                    </ng-template>
-                </mat-tab>
 
-                <!-- Team -->
-                <mat-tab label="Empleados">
-                    <ng-template matTabContent>
-                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 w-full min-w-0">
-                            <ng-container *ngFor="let member of data.teamMembers">
-                                <div class="flex flex-col flex-auto items-center bg-card shadow rounded-2xl overflow-hidden">
-                                    <!-- Avatar & Info -->
-                                    <div class="flex flex-col flex-auto w-full p-8 text-center">
-                                        <div class="w-32 h-32 mx-auto rounded-full overflow-hidden">
-                                            <img
-                                                class="w-full h-full object-cover"
-                                                [src]="member.avatar">
-                                        </div>
-                                        <div class="mt-6 font-medium">{{member.name}}</div>
-                                        <!--<div class="text-secondary">{{member.title}}</div>-->
-                                    </div>
-                                    <!-- Email & Phone -->
-                                    <div class="flex items-center w-full border-t divide-x">
-                                        <a
-                                            class="flex flex-auto items-center justify-center py-4 hover:bg-hover"
-                                            [href]="'mailto:' + member.email">
-                                            <mat-icon
-                                                class="icon-size-5 text-hint"
-                                                [svgIcon]="'heroicons_solid:mail'"></mat-icon>
-                                            <span class="ml-2">Correo</span>
-                                        </a>
-                                        <!--<a
-                                            class="flex flex-auto items-center justify-center py-4 hover:bg-hover"
-                                            [href]="'tel:' + member.phone">
-                                            <mat-icon
-                                                class="icon-size-5 text-hint"
-                                                [svgIcon]="'heroicons_solid:phone'"></mat-icon>
-                                            <span class="ml-2">Call</span>
-                                        </a>-->
-                                    </div>
-                                </div>
-                            </ng-container>
-                        </div>
-                    </ng-template>
-                </mat-tab>
+
+
 
             </mat-tab-group>
         </div>
