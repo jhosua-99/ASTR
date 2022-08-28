@@ -5,6 +5,7 @@ import { ApexOptions } from 'ng-apexcharts';
 import { ProjectService } from 'app/modules/admin/dashboards/project/project.service';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.types';
+import { ProcesoService } from 'app/services/processs/proceso.service';
 
 @Component({
     selector       : 'project',
@@ -21,6 +22,7 @@ export class ProjectComponent implements OnInit, OnDestroy
     chartMonthlyExpenses: ApexOptions = {};
     chartYearlyExpenses: ApexOptions = {};
     data: any;
+    pannelData: any;
     selectedProject: string = 'ACME Corp. Backend App';
     user :User;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
@@ -30,6 +32,7 @@ export class ProjectComponent implements OnInit, OnDestroy
      */
     constructor(
         private _projectService: ProjectService,
+        private _procesoService: ProcesoService,
         private _router: Router,
         private _userService :UserService
     )
@@ -46,7 +49,7 @@ export class ProjectComponent implements OnInit, OnDestroy
     ngOnInit(): void
     {
         // Get the data
-        this._projectService.data$
+        /*this._projectService.data$
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((data) => {
 
@@ -56,7 +59,25 @@ export class ProjectComponent implements OnInit, OnDestroy
                 // Prepare the chart data
                 this._prepareChartData();
             });
+            */
+        this._procesoService._procesosPorRenovar.pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((data) => {
 
+            // Store the data
+            this.data = data;
+
+            // Prepare the chart data
+            this._prepareChartData();
+        });
+
+        this._procesoService._pannelData.pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((data) => {
+
+            // Store the data
+            this.pannelData = data;
+
+            
+        });
         // Subscribe to the user service
         this._userService.user$
             .pipe((takeUntil(this._unsubscribeAll)))
@@ -441,5 +462,13 @@ export class ProjectComponent implements OnInit, OnDestroy
                 }
             }
         };
+    }
+
+
+    redirect(cod_proceso){
+        console.log('hilasdsad');
+        
+        this._router.navigate(['/apps/academy/'+cod_proceso]);
+
     }
 }

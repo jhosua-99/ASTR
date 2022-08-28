@@ -14,6 +14,8 @@ export class ProcesoService {
     _procesos: BehaviorSubject<Proceso[] | null> = new BehaviorSubject(null);
     private _pagination: BehaviorSubject<InventoryPagination | null> = new BehaviorSubject(null);
     private _course: BehaviorSubject<Course | null> = new BehaviorSubject(null);
+    _procesosPorRenovar: BehaviorSubject<any | null> = new BehaviorSubject(null);
+    _pannelData: BehaviorSubject<any | null> = new BehaviorSubject(null);
     
     constructor(private _httpClient: HttpClient) {
 
@@ -104,4 +106,25 @@ export class ProcesoService {
              })
          );
      }
+
+     getProcesosPorRenovar(): Observable<UserResponseModel> {        //cambiar url
+        
+    
+        return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}` + 'api/procesos/renovar').pipe(
+            tap((result) => {
+                this._procesosPorRenovar.next(result.body);
+                console.log('renovacion '+result);
+            })
+        );
+    }
+
+    getPanelData(): Observable<UserResponseModel> {        //cambiar url
+        
+    
+        return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}` + 'api/procesos/panel').pipe(
+            tap((result) => {
+                this._pannelData.next(result.body);
+            })
+        );
+    }
 }

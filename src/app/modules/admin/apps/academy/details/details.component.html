@@ -115,6 +115,32 @@
                                     lab et fugiat id magnam minus nemo quam
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
+                                <form [formGroup]="resumeForm">
+                                    <div class="flex sm:items-center">
+                                    
+                                        <div class="ml-6 leading-6">
+                                            <strong>Fase Actual</strong>
+    
+                                        </div>
+    
+                                    </div>
+    
+                                    <br>
+                                    <div class="flex">
+                                        <mat-form-field class="flex-auto">
+                                            <mat-select [formControlName]="'cod_status'" [placeholder]="'Seleccionar'"
+                                                required>
+                                                <mat-option value="1">Inicio</mat-option>
+                                                <mat-option value="2">Cotización</mat-option>
+                                                <mat-option value="4">Recabación de Documentos</mat-option>
+                                                <mat-option value="3">Seguimineto</mat-option>
+                                             
+                                            </mat-select>
+    
+                                        </mat-form-field>
+                                    </div>
+                                </form>
+                                
                                 <hr>
                                 <div class="flex sm:items-center">
                                     <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
