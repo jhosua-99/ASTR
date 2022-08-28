@@ -55,6 +55,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
      * formularios por fases
      */
     phase1Form: FormGroup;
+    resumeForm: FormGroup;
     phaseCotizacionForm: FormGroup;
     phaseSeguimientoForm: FormGroup;
     phaseSelectCotiForm: FormGroup;
@@ -119,6 +120,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
             cod_usuario : [''],
             cod_cot_selected : [''] 
         })
+
+        
 
         this.phaseRecabacionForm = this._formBuilder.group({
             campos: this._formBuilder.array([])
@@ -234,7 +237,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
                 label: ['']
             })
         );
-
+        
         // Add the email form groups to the emails form array
         emailFormGroups.forEach((emailFormGroup) => {
             (this.phase1Form.get('emails') as FormArray).push(emailFormGroup);
@@ -261,10 +264,15 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
 
                 // Get the course
                 this.course = course;
-
+                
+                
+                this.resumeForm = this._formBuilder.group({
+                    cod_status : [this.course.proceso.cod_status.toString()]
+                })
+                
                 // Go to step
                 this.goToStep(course.progress.currentStep);
-
+                
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
