@@ -14,7 +14,7 @@ export class PolizaService {
   constructor(private _httpClient: HttpClient) { }
 
 
-  
+
   getPolizaPorProceso(cod_proceso: string): Observable<UserResponseModel> {
     console.log('holas tod' + cod_proceso);
 
@@ -52,6 +52,45 @@ export class PolizaService {
 
           // Update the contacts with the new contact
           this._polizas.next([newPol, ...cotizaciones]);
+
+          // Return the new contact
+          return newPol;
+        })
+      ))
+    );
+
+  }
+
+  updatePoliza(id: number, req: any, oldPoliza:Poliza): Observable<any> {
+
+    return this._polizas.pipe(
+      take(1),
+      switchMap(cotizaciones => this._httpClient.patch<UserResponseModel>(`${environment.APIEndpoint}` + 'api/seguimiento/', req).pipe(
+        map((cot) => {
+
+          // Find the index of the updated contact
+          const index = cotizaciones.findIndex(item => item.cod_poliza === id);
+
+          let newPol: Poliza = {
+            cod_poliza: oldPoliza.cod_poliza,
+            cod_seguimiento: oldPoliza.cod_seguimiento,
+            cod_proceso: oldPoliza.cod_proceso,
+            fecha_expedicion: req.fecha_expedicion,
+            fecha_vigencia_hasta: req.fecha_vigencia_hasta,
+            fecha_vigencia_desde: req.fecha_vigencia_desde,
+            link: req.link,
+            cod_compania: req.cod_compania,
+            cod_ramo: req.cod_ramo,
+            cod_producto: req.cod_producto,
+            numero_poliza: req.numero_poliza,
+            fecha_creada: oldPoliza.fecha_creada,
+            valor_total: req.valor_total
+          }
+
+          cotizaciones[index] = newPol;
+
+          // Update the contacts
+          this._polizas.next(cotizaciones);
 
           // Return the new contact
           return newPol;

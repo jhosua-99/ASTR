@@ -5,6 +5,7 @@ import { Compania, Ramo, Producto } from 'app/services/cotizacion/compania.type'
 import { CotizacionService } from 'app/services/cotizacion/cotizacion.service';
 import { Cotizacion } from 'app/services/cotizacion/cotizacion.type';
 import { PolizaService } from 'app/services/poliza/poliza.service';
+import { Poliza } from 'app/services/poliza/poliza.type';
 import { ProcesoService } from 'app/services/processs/proceso.service';
 import { cloneDeep } from 'lodash';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -23,6 +24,8 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
   ramos$: Observable<Ramo[]>;
   productos$: Observable<Producto[]>;
   cotizaciones$: Observable<Cotizacion[]>;
+  isEdit: boolean = false;
+  mPoliza : Poliza;
   selectedCompany: number;
   selectedRamo: number;
   selectedProduct: number;
@@ -36,6 +39,8 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
     this.ramos$ = this._cotizacion_service._ramo;
     this.productos$ = this._cotizacion_service._producto;
     this.cotizaciones$ = this._cotizacion_service._cotizaciones;
+    this.isEdit = this.data.isEdit;
+    this.mPoliza = this.data.mPoliza;
     this._cotizacion_service._cotizaciones
       .pipe(takeUntil(this._unsubscribeAll))
       .subscribe((categories: Cotizacion[]) => {
@@ -43,20 +48,37 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
         // Get the categories
         this.cotizaiones = categories;
       });
+    if (this.isEdit) {
+      let pol = this.data.poliza;
 
-    this.phaseSelectCotiForm = this._formBuilder.group({
+      this.phaseSelectCotiForm = this._formBuilder.group({
 
-      cod_cot_selected: [''],
-      fecha_expedicion: [''],
-      fecha_vigencia_desde: [''],
-      fecha_vigencia_hasta: [''],
-      numero_poliza: [''],
-      cod_compania: [''],
-      cod_ramo: [''],
-      cod_producto: [''],
-      valor_total: [''],
-      link: [''],
-    })
+        cod_cot_selected: [''],
+        fecha_expedicion: [pol.fecha_expedicion],
+        fecha_vigencia_desde: [pol.fecha_vigencia_desde],
+        fecha_vigencia_hasta: [pol.fecha_vigencia_hasta],
+        numero_poliza: [pol.numero_poliza],
+        cod_compania: [pol.cod_compania],
+        cod_ramo: [pol.cod_ramo],
+        cod_producto: [pol.cod_producto],
+        valor_total: [pol.valor_total],
+        link: [pol.link],
+      })
+    } else {
+      this.phaseSelectCotiForm = this._formBuilder.group({
+
+        cod_cot_selected: [''],
+        fecha_expedicion: [''],
+        fecha_vigencia_desde: [''],
+        fecha_vigencia_hasta: [''],
+        numero_poliza: [''],
+        cod_compania: [''],
+        cod_ramo: [''],
+        cod_producto: [''],
+        valor_total: [''],
+        link: [''],
+      })
+    }
   }
 
   ngOnDestroy(): void {
@@ -66,10 +88,10 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
   }
 
   selectCot(cod_coti) {
-    
+
     if (cod_coti) {
       // Filter the contacts
-      const contacts = cloneDeep( this.cotizaiones);
+      const contacts = cloneDeep(this.cotizaiones);
       const cotSelected = contacts.find(item => item.cod_cotizacion === cod_coti);
       this.phaseSelectCotiForm.controls['cod_compania'].setValue(cotSelected.cod_compania);
       this.phaseSelectCotiForm.controls['cod_ramo'].setValue(cotSelected.cod_ramo);
@@ -83,11 +105,11 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
 
   }
 
-  savePoliza(){
+  savePoliza() {
     const stepForm = this.phaseSelectCotiForm.getRawValue();
     console.log(stepForm);
     let req = {
-      "cod_proceso": this.data.dataKey,
+      "cod_poliza": this.mPoliza.cod_poliza,
       "fecha_expedicion": stepForm.fecha_expedicion,
       "fecha_vigencia_hasta": stepForm.fecha_vigencia_hasta,
       "fecha_vigencia_desde": stepForm.fecha_vigencia_desde,
@@ -98,12 +120,21 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
       "valor_total": stepForm.valor_total,
       "numero_poliza": stepForm.numero_poliza
     }
-    this._polizaService.addPoliza(req).subscribe(() => {
-      //this._router.navigateByUrl('/apps/academy');
+    if (this.isEdit) {
+      this._polizaService.updatePoliza(this.mPoliza.cod_poliza,req,this.mPoliza).subscribe(() => {
+        //this._router.navigateByUrl('/apps/academy');
 
 
-    }, (response) => {
-    });
+      }, (response) => {
+      });
+    } else {
+      this._polizaService.addPoliza(req).subscribe(() => {
+        //this._router.navigateByUrl('/apps/academy');
+
+
+      }, (response) => {
+      });
+    }
   }
 
 }
