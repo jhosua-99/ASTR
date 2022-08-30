@@ -42,9 +42,10 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
 
     empleados$: Observable<Empleado[]>;
 
-    anexos$ : Observable<Anexo[]>;
+    anexos$: Observable<Anexo[]>;
 
     course: Course;
+    polizasLista: Poliza[];
     currentStep: number = 0;
     drawerMode: 'over' | 'side' = 'side';
     drawerOpened: boolean = true;
@@ -75,7 +76,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         private _procesoService: ProcesoService,
         private _cotizacion_service: CotizacionService,
         private _polizaService: PolizaService,
-        private _anexoService : AnexoService,
+        private _anexoService: AnexoService,
         private matDialog: MatDialog
     ) {
     }
@@ -103,7 +104,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
             this.empleados$ = response.body
         }
         );
-        
+
 
 
         // Create the contact form
@@ -112,16 +113,10 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         });
 
         this.phaseSelectCotiForm = this._formBuilder.group({
-        
-            cod_cot_selected : [''] 
+
+            cod_cot_selected: ['']
         })
 
-        this.phaseSeguimientoForm = this._formBuilder.group({
-            cod_usuario : [''],
-            cod_cot_selected : [''] 
-        })
-
-        
 
         this.phaseRecabacionForm = this._formBuilder.group({
             campos: this._formBuilder.array([])
@@ -132,18 +127,18 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         });
         this.phaseCotizacionForm.disable();
 
-        this.anexos$.pipe(takeUntil(this._unsubscribeAll)).subscribe((anexos: Anexo[]) =>{
-            console.log('guena '+anexos.length);
+        this.anexos$.pipe(takeUntil(this._unsubscribeAll)).subscribe((anexos: Anexo[]) => {
+            console.log('guena ' + anexos.length);
             for (let campo of anexos) {
                 const campoFormGroup = this._formBuilder.group({
-                    cod_anexo_proceso : [campo.cod_anexo_proceso],
+                    cod_anexo_proceso: [campo.cod_anexo_proceso],
                     name: [campo.etiqueta],
                     valor: [campo.valor],
                     url: [campo.url]
                 });
                 (this.phaseRecabacionForm.get('campos') as FormArray).push(campoFormGroup);
             }
-            
+
         })
         this._cotizacion_service._cotizaciones.pipe(takeUntil(this._unsubscribeAll))
             .subscribe((cotizaiones: Cotizacion[]) => {
@@ -156,8 +151,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
 
                 if (cotizaiones.length > 0) {
                     cotizaiones.forEach((cot) => {
-                        console.log('fec '+cot.fecha_creada);
-                        
+                        console.log('fec ' + cot.fecha_creada);
+
                         cotizacionFormGroups.push(
                             this._formBuilder.group({
                                 cod_cotizacion: [cot.cod_cotizacion],
@@ -170,7 +165,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
                             })
                         );
                     })
-                } 
+                }
                 // Add the email form groups to the correos form array
                 cotizacionFormGroups.forEach((cotizationFormGroup) => {
                     (this.phaseCotizacionForm.get('cotizacion') as FormArray).push(cotizationFormGroup);
@@ -179,22 +174,22 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
                 this._changeDetectorRef.markForCheck();
             });
 
-            this.phaseSeguimientoForm = this._formBuilder.group({
-                poliza: this._formBuilder.array([]),
-            });
-            this.phaseSeguimientoForm.disable();
+        this.phaseSeguimientoForm = this._formBuilder.group({
+            poliza: this._formBuilder.array([]),
+        });
+        this.phaseSeguimientoForm.disable();
 
-            this.polizas$.pipe(takeUntil(this._unsubscribeAll))
+        this.polizas$.pipe(takeUntil(this._unsubscribeAll))
             .subscribe((list: Poliza[]) => {
 
                 // Get the categories
                 (this.phaseSeguimientoForm.get('poliza') as FormArray).clear();
                 const cotizacionFormGroups = [];
-
+                this.polizasLista = list;
                 if (list.length > 0) {
                     list.forEach((cot) => {
-                        console.log('fec '+cot.fecha_creada);
-                        
+                        console.log('fec ' + cot.fecha_creada);
+
                         cotizacionFormGroups.push(
                             this._formBuilder.group({
 
@@ -205,13 +200,13 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
                                 numero_poliza: [cot.numero_poliza],
                                 cod_compania: [cot.cod_compania],
                                 cod_ramo: [cot.cod_ramo],
-                                cod_producto: [cot.cod_proceso],
+                                cod_producto: [cot.cod_producto],
                                 valor_total: [cot.valor_total],
                                 link: [cot.link],
-                              })
+                            })
                         );
                     })
-                } 
+                }
                 // Add the email form groups to the correos form array
                 cotizacionFormGroups.forEach((cotizationFormGroup) => {
                     (this.phaseSeguimientoForm.get('poliza') as FormArray).push(cotizationFormGroup);
@@ -237,7 +232,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
                 label: ['']
             })
         );
-        
+
         // Add the email form groups to the emails form array
         emailFormGroups.forEach((emailFormGroup) => {
             (this.phase1Form.get('emails') as FormArray).push(emailFormGroup);
@@ -264,15 +259,15 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
 
                 // Get the course
                 this.course = course;
-                
-                
+
+
                 this.resumeForm = this._formBuilder.group({
-                    cod_status : [this.course.proceso.cod_status.toString()]
+                    cod_status: [this.course.proceso.cod_status.toString()]
                 })
-                
+
                 // Go to step
                 this.goToStep(course.progress.currentStep);
-                
+
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
             });
@@ -424,12 +419,12 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         const dialogConfig = new MatDialogConfig();
         const stepForm = this.phaseCotizacionForm.getRawValue();
         console.log(stepForm.cotizacion[position]);
-        
+
         this.matDialog.open(CotizacionDialogComponent, {
             data: {
                 isEdit: true,
                 dataKey: this.course.proceso.cod_proceso,
-                cotizacion : stepForm.cotizacion[position]
+                cotizacion: stepForm.cotizacion[position]
 
             }
         });
@@ -455,28 +450,72 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         });
     }
 
-    saveCoti(){
+    saveCoti() {
         const stepForm = this.phaseSelectCotiForm.getRawValue();
 
 
 
     }
 
-    saveRecabacionDocsForm(){
+    saveRecabacionDocsForm() {
         const stepForm = this.phaseRecabacionForm.getRawValue();
         let req = {
             "proceso": this.course.proceso.cod_proceso,
             "campos": stepForm.campos
         }
         this._anexoService.updateProceso(req).subscribe(() => {
-            
+
 
         }, (response) => {
         });
 
         console.log(stepForm);
-        
-        
+
+
+    }
+
+    saveProcessStatus() {
+        const stepForm = this.resumeForm.getRawValue();
+        const data = {
+            "cod_status": stepForm.cod_status,
+            "cod_proceso": this.course.proceso.cod_proceso
+        }
+        this._procesoService.updateProcessStatus(this.course.proceso.cod_proceso, data, this.course).subscribe(() => {
+            //this._router.navigateByUrl('/apps/academy');
+            console.log('Pruebas' + Number(stepForm.cod_status));
+
+            this.goToStep(Number(stepForm.cod_status));
+            if (stepForm.cod_status == "1") {
+                this.course.proceso.nom_status = "Inicio"
+
+            } else if (stepForm.cod_status == "2") {
+                this.course.proceso.nom_status = "Cotización"
+
+            } else if (stepForm.cod_status == "3") {
+                this.course.proceso.nom_status = "Recabación de documentos"
+
+            } else if (stepForm.cod_status == "4") {
+                this.course.proceso.nom_status = "Seguimiento"
+
+            }
+        }, (response) => {
+        });
+    }
+
+    openEditPoliDialog() {
+
+        const stepForm = this.phaseSeguimientoForm.getRawValue();
+        console.log(stepForm.poliza[0]);
+
+        const dialogConfig = new MatDialogConfig();
+        this.matDialog.open(PolizaDialogComponent, {
+            data: {
+                isEdit: true,
+                dataKey: this.course.proceso.cod_proceso,
+                poliza: stepForm.poliza[0],
+                mPoliza : this.polizasLista[0]
+            }
+        });
     }
 
 }

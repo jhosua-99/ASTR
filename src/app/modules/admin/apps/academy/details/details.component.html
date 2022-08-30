@@ -21,7 +21,7 @@
                                     'text-green-800 bg-green-100 dark:text-green-50 dark:bg-green-500': category.slug === 'android',
                                     'text-pink-800 bg-pink-100 dark:text-pink-50 dark:bg-pink-500': category.slug === 'cerrado',
                                     'text-amber-800 bg-amber-100 dark:text-amber-50 dark:bg-amber-500': category.slug === 'firebase'}">
-                                    {{course.proceso.nom_status}}
+                        {{course.proceso.nom_status}}
                     </div>
                 </ng-container>
                 <!-- Course title & description -->
@@ -116,15 +116,23 @@
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
                                 <form [formGroup]="resumeForm">
-                                    <div class="flex sm:items-center">
-                                    
-                                        <div class="ml-6 leading-6">
+                                    <div class="flex">
+
+                                        <div class="ml-6 leading-6 w-1/2 pr-2">
                                             <strong>Fase Actual</strong>
-    
+
                                         </div>
-    
+                                        <div class="ml-6 leading-6 w-1/2 pr-2">
+                                            <!-- Save -->
+                                            <button class="w-full" mat-flat-button [color]="'primary'"
+                                                (click)="saveProcessStatus()">
+                                                Cambiar Fase
+                                            </button>
+
+                                        </div>
+
                                     </div>
-    
+
                                     <br>
                                     <div class="flex">
                                         <mat-form-field class="flex-auto">
@@ -132,15 +140,19 @@
                                                 required>
                                                 <mat-option value="1">Inicio</mat-option>
                                                 <mat-option value="2">Cotización</mat-option>
-                                                <mat-option value="4">Recabación de Documentos</mat-option>
-                                                <mat-option value="3">Seguimineto</mat-option>
-                                             
+                                                <mat-option value="3">Recabación de Documentos</mat-option>
+                                                <mat-option value="4">Seguimineto</mat-option>
+
                                             </mat-select>
-    
+
                                         </mat-form-field>
+
                                     </div>
+
+
+
                                 </form>
-                                
+
                                 <hr>
                                 <div class="flex sm:items-center">
                                     <mat-icon [svgIcon]="'heroicons_outline:hashtag'"></mat-icon>
@@ -237,8 +249,9 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
-                                         
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">
+                                                {{emp.nom_usuario}}</mat-option>
+
                                         </mat-select>
 
                                     </mat-form-field>
@@ -260,8 +273,9 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
-                                         
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">
+                                                {{emp.nom_usuario}}</mat-option>
+
                                         </mat-select>
 
                                     </mat-form-field>
@@ -293,7 +307,7 @@
                                     </div>
                                 </div>
                                 <hr>
-                               
+
                                 <!--Comentarios-->
                                 <div class="mt-8">
                                     <div class="flex">
@@ -349,8 +363,9 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
-                                         
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">
+                                                {{emp.nom_usuario}}</mat-option>
+
                                         </mat-select>
 
                                     </mat-form-field>
@@ -463,7 +478,7 @@
                     <!-- END OF FASE 2 -------------------------------->
 
 
-                    
+
 
                     <!-- END OF FASE 3 -------------------------------->
 
@@ -494,15 +509,17 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
-                                         
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">
+                                                {{emp.nom_usuario}}</mat-option>
+
                                         </mat-select>
 
                                     </mat-form-field>
                                 </div>
 
                                 <hr>
-                                <div class="flex"  *ngFor="let camp of phaseRecabacionForm.get('campos')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
+                                <div class="flex"
+                                    *ngFor="let camp of phaseRecabacionForm.get('campos')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
                                     <mat-form-field class="fuse-mat-no-subscript flex-auto">
                                         <mat-label>{{camp.get("name").value}}</mat-label>
                                         <input matInput [formControl]="camp.get('valor')">
@@ -522,11 +539,12 @@
                                 <hr>
                                 <div class="flex">
                                     <!-- Save -->
-                                    <button class="w-full" mat-flat-button [color]="'primary'" [matTooltip]="'Save'" (click)="saveRecabacionDocsForm()">
+                                    <button class="w-full" mat-flat-button [color]="'primary'" [matTooltip]="'Save'"
+                                        (click)="saveRecabacionDocsForm()">
                                         Guardar
                                     </button>
-                            
-                                </div> 
+
+                                </div>
 
 
                             </div>
@@ -563,8 +581,9 @@
                                     <mat-form-field class="flex-auto">
                                         <mat-select [formControlName]="'cod_usuario'" [placeholder]="'Seleccionar'"
                                             required>
-                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">{{emp.nom_usuario}}</mat-option>
-                                         
+                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">
+                                                {{emp.nom_usuario}}</mat-option>
+
                                         </mat-select>
 
                                     </mat-form-field>
@@ -668,11 +687,8 @@
                                         </mat-form-field>
 
                                         <div class="flex">
-                                            <mat-form-field class="w-1/2 pr-2">
-                                                <mat-label>Nombre de archivo</mat-label>
-                                                <input matInput [readonly]="true">
-                                            </mat-form-field>
-                                            <mat-form-field class="w-1/2 pl-2">
+                                            
+                                            <mat-form-field class="w-full">
                                                 <mat-label>Link de póliza</mat-label>
                                                 <input matInput [formControl]="poliza.get('link')" [readonly]="true">
                                             </mat-form-field>
@@ -680,26 +696,30 @@
                                         <div class="flex">
                                             <!-- Save -->
                                             <button class="w-full" mat-flat-button [color]="'primary'"
-                                                [matTooltip]="'Save'">
+                                                [matTooltip]="'Renovar'" (click) = "openEditPoliDialog()">
                                                 Renovar
                                             </button>
 
                                         </div>
 
                                         <hr>
+
+                                        
                                     </ng-container>
 
-
+                                    <ng-container *ngIf="phaseSeguimientoForm.get('poliza').length == 0">
+                                        <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                                            (click)="openCreatePoliDialog()">
+                                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
+                                            </mat-icon>
+                                            <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar
+                                                Póliza </span>
+                                        </div>
+                                    </ng-container>
                                 </form>
 
 
-                                <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
-                                    (click)="openCreatePoliDialog()">
-                                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
-                                    </mat-icon>
-                                    <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar
-                                        Póliza</span>
-                                </div>
+
 
 
 
@@ -728,11 +748,7 @@
                             <mat-icon class="ml-2" [svgIcon]="'heroicons_outline:arrow-narrow-right'"></mat-icon>
                         </button>
                     </div>
-                    <!-- Save -->
-                    <button class="flex items-center justify-center" mat-flat-button [color]="'primary'"
-                        [matTooltip]="'Save'">
-                        Guardar
-                    </button>
+
                 </div>
 
 
