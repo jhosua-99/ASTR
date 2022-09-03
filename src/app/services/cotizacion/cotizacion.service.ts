@@ -162,5 +162,14 @@ export class CotizacionService {
         );
     }
 
+  
+
+    
+
+
+  auditoriaCotizacion(req){
+    return this._httpClient.post(`${environment.APIEndpoint}` + 'api/auditoria/',req);
+}
+
 
 }

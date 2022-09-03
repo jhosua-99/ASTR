@@ -350,26 +350,76 @@
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
 
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Empleado Asignado</strong>
+                                <form [formGroup]="empForm">
+                                    <div class="flex sm:items-center">
+                                        <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
+                                        <div class="ml-6 leading-6">
+                                            <strong>Empleado quien Realizo la cotización</strong>
+    
+                                        </div>
+    
+                                    </div>
+    
+                                    <br>
+                                    <div class="flex" >
+                                        <mat-form-field class="flex-auto"  >
+                              
+                                            <mat-select  [formControlName]="'idEmpCotizacion'" [placeholder]="'Seleccionar'"
+                                                required>
+                                                
+                                                <mat-option *ngFor="let emp of empleados$" value="{{emp.cod_usuario}}">
+                                                    {{emp.nom_usuario}}
 
+                                                    
+                                                    
+                                                </mat-option>
+                                               
+                                            </mat-select>
+                                            
+                                            
+                                            
+                                        </mat-form-field>
+                                        
+
+                                        
+                                    </div>
+    
+                                    <hr>
+    
+                                    <div class="flex sm:items-center">
+                                        <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
+                                        <div class="ml-6 leading-6">
+                                            <strong>Empleado quien Ingresa la Cotización</strong>
+    
+                                        </div>
+    
+                                    </div>
+    
+                                    <br>
+                                    <div class="flex">
+                                        <mat-form-field class="flex-auto">
+                                            <mat-select [formControlName]="'idEmpAsignado'" [placeholder]="'Seleccionar'"
+                                                required>
+                                                <mat-option *ngFor="let emp of empleados$" value="{{emp.cod_usuario}}">
+                                                    {{emp.nom_usuario}}</mat-option>
+    
+                                            </mat-select>
+    
+                                        </mat-form-field>
+                                       
+                                        
                                     </div>
 
-                                </div>
+                                    <button class="flex items-center justify-center" mat-flat-button
+                                                    [color]="'primary'" [matTooltip]="'Save'"
+                                                    (click)="empAsignado()">
+                                                    Asignar
+                                        </button>
+                                     
+    
+                                </form>
                                 <br>
-                                <div class="flex">
-                                    <mat-form-field class="flex-auto">
-                                        <mat-select [formControlName]="'country'" [placeholder]="'Seleccionar'"
-                                            required>
-                                            <mat-option *ngFor="let emp of empleados$" value="{{emp.nom_usuario}}">
-                                                {{emp.nom_usuario}}</mat-option>
-
-                                        </mat-select>
-
-                                    </mat-form-field>
-                                </div>
+                                
                                 <hr>
                                 <form [formGroup]="phaseCotizacionForm">
                                     <ng-container
