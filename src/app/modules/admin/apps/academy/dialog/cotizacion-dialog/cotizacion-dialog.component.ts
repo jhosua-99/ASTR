@@ -91,6 +91,18 @@ export class CotizacionDialogComponent implements OnInit, OnDestroy {
 
     }, (response) => {
     });
+    console.log("CITAZION");
+    console.log();
+    
+    
+    let aud = {
+      idEmpCotizacion: window['idEmpCotizacion'] ,
+      idEmpAsignado: window['idEmpAsignado']
+    }
+
+    this._cotizacion_service.auditoriaCotizacion(aud).subscribe((resp=>{
+
+    }))
 
   }
 

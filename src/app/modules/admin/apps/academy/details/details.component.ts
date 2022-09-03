@@ -41,6 +41,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     polizas$: Observable<Poliza[]>;
 
     empleados$: Observable<Empleado[]>;
+    empleado$: Empleado;
 
     anexos$: Observable<Anexo[]>;
 
@@ -50,6 +51,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     drawerMode: 'over' | 'side' = 'side';
     drawerOpened: boolean = true;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+
+    empForm: FormGroup;
 
 
     /**
@@ -77,7 +80,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         private _cotizacion_service: CotizacionService,
         private _polizaService: PolizaService,
         private _anexoService: AnexoService,
-        private matDialog: MatDialog
+        private matDialog: MatDialog,
+        private _cotizacionService: CotizacionService
     ) {
     }
 
@@ -89,6 +93,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+
+        
 
         this.companias$ = this._cotizacion_service._companias;
         this.ramos$ = this._cotizacion_service._ramo;
@@ -289,6 +295,13 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
 
                 // Mark for check
                 this._changeDetectorRef.markForCheck();
+            });
+
+            this.empForm = this._formBuilder.group({
+                empAsignado         : [''],
+                empCotizacion       : [''],  
+                idEmpAsignado       : [''],
+                idEmpCotizacion     : [''],
             });
     }
 
@@ -517,5 +530,21 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
             }
         });
     }
+
+    empAsignado(){
+
+        console.log("HOLA EMPLEADO ASINGADO:");
+        const empAux = this.empForm.getRawValue(); 
+        console.log(empAux);
+      
+        window['idEmpAsignado'] = empAux.idEmpAsignado;
+        window['idEmpCotizacion'] = empAux.idEmpCotizacion;
+       
+        
+        console.log(window['idEmpAsignado'] );
+        console.log(window['idEmpCotizacion'] );
+    }
+
+   
 
 }
