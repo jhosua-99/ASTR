@@ -45,17 +45,9 @@ export const defaultNavigation: FuseNavigationItem[] = [
             {
                 id      : 'user-interface.forms',
                 title   : 'Seguros',
-                type    : 'collapsable',
+                type    : 'basic',
                 icon    : 'feather:briefcase',
-                children: [
-                    
-                    {
-                        id   : 'apps.seguros',
-                        title: 'Listar',
-                        type : 'basic',
-                        link : '/apps/seguros'
-                    },
-                ]
+                link : '/apps/seguros'
             }
         ]  
     },
@@ -331,17 +323,9 @@ export const empleadoNavigation: FuseNavigationItem[] = [
             {
                 id      : 'user-interface.forms',
                 title   : 'Seguros',
-                type    : 'collapsable',
+                type    : 'basic',
                 icon    : 'feather:briefcase',
-                children: [
-                    
-                    {
-                        id   : 'apps.seguros',
-                        title: 'Listar',
-                        type : 'basic',
-                        link : '/apps/seguros'
-                    },
-                ]
+                link : '/apps/seguros'
             }
         ]  
     },

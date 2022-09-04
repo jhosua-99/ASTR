@@ -16,7 +16,7 @@
 
     <!-- Main -->
     <div class="flex-auto p-6 sm:p-10">
-
+        <!--
         <div class="mb-6 sm:mb-12">
             <mat-button-toggle-group class="flex flex-wrap -m-2" [(ngModel)]="selectedFilter"
                 (change)="onFilterChange($event)">
@@ -24,14 +24,14 @@
                     <ng-container *ngFor="let filter of tiposSeguros">
                         <mat-button-toggle class="m-2" [value]="filter">
                             <span class="text-secondary">{{filter.nom_tipo_seguro}}</span>
-                            <!--<span class="ml-1.5 font-medium text-secondary">({{numberOfCards[filter]}})</span>-->
+                            
                         </mat-button-toggle>
                     </ng-container>
                 </ng-container>
 
             </mat-button-toggle-group>
         </div>
-
+-->
         <div class="flex flex-wrap items-start w-full max-w-400 -m-4">
             <ng-container *ngIf="seguros$ | async as seguros">
                 <!-- Card #3 - Flippable card -->
@@ -39,7 +39,7 @@
                     <fuse-card class="flex flex-col max-w-80 w-full filter-article filter-interactive"
                         [flippable]="true" [face]="'front'" #flippableCard01="fuseCard">
                         <ng-container fuseCardFront>
-                            <img class="object-cover" src="{{'assets/images/cards/'+seguro.cod_seguro+'.jpg'}}" alt="Card cover image">
+                            
                             <div class="m-8 mb-4">
                                 <div class="text-2xl font-semibold leading-tight">{{seguro.nom_tipo_seguro}}
                                 </div>
