@@ -12,6 +12,7 @@ import { environment } from '../../environments/environment';
 export class SeguroService {
   private _seguros: BehaviorSubject<Seguro[] | null> = new BehaviorSubject(null);
   private _tiposSeguros: BehaviorSubject<TipoSeguro[] | null> = new BehaviorSubject(null);
+  recomendation: BehaviorSubject<any | null> = new BehaviorSubject(null);
   private _camposSeguro : BehaviorSubject<CampoSeguro[] | null> = new BehaviorSubject(null);
 
   constructor(private _httpClient: HttpClient) { }
@@ -66,5 +67,9 @@ export class SeguroService {
         this._camposSeguro.next(result.body);
       })
     );
+  }
+
+  getSeguroRecomendado(nom_seg):Observable<any> {
+    return this._httpClient.post<any>(`${environment.APIEndpoint}`+'api/seguros/predict',{nom_seg : nom_seg})
   }
 }

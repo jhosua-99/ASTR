@@ -29,6 +29,8 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
     horizontalStepperForm: FormGroup;
     verticalStepperForm: FormGroup;
     seguros$: Observable<Seguro[]>;
+    listaSeguros: Seguro[];
+    recomendation : string[];
     contacts$: Observable<Contact[]>;
     users$: Observable<User[]>
     campos$: Observable<CampoSeguro[]>
@@ -133,7 +135,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 }
             }
         };
-
+        
         // get seguros
         // Get the contacts
         /**
@@ -146,9 +148,10 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         this.segurosService.getSeguros()
             .pipe(takeUntil(this._unsubscribeAll))
             .subscribe((seguros: UserResponseModel) => {
-
+                this.listaSeguros = seguros.body
             });
 
+        
 
         // Get the contacts
         this.contacts$ = this._contactsService.contacts$;
@@ -216,12 +219,23 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
     }
 
     getCampoSeguro() {
-
+        
         // Get the contact object
         const stepForm = this.horizontalStepperForm.getRawValue();
         let codSeguro = stepForm.step1.seguroSeleccionado
         this.campos$ = this.segurosService.campos$;
+        console.log(stepForm.step1);
+        const index = this.listaSeguros.findIndex(item => item.cod_seguro === codSeguro);
+        const nom_seguro = this.listaSeguros[index].nom_tipo_seguro
+        console.log(nom_seguro);
+        
+        this.segurosService.getSeguroRecomendado(nom_seguro).pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((response: any) => {
 
+            console.log('tutas '+response.body.prediction);
+            this.recomendation = response.body.prediction
+            
+        });
 
         this.segurosService.getCamposSeguros(codSeguro).pipe(takeUntil(this._unsubscribeAll))
             .subscribe((response: UserResponseModel) => {
@@ -267,6 +281,10 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         this._unsubscribeAll.complete();
 
 
+    }
+
+    gerRecomendation(seguro){
+        
     }
 
     /**
@@ -815,6 +833,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
     }
 
     showAnalytics(show: boolean) {
+        
         this.showAnalaytics = show;
     }
 

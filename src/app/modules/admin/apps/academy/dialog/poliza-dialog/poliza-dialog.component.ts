@@ -7,6 +7,7 @@ import { Cotizacion } from 'app/services/cotizacion/cotizacion.type';
 import { PolizaService } from 'app/services/poliza/poliza.service';
 import { Poliza } from 'app/services/poliza/poliza.type';
 import { ProcesoService } from 'app/services/processs/proceso.service';
+import e from 'express';
 import { cloneDeep } from 'lodash';
 import { Observable, Subject, takeUntil } from 'rxjs';
 import { AcademyService } from '../../academy.service';
@@ -108,19 +109,21 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
   savePoliza() {
     const stepForm = this.phaseSelectCotiForm.getRawValue();
     console.log(stepForm);
-    let req = {
-      "cod_poliza": this.mPoliza.cod_poliza,
-      "fecha_expedicion": stepForm.fecha_expedicion,
-      "fecha_vigencia_hasta": stepForm.fecha_vigencia_hasta,
-      "fecha_vigencia_desde": stepForm.fecha_vigencia_desde,
-      "link": stepForm.link,
-      "cod_compania": stepForm.cod_compania,
-      "cod_ramo": stepForm.cod_ramo,
-      "cod_producto": stepForm.cod_producto,
-      "valor_total": stepForm.valor_total,
-      "numero_poliza": stepForm.numero_poliza
-    }
+    
+    
     if (this.isEdit) {
+      let req = {
+        "cod_poliza": this.mPoliza.cod_poliza,
+        "fecha_expedicion": stepForm.fecha_expedicion,
+        "fecha_vigencia_hasta": stepForm.fecha_vigencia_hasta,
+        "fecha_vigencia_desde": stepForm.fecha_vigencia_desde,
+        "link": stepForm.link,
+        "cod_compania": stepForm.cod_compania,
+        "cod_ramo": stepForm.cod_ramo,
+        "cod_producto": stepForm.cod_producto,
+        "valor_total": stepForm.valor_total,
+        "numero_poliza": stepForm.numero_poliza
+      }
       this._polizaService.updatePoliza(this.mPoliza.cod_poliza,req,this.mPoliza).subscribe(() => {
         //this._router.navigateByUrl('/apps/academy');
 
@@ -128,6 +131,18 @@ export class PolizaDialogComponent implements OnInit, OnDestroy {
       }, (response) => {
       });
     } else {
+      let req = {
+        "cod_proceso": this.data.dataKey,
+        "fecha_expedicion": stepForm.fecha_expedicion,
+        "fecha_vigencia_hasta": stepForm.fecha_vigencia_hasta,
+        "fecha_vigencia_desde": stepForm.fecha_vigencia_desde,
+        "link": stepForm.link,
+        "cod_compania": stepForm.cod_compania,
+        "cod_ramo": stepForm.cod_ramo,
+        "cod_producto": stepForm.cod_producto,
+        "valor_total": stepForm.valor_total,
+        "numero_poliza": stepForm.numero_poliza
+      }
       this._polizaService.addPoliza(req).subscribe(() => {
         //this._router.navigateByUrl('/apps/academy');
 

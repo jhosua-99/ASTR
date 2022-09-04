@@ -4,7 +4,8 @@
 
 export const environment = {
     production: false,
-    APIEndpoint: 'https://apiesquiviaseguros.tk/'
+    APIEndpoint: 'http://localhost:5000/',
+    PREDICTIONEndpoint : 'http://198.199.122.176:5000/'
 };
 
 /*

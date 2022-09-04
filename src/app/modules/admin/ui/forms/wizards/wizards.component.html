@@ -214,146 +214,17 @@
             </form>
             <!-- Section title -->
             <ng-container *ngIf="showAnalaytics">
-                <div class="w-full mt-12">
-                    <div class="text-2xl font-semibold tracking-tight leading-6">Recomendaciones de Pólizas</div>
-                    <div class="font-medium tracking-tight text-secondary">A continuación se muestra el porcentaje de
-                        afinidad de las pólizas recomendadas para este cliente.</div>
-                </div>
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8 w-full mt-6 md:mt-8">
-                    <!-- New vs. Returning -->
-                    <div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden p-6">
-                        <div class="flex items-start justify-between">
-                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Póliza 1</div>
-                            <div class="ml-2">
-
-                            </div>
-                        </div>
-                        <div class="flex flex-col flex-auto mt-6 h-44">
-                            <apx-chart class="flex flex-auto items-center justify-center w-full h-full"
-                                [chart]="chartNewVsReturning.chart" [colors]="chartNewVsReturning.colors"
-                                [labels]="chartNewVsReturning.labels" [plotOptions]="chartNewVsReturning.plotOptions"
-                                [series]="chartNewVsReturning.series" [states]="chartNewVsReturning.states"
-                                [tooltip]="chartNewVsReturning.tooltip"></apx-chart>
-                        </div>
-                        <div class="mt-8">
-                            <div class="-my-3 divide-y">
-                                <ng-container *ngFor="let dataset of data.newVsReturning.series; let i = index">
-                                    <div class="grid grid-cols-3 py-3">
-                                        <div class="flex items-center">
-                                            <div class="flex-0 w-2 h-2 rounded-full"
-                                                [style.backgroundColor]="chartNewVsReturning.colors[i]"></div>
-                                            <div class="ml-3 truncate">{{data.newVsReturning.labels[i]}}</div>
-                                        </div>
-
-                                        <div class="text-right text-secondary">{{dataset}}%</div>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Gender -->
-                    <div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden p-6">
-                        <div class="flex items-start justify-between">
-                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Póliza 2</div>
-                            <div class="ml-2">
-
-                            </div>
-                        </div>
-                        <div class="flex flex-col flex-auto mt-6 h-44">
-                            <apx-chart class="flex flex-auto items-center justify-center w-full h-full"
-                                [chart]="chartGender.chart" [colors]="chartGender.colors" [labels]="chartGender.labels"
-                                [plotOptions]="chartGender.plotOptions" [series]="chartGender.series"
-                                [states]="chartGender.states" [tooltip]="chartGender.tooltip"></apx-chart>
-                        </div>
-                        <div class="mt-8">
-                            <div class="-my-3 divide-y">
-                                <ng-container *ngFor="let dataset of data.gender.series; let i = index">
-                                    <div class="grid grid-cols-3 py-3">
-                                        <div class="flex items-center">
-                                            <div class="flex-0 w-2 h-2 rounded-full"
-                                                [style.backgroundColor]="chartGender.colors[i]"></div>
-                                            <div class="ml-3 truncate">{{data.gender.labels[i]}}</div>
-                                        </div>
-                                        <div class="font-medium text-right">{{data.gender.uniqueVisitors * dataset / 100
-                                            | number:'1.0-0'}}</div>
-                                        <div class="text-right text-secondary">{{dataset}}%</div>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Age -->
-                    <div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden p-6">
-                        <div class="flex items-start justify-between">
-                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Póliza 3</div>
-                            <div class="ml-2">
-
-                            </div>
-                        </div>
-                        <div class="flex flex-col flex-auto mt-6 h-44">
-                            <apx-chart class="flex flex-auto items-center justify-center w-full h-full"
-                                [chart]="chartAge.chart" [colors]="chartAge.colors" [labels]="chartAge.labels"
-                                [plotOptions]="chartAge.plotOptions" [series]="chartAge.series"
-                                [states]="chartAge.states" [tooltip]="chartAge.tooltip"></apx-chart>
-                        </div>
-                        <div class="mt-8">
-                            <div class="-my-3 divide-y">
-                                <ng-container *ngFor="let dataset of data.age.series; let i = index">
-                                    <div class="grid grid-cols-3 py-3">
-                                        <div class="flex items-center">
-                                            <div class="flex-0 w-2 h-2 rounded-full"
-                                                [style.backgroundColor]="chartAge.colors[i]"></div>
-                                            <div class="ml-3 truncate">{{data.age.labels[i]}}</div>
-                                        </div>
-                                        <div class="font-medium text-right">{{data.age.uniqueVisitors * dataset / 100 |
-                                            number:'1.0-0'}}</div>
-                                        <div class="text-right text-secondary">{{dataset}}%</div>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- Language -->
-                    <div class="flex flex-col flex-auto bg-card shadow rounded-2xl overflow-hidden p-6">
-                        <div class="flex items-start justify-between">
-                            <div class="text-lg font-medium tracking-tight leading-6 truncate">Póliza 4</div>
-                            <div class="ml-2">
-
-                            </div>
-                        </div>
-                        <div class="flex flex-col flex-auto mt-6 h-44">
-                            <apx-chart class="flex flex-auto items-center justify-center w-full h-full"
-                                [chart]="chartLanguage.chart" [colors]="chartLanguage.colors"
-                                [labels]="chartLanguage.labels" [plotOptions]="chartLanguage.plotOptions"
-                                [series]="chartLanguage.series" [states]="chartLanguage.states"
-                                [tooltip]="chartLanguage.tooltip"></apx-chart>
-                        </div>
-                        <div class="mt-8">
-                            <div class="-my-3 divide-y">
-                                <ng-container *ngFor="let dataset of data.language.series; let i = index">
-                                    <div class="grid grid-cols-3 py-3">
-                                        <div class="flex items-center">
-                                            <div class="flex-0 w-2 h-2 rounded-full"
-                                                [style.backgroundColor]="chartLanguage.colors[i]"></div>
-                                            <div class="ml-3 truncate">{{data.language.labels[i]}}</div>
-                                        </div>
-                                        <div class="font-medium text-right">{{data.language.uniqueVisitors * dataset /
-                                            100 | number:'1.0-0'}}</div>
-                                        <div class="text-right text-secondary">{{dataset}}%</div>
-                                    </div>
-                                </ng-container>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                
                 <div class="w-full mt-12">
                     <div class="text-2xl font-semibold tracking-tight leading-6">Recomendaciones de Seguros</div>
-                    <div class="font-medium tracking-tight text-secondary">A continuación se muestra los seguros recomendados respecto a otros usuarios que también han seleccionado este tipo de seguro.</div>
+                    <div class="font-medium tracking-tight text-secondary">A continuación algunas recomendaciones para el seguro seleccionado .</div>
                 </div>
                 <div class="w-full mt-12">
                     <div class="text-2xl font-semibold tracking-tight leading-6"></div>
                     
                 </div>
+                <!-- Budget details -->
+
                 <!-- Budget details -->
                 <div class="sm:col-span-6 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
                     <div class="text-lg font-medium tracking-tight leading-6 truncate">Seguros Recomendados</div>
@@ -361,7 +232,7 @@
                         <table
                             class="min-w-240 overflow-y-visible"
                             mat-table
-                            [dataSource]="data2.budgetDetails.rows">
+                            [dataSource]="recomendation">
 
                             <!-- Type -->
                             <ng-container
@@ -383,7 +254,7 @@
                                                         'bg-green-500': budget.id === 3,
                                                         'bg-amber-500': budget.id === 4,
                                                         'bg-indigo-500': budget.id === 5}"></span>
-                                        <span class="ml-3 leading-4">{{budget.type}}</span>
+                                        <span class="ml-3 leading-4">{{budget}}</span>
                                     </span>
                                 </td>
                             </ng-container>
@@ -395,7 +266,6 @@
                                 <th
                                     mat-header-cell
                                     *matHeaderCellDef>
-                                    Porcenta de Afinidad (%)
                                 </th>
                                 <td
                                     mat-cell
@@ -421,7 +291,7 @@
                                                 <span class="flex w-full h-full bg-green-400"></span>
                                             </span>
                                         </span>
-                                        <span class="ml-3 leading-4">{{budget.remainingPercentage}}%</span>
+                                        <span class="ml-3 leading-4"></span>
                                     </span>
                                 </td>
                             </ng-container>
