@@ -82,6 +82,11 @@ export class ProjectComponent implements OnInit, OnDestroy
         this._userService.user$
             .pipe((takeUntil(this._unsubscribeAll)))
             .subscribe((user: User) => {
+                console.log('aqui loka '+user.tipo_usuario);
+                
+                if(user.tipo_usuario == null || user.tipo_usuario == 0){
+                    this._router.navigateByUrl("/pages/profile")
+                }
                 console.log(user);
                 this.user = user;
             });
