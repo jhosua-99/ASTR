@@ -25,12 +25,14 @@ import { CotizacionDialogComponent } from './dialog/cotizacion-dialog/cotizacion
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PolizaDialogComponent } from './dialog/poliza-dialog/poliza-dialog.component';
+import { ModernComponent } from './invoice/modern.component';
 
 @NgModule({
     declarations: [
         AcademyComponent,
         AcademyDetailsComponent,
         AcademyListComponent,
+        ModernComponent,
         CotizacionDialogComponent,
         PolizaDialogComponent
     ],

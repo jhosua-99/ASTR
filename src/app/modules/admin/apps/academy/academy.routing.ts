@@ -3,6 +3,7 @@ import { AcademyComponent } from 'app/modules/admin/apps/academy/academy.compone
 import { AcademyListComponent } from 'app/modules/admin/apps/academy/list/list.component';
 import { AcademyDetailsComponent } from 'app/modules/admin/apps/academy/details/details.component';
 import { AcademyCategoriesResolver, AcademyCourseResolver, AcademyCoursesResolver, AnexosResolver, CompaniaResolver, CotizacionesResolver, PolizaResolver, ProductoResolver, RamoResolver } from 'app/modules/admin/apps/academy/academy.resolvers';
+import { ModernComponent } from './invoice/modern.component';
 
 export const academyRoutes: Route[] = [
     {
@@ -23,6 +24,19 @@ export const academyRoutes: Route[] = [
             {
                 path     : ':id',
                 component: AcademyDetailsComponent,
+                resolve  : {
+                    course: AcademyCourseResolver,
+                    cotizacion : CotizacionesResolver,
+                    producto: ProductoResolver,
+                    ramo : RamoResolver,
+                    compania: CompaniaResolver,
+                    poliza: PolizaResolver,
+                    anexos: AnexosResolver
+                }
+            },
+            {
+                path     : ':id/invoice',
+                component: ModernComponent,
                 resolve  : {
                     course: AcademyCourseResolver,
                     cotizacion : CotizacionesResolver,

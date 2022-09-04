@@ -64,7 +64,7 @@ export const appRoutes: Route[] = [
         },
         children: [
             { path: 'inicio', loadChildren: () => import('app/modules/landing/home/home.module').then(m => m.LandingHomeModule) },
-            
+
         ]
     },
 
@@ -82,7 +82,7 @@ export const appRoutes: Route[] = [
         },
 
 
-        
+
 
         children: [
             { path: 'example', loadChildren: () => import('app/modules/admin/example/example.module').then(m => m.ExampleModule) },
@@ -90,11 +90,11 @@ export const appRoutes: Route[] = [
             {
                 path: 'dashboards', children: [
                     { path: 'project', loadChildren: () => import('app/modules/admin/dashboards/project/project.module').then(m => m.ProjectModule) },
-                   
+
                 ]
             },
 
-         
+
 
             //Account
             {
@@ -104,40 +104,45 @@ export const appRoutes: Route[] = [
 
                     // Settings
                     { path: 'settings', loadChildren: () => import('app/modules/admin/pages/settings/settings.module').then(m => m.SettingsModule) },
+                
                 ]
             },
 
             //Managment
             {
-                path : 'apps', children : [
+                path: 'apps', children: [
                     //customers
-                    {path: 'contacts', loadChildren: () => import('app/modules/admin/apps/contacts/contacts.module').then(m => m.ContactsModule)},
-                    {path: 'empleados', loadChildren: () => import('app/modules/admin/apps/empleados/empleado.module').then(m => m.EmpleadosModule)},
-                    {path: 'academy', loadChildren: () => import('app/modules/admin/apps/academy/academy.module').then(m => m.AcademyModule)},
-                    {path: 'seguros', loadChildren: () => import('app/modules/admin/apps/seguros/list/cards.module').then(m => m.CardsModule)},
+                    { path: 'contacts', loadChildren: () => import('app/modules/admin/apps/contacts/contacts.module').then(m => m.ContactsModule) },
+                    { path: 'empleados', loadChildren: () => import('app/modules/admin/apps/empleados/empleado.module').then(m => m.EmpleadosModule) },
+                    { path: 'academy', loadChildren: () => import('app/modules/admin/apps/academy/academy.module').then(m => m.AcademyModule) },
+                    { path: 'seguros', loadChildren: () => import('app/modules/admin/apps/seguros/list/cards.module').then(m => m.CardsModule) },
                 ]
 
             },
             // User Interface
-            {path: 'ui', children: [
+            {
+                path: 'ui', children: [
 
-                
 
-                // Forms
-                {path: 'forms', children: [
-                    {path: 'wizards', loadChildren: () => import('app/modules/admin/ui/forms/wizards/wizards.module').then(m => m.FormsWizardsModule)},
-                    {path: 'autos', loadChildren: () => import('app/modules/admin/ui/forms/autos/autos.module').then(m => m.FormsAutosModule)},
-                    {path: 'hogar', loadChildren: () => import('app/modules/admin/ui/forms/hogar/hogar.module').then(m => m.FormsHogarModule)},
-                    {path: 'arrendamiento', loadChildren: () => import('app/modules/admin/ui/forms/arrendamiento/arrendamiento.module').then(m => m.FormsArrendamientoModule)},
-                    {path: 'vida', loadChildren: () => import('app/modules/admin/ui/forms/vida/vida.module').then(m => m.FormsVidaModule)},
-                    {path: 'excequias', loadChildren: () => import('app/modules/admin/ui/forms/excequias/excequias.module').then(m => m.FormsExcequiasModule)},
-                    {path: 'finanzas', loadChildren: () => import('app/modules/admin/ui/forms/finanzas/finanzas.module').then(m => m.FormsFinanzasModule)},
-                    {path: 'respCiviMed', loadChildren: () => import('app/modules/admin/ui/forms/respCiviMed/respCiviMed.module').then(m => m.FormsRespCiviMedModule)},
-                    {path: 'mascotas', loadChildren: () => import('app/modules/admin/ui/forms/mascotas/mascotas.module').then(m => m.FormsMascotasModule)}
-                    
-                ]}
-                
-            ]}           
+
+                    // Forms
+                    {
+                        path: 'forms', children: [
+                            { path: 'wizards', loadChildren: () => import('app/modules/admin/ui/forms/wizards/wizards.module').then(m => m.FormsWizardsModule) },
+                            { path: 'autos', loadChildren: () => import('app/modules/admin/ui/forms/autos/autos.module').then(m => m.FormsAutosModule) },
+                            { path: 'hogar', loadChildren: () => import('app/modules/admin/ui/forms/hogar/hogar.module').then(m => m.FormsHogarModule) },
+                            { path: 'arrendamiento', loadChildren: () => import('app/modules/admin/ui/forms/arrendamiento/arrendamiento.module').then(m => m.FormsArrendamientoModule) },
+                            { path: 'vida', loadChildren: () => import('app/modules/admin/ui/forms/vida/vida.module').then(m => m.FormsVidaModule) },
+                            { path: 'excequias', loadChildren: () => import('app/modules/admin/ui/forms/excequias/excequias.module').then(m => m.FormsExcequiasModule) },
+                            { path: 'finanzas', loadChildren: () => import('app/modules/admin/ui/forms/finanzas/finanzas.module').then(m => m.FormsFinanzasModule) },
+                            { path: 'respCiviMed', loadChildren: () => import('app/modules/admin/ui/forms/respCiviMed/respCiviMed.module').then(m => m.FormsRespCiviMedModule) },
+                            { path: 'mascotas', loadChildren: () => import('app/modules/admin/ui/forms/mascotas/mascotas.module').then(m => m.FormsMascotasModule) }
+
+                        ]
+                    }
+
+                ]
+            }
         ]
     }
 
