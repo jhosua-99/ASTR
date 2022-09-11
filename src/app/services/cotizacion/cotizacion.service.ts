@@ -171,5 +171,9 @@ export class CotizacionService {
     return this._httpClient.post(`${environment.APIEndpoint}` + 'api/auditoria/',req);
 }
 
+getAuditoriaCotizacion(): Observable<UserResponseModel>{
+  return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}` + 'api/auditoria/');
+}
+
 
 }

@@ -298,11 +298,15 @@
 
                                 <h2 class="text-2xl sm:text-3xl">Cotización</h2>
 
+                                
+
                                 <p class="lead">
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam
                                     lab et fugiat id magnam minus nemo quam
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
+
+                                
 
                                 <form [formGroup]="empForm">
                                     <div class="flex sm:items-center">
@@ -472,6 +476,17 @@
                                         <span class="ml-2 font-medium text-secondary group-hover:underline">Agregar
                                             Cotización</span>
                                     </div>
+
+                                    <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                                        (click)="export()">
+                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
+                                        </mat-icon>
+                                        <span class="ml-2 font-medium text-secondary group-hover:underline">Auditoria Cotización</span>
+                                    </div>
+
+                                  
+
+                                    
                                 </form>
 
                             </div>
