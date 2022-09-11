@@ -19,6 +19,7 @@ import { Poliza } from 'app/services/poliza/poliza.type';
 import { EmpleadoService } from '../../empleados/empleado.service';
 import { Empleado } from '../../empleados/empleados.types';
 import { response } from 'express';
+import * as XLSX from 'xlsx';
 
 import { Anexo } from 'app/services/anexo/anexo.type';
 import { AnexoService } from 'app/services/anexo/anexo.service';
@@ -39,6 +40,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     productos$: Observable<Producto[]>;
     cotizaciones$: Observable<Cotizacion[]>;
     polizas$: Observable<Poliza[]>;
+
+    cotizacionesExport$;
 
     empleados$: Observable<Empleado[]>;
     empleado$: Empleado;
@@ -93,6 +96,11 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+
+        this._cotizacion_service.getAuditoriaCotizacion().subscribe(resp => {
+            console.log(resp.body);           
+            this.cotizacionesExport$ = resp.body;
+        })
 
         
 
@@ -544,6 +552,19 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         console.log(window['idEmpAsignado'] );
         console.log(window['idEmpCotizacion'] );
     }
+
+    export() {
+      
+        
+        console.log(this.cotizacionesExport$);
+        
+    
+         const workBook = XLSX.utils.book_new(); // create a new blank book
+         const workSheet = XLSX.utils.json_to_sheet(this.cotizacionesExport$);
+    
+         XLSX.utils.book_append_sheet(workBook, workSheet, 'data'); // add the worksheet to the book
+         XLSX.writeFile(workBook, 'AuditoriaCotizaciones.xlsx'); // initiate a file download in browser
+      }
 
    
 
