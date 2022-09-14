@@ -26,6 +26,7 @@ import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule } from '@angular/material/dialog';
 import { PolizaDialogComponent } from './dialog/poliza-dialog/poliza-dialog.component';
 import { ModernComponent } from './invoice/modern.component';
+import { MatSortModule } from '@angular/material/sort';
 
 @NgModule({
     declarations: [
@@ -41,6 +42,7 @@ import { ModernComponent } from './invoice/modern.component';
         MatButtonModule,
         MatFormFieldModule,
         MatDatepickerModule,
+        MatSortModule,
         MatIconModule,
         MatInputModule,
         MatProgressBarModule,

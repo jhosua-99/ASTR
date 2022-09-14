@@ -39,22 +39,23 @@
 
 
 
-                            <div [mat-sort-header]="'nameS'">Seguro</div>
+                            <div [mat-sort-header]="'seguro'">Seguro</div>
 
-                            <div [mat-sort-header]="'nameC'">Cliente</div>
+                            <div class="hidden sm:block"
+                            [mat-sort-header]="'cliente'">Cliente</div>
 
-                            <div [mat-sort-header]="'nameE'">Empleado</div>
+                            <div [mat-sort-header]="'empleado'">Empleado</div>
 
                             <div class="hidden lg:block" [mat-sort-header]="'porcentaje'">
                                 Porcentaje
                             </div>
 
 
-                            <div class="hidden lg:block" [mat-sort-header]="'complete'">
+                            <div class="hidden lg:block" [mat-sort-header]="'fase'">
                                 Fase
                             </div>
 
-                            <div class="hidden lg:block" [mat-sort-header]="'complete'">
+                            <div class="hidden lg:block" [mat-sort-header]="'fecha'">
                                 Fecha Inicio
                             </div>
                             <div class="hidden sm:block items-center">Detalle</div>
@@ -78,12 +79,12 @@
                                     </div>
 
                                     <!-- Name CLiente -->
-                                    <div class="truncate">
+                                    <div class="hidden sm:block">
                                         {{product.nom_cliente}} {{product.apellido_cliente}}
                                     </div>
 
                                     <!-- Name Empleado -->
-                                    <div class="truncate">
+                                    <div class="hidden sm:block">
                                         {{product.nom_usuario}}
                                     </div>
 

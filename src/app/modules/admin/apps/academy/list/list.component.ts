@@ -218,7 +218,7 @@ export class AcademyListComponent implements OnInit, AfterViewInit, OnDestroy
         {
             // Set the initial sort
             this._sort.sort({
-                id          : 'name',
+                id          : 'idProceso',
                 start       : 'asc',
                 disableClear: true
             });

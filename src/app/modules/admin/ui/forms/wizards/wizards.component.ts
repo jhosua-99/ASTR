@@ -20,6 +20,7 @@ import { formatDate } from '@angular/common';
 @Component({
     selector: 'forms-wizards',
     templateUrl: './wizards.component.html',
+    styleUrls: ['./wizard.component.css'],
     encapsulation: ViewEncapsulation.None
 })
 export class FormsWizardsComponent implements OnInit, OnDestroy {
