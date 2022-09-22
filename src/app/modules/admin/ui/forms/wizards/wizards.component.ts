@@ -15,6 +15,7 @@ import { ApexOptions } from 'ng-apexcharts';
 import { AnalyticsService } from 'app/modules/admin/ui/forms/wizards/analytics.service';
 import { ProjectService } from 'app/modules/admin/dashboards/project/project.service';
 import { formatDate } from '@angular/common';
+import { Recomendation } from './recomendation.type';
 
 
 @Component({
@@ -31,7 +32,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
     verticalStepperForm: FormGroup;
     seguros$: Observable<Seguro[]>;
     listaSeguros: Seguro[];
-    recomendation : string[];
+    recomendation : Recomendation[];
     contacts$: Observable<Contact[]>;
     users$: Observable<User[]>
     campos$: Observable<CampoSeguro[]>
@@ -62,6 +63,8 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
 
     showAnalaytics: boolean = false;
 
+    
+
     constructor(private _formBuilder: FormBuilder,
         private segurosService: SeguroService,
         private _contactsService: ContactsService,
@@ -87,8 +90,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 // Store the data
                 this.data2 = data;
 
-                // Prepare the chart data
-                this._prepareChartData();
+                
             });
         this._projectService.getData()
             .pipe(takeUntil(this._unsubscribeAll))
@@ -97,8 +99,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 // Store the data
                 this.data2 = data;
 
-                // Prepare the chart data
-                this._prepareChartData();
+               
             });
 
         // Get the data
@@ -109,8 +110,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 // Store the data
                 this.data = data;
 
-                // Prepare the chart data
-                this._prepareChartData();
+                
             });
 
         this._analyticsService.getData().pipe(takeUntil(this._unsubscribeAll))
@@ -119,8 +119,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 // Store the data
                 this.data = data;
 
-                // Prepare the chart data
-                this._prepareChartData();
+                
             });
 
         // Attach SVG fill fixer to all ApexCharts
@@ -227,16 +226,22 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         this.campos$ = this.segurosService.campos$;
         console.log(stepForm.step1);
         const index = this.listaSeguros.findIndex(item => item.cod_seguro === codSeguro);
-        const nom_seguro = this.listaSeguros[index].nom_tipo_seguro
-        console.log(nom_seguro);
+        const cod_tipo_Seguro = this.listaSeguros[index].cod_tipo_seguro
+        console.log(cod_tipo_Seguro);
         
-        this.segurosService.getSeguroRecomendado(nom_seguro).pipe(takeUntil(this._unsubscribeAll))
+        this.segurosService.getSeguroRecomendado(cod_tipo_Seguro).pipe(takeUntil(this._unsubscribeAll))
         .subscribe((response: any) => {
 
-            console.log('tutas '+response.body.prediction);
-            this.recomendation = response.body.prediction
+            console.log('tutas '+response.body);
+            this.recomendation = response.body
+            
+            //console.log('pruebas '+Math.round(this.recomendation[1].similarity*100));
+            
+            // Prepare the chart data
+            this._prepareChartData();
             
         });
+        
 
         this.segurosService.getCamposSeguros(codSeguro).pipe(takeUntil(this._unsubscribeAll))
             .subscribe((response: UserResponseModel) => {
@@ -612,7 +617,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 }
             },
             colors: ['#3182CE', '#63B3ED'],
-            labels: this.data.newVsReturning.labels,
+            labels: ["Afinidad","Disimilitud"],
             plotOptions: {
                 pie: {
                     customScale: 0.9,
@@ -622,7 +627,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                     }
                 }
             },
-            series: this.data.newVsReturning.series,
+            series: [Math.round((this.recomendation[1].similarity)*100),Math.round((1-this.recomendation[1].similarity)*100)],
             states: {
                 hover: {
                     filter: {
@@ -668,7 +673,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 }
             },
             colors: ['#319795', '#4FD1C5'],
-            labels: this.data.gender.labels,
+            labels: ["Afinidad","Disimilitud"],
             plotOptions: {
                 pie: {
                     customScale: 0.9,
@@ -678,7 +683,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                     }
                 }
             },
-            series: this.data.gender.series,
+            series: [Math.round((this.recomendation[2].similarity)*100),Math.round((1-this.recomendation[2].similarity)*100)],
             states: {
                 hover: {
                     filter: {
@@ -724,7 +729,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 }
             },
             colors: ['#DD6B20', '#F6AD55'],
-            labels: this.data.age.labels,
+            labels: ["Afinidad","Disimilitud"],
             plotOptions: {
                 pie: {
                     customScale: 0.9,
@@ -734,7 +739,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                     }
                 }
             },
-            series: this.data.age.series,
+            series: [Math.round((this.recomendation[3].similarity)*100),Math.round((1-this.recomendation[3].similarity)*100)],
             states: {
                 hover: {
                     filter: {
@@ -780,7 +785,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                 }
             },
             colors: ['#805AD5', '#B794F4'],
-            labels: this.data.language.labels,
+            labels: ["Afinidad","Disimilitud"],
             plotOptions: {
                 pie: {
                     customScale: 0.9,
@@ -790,7 +795,7 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
                     }
                 }
             },
-            series: this.data.language.series,
+            series: [Math.round((this.recomendation[4].similarity)*100),Math.round((1-this.recomendation[4].similarity)*100)],
             states: {
                 hover: {
                     filter: {
