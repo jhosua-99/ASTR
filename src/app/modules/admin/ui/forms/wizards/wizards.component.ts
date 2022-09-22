@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserResponseModel } from 'app/core/user/user.response.model';
@@ -10,12 +10,13 @@ import { CampoSeguro } from 'app/services/campo.seguro.type';
 import { ProcesoService } from 'app/services/processs/proceso.service';
 import { SeguroService } from 'app/services/seguro.service';
 import { Seguro } from 'app/services/seguro.types';
-import { Observable, Subject, takeUntil } from 'rxjs';
+import { Observable, ReplaySubject, Subject, take, takeUntil } from 'rxjs';
 import { ApexOptions } from 'ng-apexcharts';
 import { AnalyticsService } from 'app/modules/admin/ui/forms/wizards/analytics.service';
 import { ProjectService } from 'app/modules/admin/dashboards/project/project.service';
 import { formatDate } from '@angular/common';
 import { Recomendation } from './recomendation.type';
+import { MatSelect } from '@angular/material/select';
 
 
 @Component({
@@ -24,18 +25,19 @@ import { Recomendation } from './recomendation.type';
     styleUrls: ['./wizard.component.css'],
     encapsulation: ViewEncapsulation.None
 })
-export class FormsWizardsComponent implements OnInit, OnDestroy {
+export class FormsWizardsComponent implements OnInit, OnDestroy, AfterViewInit {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
-
+    @ViewChild('singleSelect', { static: true }) singleSelect: MatSelect;
 
     horizontalStepperForm: FormGroup;
     verticalStepperForm: FormGroup;
     seguros$: Observable<Seguro[]>;
     listaSeguros: Seguro[];
     recomendation : Recomendation[];
-    contacts$: Observable<Contact[]>;
+    contacts: Contact[];
     users$: Observable<User[]>
     campos$: Observable<CampoSeguro[]>
+    public filteredBanks: ReplaySubject<Contact[]> = new ReplaySubject<Contact[]>(1);
 
     /***
      * 
@@ -63,7 +65,8 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
 
     showAnalaytics: boolean = false;
 
-    
+    public bankFilterCtrl: FormControl = new FormControl();
+
 
     constructor(private _formBuilder: FormBuilder,
         private segurosService: SeguroService,
@@ -73,6 +76,9 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         private _procesoService: ProcesoService,
         private _analyticsService: AnalyticsService,
         private _projectService: ProjectService    ) {
+    }
+    ngAfterViewInit(): void {
+        //this.setInitialValue();
     }
 
     // -----------------------------------------------------------------------------------------------------
@@ -154,11 +160,19 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         
 
         // Get the contacts
-        this.contacts$ = this._contactsService.contacts$;
-        this._contactsService.getContacts()
-            .pipe(takeUntil(this._unsubscribeAll))
-            .subscribe((contacts: UserResponseModel) => {
+        
+        this._contactsService.getContacts().pipe(takeUntil(this._unsubscribeAll))
+        .subscribe((contacts: UserResponseModel) => {
+            
+        });
 
+        this._contactsService.contacts$.pipe(takeUntil(this._unsubscribeAll))
+            .subscribe((contacts: Contact[]) => {
+                console.log('hooll '+contacts);
+                this.contacts = contacts
+                this.filteredBanks.next(this.contacts.slice());
+
+                
             });
 
         // Get users
@@ -187,9 +201,34 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         });
 
 
+        this.bankFilterCtrl.valueChanges
+        .pipe(takeUntil(this._unsubscribeAll))
+        .subscribe(() => {
+          this.filterBanks();
+        });
+
 
 
     }
+
+    protected filterBanks() {
+        if (!this.contacts) {
+          return;
+        }
+        // get the search keyword
+        let search = this.bankFilterCtrl.value;
+        if (!search) {
+          this.filteredBanks.next(this.contacts.slice());
+          return;
+        } else {
+          search = search.toLowerCase();
+        }
+        
+
+        this.filteredBanks.next(
+            this.contacts.filter(bank => bank.nom_cliente.concat(bank.apellido_cliente).concat(bank.cedula).toLowerCase().indexOf(search) > -1)
+        );
+      }
 
     finalizarRegistro() {
         // Get the contact object
@@ -217,6 +256,22 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         });
 
     }
+
+    /**
+   * Sets the initial value after the filteredBanks are loaded initially
+   */
+  protected setInitialValue() {
+    this.filteredBanks
+      .pipe(take(1), takeUntil(this._unsubscribeAll))
+      .subscribe(() => {
+        // setting the compareWith property to a comparison function
+        // triggers initializing the selection according to the initial value of
+        // the form control (i.e. _initializeSelection())
+        // this needs to be done after the filteredBanks are loaded initially
+        // and after the mat-option elements are available
+        this.singleSelect.compareWith = (a: Contact, b: Contact) => a && b && a.nom_cliente === b.nom_cliente;
+      });
+  }
 
     getCampoSeguro() {
         
@@ -843,4 +898,17 @@ export class FormsWizardsComponent implements OnInit, OnDestroy {
         this.showAnalaytics = show;
     }
 
+    filterTags(event): void
+    {
+        // Get the value
+        //const value = event.target.value.toLowerCase();
+
+        // Filter the tags
+        //this.filteredTags = this.tags.filter(tag => tag.title.toLowerCase().includes(value));
+    }
+
+    filterTagsInputKeyDown(event): void
+    {
+        
+    }
 }

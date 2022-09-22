@@ -20,7 +20,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { NgApexchartsModule } from 'ng-apexcharts';
 import { FormsWizardsComponent } from 'app/modules/admin/ui/forms/wizards/wizards.component';
-
+import { NgxMatSelectSearchModule } from 'ngx-mat-select-search';
 export const routes: Route[] = [
     {
         path     : '',
@@ -41,6 +41,7 @@ export const routes: Route[] = [
         MatInputModule,
         MatRadioModule,
         MatSelectModule,
+        NgxMatSelectSearchModule,
         MatStepperModule,
         SharedModule,
         MatButtonModule,
