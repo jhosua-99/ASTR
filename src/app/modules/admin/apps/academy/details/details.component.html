@@ -499,9 +499,24 @@
                                     lab et fugiat id magnam minus nemo quam
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
-                                
 
-                                <hr>
+
+                                <h6 class="">Progreso</h6>
+                                <!-- Course progress -->
+                                <div class="relative h-0.5">
+                                    <div
+                                        class="z-10 absolute inset-x-0 h-6 -mt-3"
+                                        [matTooltip]="course.proceso.porcentaje | percent"
+                                        [matTooltipPosition]="'above'"
+                                        [matTooltipClass]="'-mb-0.5'"></div>
+                                    <mat-progress-bar
+                                        class="h-0.5"
+                                        [value]="course.proceso.porcentaje * 100"></mat-progress-bar>
+                                </div>
+
+                                <br><br>
+                                
+                                
                                 <div class="flex"
                                     *ngFor="let camp of phaseRecabacionForm.get('campos')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
                                     <mat-form-field class="fuse-mat-no-subscript flex-auto">
