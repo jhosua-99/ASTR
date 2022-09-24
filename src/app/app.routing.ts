@@ -11,7 +11,7 @@ import { FormularioComponent } from 'app/formulario/formulario.component'
 export const appRoutes: Route[] = [
 
     // Redirect empty path to '/example'
-    { path: '', pathMatch: 'full', redirectTo: 'dashboards/project' },
+    { path: '', pathMatch: 'full', redirectTo: 'inicio' },
     { path: 'form', component: FormularioComponent },
 
     // Redirect signed in user to the '/example'

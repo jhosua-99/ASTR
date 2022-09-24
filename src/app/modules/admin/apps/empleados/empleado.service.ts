@@ -198,12 +198,13 @@ export class EmpleadoService
                         
                         "celular" :  updatedContact.body.celular,
                         "apellido_usuario" :  updatedContact.body.apellido_usuario,
-                        "email": updatedContact.body.email,
+                        "email": contact.email,
                         "contrasena": updatedContact.body.contrasena,
                         "tipo_usuario": updatedContact.body.tipo_usuario
+                        
 
                     }
-                    console.log(index+'<- index');
+                    console.log(contactEdited.email+'<- index');
                     
                     contacts[index] = contactEdited;
 
