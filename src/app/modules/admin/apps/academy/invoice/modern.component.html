@@ -1,11 +1,15 @@
 <div class="absolute inset-0 min-w-0 text-center overflow-auto print:overflow-visible" cdkScrollable>
-
+    
     <!-- Main -->
     <div class="inline-block p-6 sm:p-10 text-left print:p-0">
 
+        <button  class="fuse-alert-dismiss-button" mat-flat-button [color]="'primary'" [matTooltip]="'Save'" printSectionId="element-to-export" ngxPrint [useExistingCss]="true" >
+            Imprimir
+        </button>
+        <hr>
         <!-- Invoice -->
         <div
-            class="w-240 min-w-240 p-16 rounded-2xl shadow bg-card print:w-auto print:p-0 print:rounded-none print:shadow-none print:bg-transparent">
+            class="w-240 min-w-240 p-16 rounded-2xl  bg-card print:w-auto print:p-0 print:rounded-none print:shadow-none print:bg-transparent" id="element-to-export">
 
             <div class="flex items-start">
                 <div class="grid grid-rows-2 place-items-start gap-y-12">

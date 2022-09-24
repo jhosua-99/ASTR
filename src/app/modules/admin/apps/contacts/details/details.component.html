@@ -159,7 +159,7 @@
                     <ng-container *ngIf="contact.birth_date">
                         <div class="flex sm:items-center">
                             <mat-icon [svgIcon]="'heroicons_outline:cake'"></mat-icon>
-                            <div class="ml-6 leading-6">{{contact.birth_date | date:'longDate'}}</div>
+                            <div class="ml-6 leading-6">{{contact.birth_date | date:'shortDate'}}</div>
                         </div>
                     </ng-container>
 
@@ -182,7 +182,7 @@
                         </div>
                     </ng-container>
 
-                    <!-- Notes -->
+                    <!-- Notes
                     <ng-container *ngIf="contact.notes">
                         <div class="flex">
                             <mat-icon [svgIcon]="'heroicons_outline:menu-alt-2'"></mat-icon>
@@ -190,7 +190,7 @@
                                 class="max-w-none ml-6 prose prose-sm"
                                 [innerHTML]="contact.notes"></div>
                         </div>
-                    </ng-container>
+                    </ng-container> -->
                 </div>
 
             </div>
@@ -378,7 +378,7 @@
                                         <input
                                             matInput
                                             [formControl]="email.get('label')"
-                                            [placeholder]="'Label'">
+                                            [placeholder]="'Etiqueta'">
                                     </mat-form-field>
                                     <!-- Remove email -->
                                     <ng-container *ngIf="!(first && last)">
@@ -420,34 +420,7 @@
                                             matInput
                                             [formControl]="phoneNumber.get('numero')"
                                             [placeholder]="'Celular/Telefono'">
-                                        <mat-select
-                                            class="mr-1.5"
-                                            [formControl]="phoneNumber.get('country')"
-                                            matPrefix>
-                                            <mat-select-trigger>
-                                                <span class="flex items-center">
-                                                    <span
-                                                        class="hidden sm:flex w-6 h-4 mr-1 overflow-hidden"
-                                                        [style.background]="'url(\'/assets/images/apps/contacts/flags.png\') no-repeat 0 0'"
-                                                        [style.backgroundSize]="'24px 3876px'"
-                                                        [style.backgroundPosition]="getCountryByIso(phoneNumber.get('country').value).flagImagePos"></span>
-                                                    <span class="sm:mx-0.5 font-medium text-default">{{getCountryByIso(phoneNumber.get('country').value).code}}</span>
-                                                </span>
-                                            </mat-select-trigger>
-                                            <ng-container *ngFor="let country of countries; trackBy: trackByFn">
-                                                <mat-option [value]="country.iso">
-                                                    <span class="flex items-center">
-                                                        <span
-                                                            class="w-6 h-4 overflow-hidden"
-                                                            [style.background]="'url(\'/assets/images/apps/contacts/flags.png\') no-repeat 0 0'"
-                                                            [style.backgroundSize]="'24px 3876px'"
-                                                            [style.backgroundPosition]="country.flagImagePos"></span>
-                                                        <span class="ml-2">{{country.name}}</span>
-                                                        <span class="ml-2 font-medium">{{country.code}}</span>
-                                                    </span>
-                                                </mat-option>
-                                            </ng-container>
-                                        </mat-select>
+                                        
                                     </mat-form-field>
                                     <mat-form-field class="fuse-mat-no-subscript flex-auto w-full max-w-24 sm:max-w-40 ml-2 sm:ml-4">
                                         <mat-label *ngIf="first">Etiqueta</mat-label>
@@ -458,7 +431,7 @@
                                         <input
                                             matInput
                                             [formControl]="phoneNumber.get('label')"
-                                            [placeholder]="'Label'">
+                                            [placeholder]="'Etiqueta'">
                                     </mat-form-field>
                                     <!-- Remove phone number -->
                                     <ng-container *ngIf="!(first && last)">
@@ -525,7 +498,7 @@
                         </mat-form-field>
                     </div>
 
-                    <!-- Notes -->
+                    <!-- Notes 
                     <div class="mt-8">
                         <mat-form-field class="fuse-mat-textarea fuse-mat-no-subscript w-full">
                             <mat-label>Notas</mat-label>
@@ -541,7 +514,7 @@
                                 [spellcheck]="false"
                                 matTextareaAutosize></textarea>
                         </mat-form-field>
-                    </div>
+                    </div>-->
                 </form>
 
                 <!--Form Relatives-->
@@ -558,7 +531,7 @@
                             <input
                                 matInput
                                 [formControlName]="'nom_pariente1'"
-                                [placeholder]="'nom_pariente1'"
+                                [placeholder]="'Nombres'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div>        
@@ -574,7 +547,7 @@
                             <input
                                 matInput
                                 [formControlName]="'apellido_pariente1'"
-                                [placeholder]="'apellido_pariente1'"
+                                [placeholder]="'Apellidos'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div> 
@@ -590,7 +563,7 @@
                             <input
                                 matInput
                                 [formControlName]="'telefono_pariente1'"
-                                [placeholder]="'telefono_pariente1'"
+                                [placeholder]="'Telefono'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div> 
@@ -607,7 +580,7 @@
                             <input
                                 matInput
                                 [formControlName]="'nom_pariente2'"
-                                [placeholder]="'nom_pariente2'"
+                                [placeholder]="'Nombres'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div>        
@@ -623,7 +596,7 @@
                             <input
                                 matInput
                                 [formControlName]="'apellido_pariente2'"
-                                [placeholder]="'apellido_pariente2'"
+                                [placeholder]="'Apellidos'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div> 
@@ -639,7 +612,7 @@
                             <input
                                 matInput
                                 [formControlName]="'telefono_pariente2'"
-                                [placeholder]="'telefono_pariente2'"
+                                [placeholder]="'Telefono'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div> 
@@ -656,7 +629,7 @@
                             <input
                                 matInput
                                 [formControlName]="'nom_pariente3'"
-                                [placeholder]="'nom_pariente3'"
+                                [placeholder]="'Nombres'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div>        
@@ -672,7 +645,7 @@
                             <input
                                 matInput
                                 [formControlName]="'apellido_pariente3'"
-                                [placeholder]="'apellido_pariente3'"
+                                [placeholder]="'Apellidos'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div> 
@@ -688,14 +661,14 @@
                             <input
                                 matInput
                                 [formControlName]="'telefono_pariente3'"
-                                [placeholder]="'telefono_pariente3'"
+                                [placeholder]="'Telefono'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div> 
                 </form> 
                 <!-- Actions -->
                 <div class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent">
-                    <!-- Delete -->
+                    <!-- Delete 
                     <button
                         mat-button
                         [color]="'warn'"
@@ -703,6 +676,7 @@
                         (click)="deleteContact()">
                         Borrar
                     </button>
+                    -->
                     <!-- Cancel -->
                     <button
                         class="ml-auto"

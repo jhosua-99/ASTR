@@ -259,7 +259,7 @@
                                                             <mat-icon class="icon-size-5 text-hint"
                                                                 [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
                                                             <div class="ml-1.5 text-md text-secondary">
-                                                                {{scheduleItem.fecha_vigencia_hasta}}</div>
+                                                                {{scheduleItem.fecha_vigencia_hasta| date: 'shortDate'}}</div>
                                                         </ng-container>
 
                                                     </div>

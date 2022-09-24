@@ -12,31 +12,24 @@
             <!-- Current password -->
             <div class="sm:col-span-4">
                 <mat-form-field class="fuse-mat-no-subscript w-full">
-                    <mat-label>Contraseña Actual</mat-label>
-                    <mat-icon
-                        class="icon-size-5"
-                        [svgIcon]="'heroicons_solid:key'"
-                        matPrefix></mat-icon>
-                    <input
-                        [formControlName]="'currentPassword'"
-                        type="password"
-                        matInput>
+                    <mat-label>Usuario</mat-label>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
+                    <mat-select [formControlName]="'idEmpAsignado'" [placeholder]="'Seleccionar'" required>
+                        <mat-option *ngFor="let emp of empleados$" value="{{emp.cod_usuario}}">
+                            {{emp.nom_usuario}} {{emp.apellido_usuario}}</mat-option>
+
+                    </mat-select>
                 </mat-form-field>
             </div>
             <!-- New password -->
             <div class="sm:col-span-4">
                 <mat-form-field class="fuse-mat-no-subscript w-full">
                     <mat-label>Nueva Contraseña</mat-label>
-                    <mat-icon
-                        class="icon-size-5"
-                        [svgIcon]="'heroicons_solid:key'"
-                        matPrefix></mat-icon>
-                    <input
-                        [formControlName]="'newPassword'"
-                        type="password"
-                        matInput>
+                    <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:key'" matPrefix></mat-icon>
+                    <input [formControlName]="'newPassword'" type="password" matInput>
                 </mat-form-field>
-                <div class="mt-1 text-md text-hint">Mínimo 8 caracteres. Debe incluir números, letras y caracteres especiales.</div>
+                <div class="mt-1 text-md text-hint">Mínimo 8 caracteres. Debe incluir números, letras y caracteres
+                    especiales.</div>
             </div>
         </div>
 
@@ -47,16 +40,10 @@
 
         <!-- Actions -->
         <div class="flex items-center justify-end">
-            <button
-                mat-stroked-button
-                type="button">
+            <button mat-stroked-button type="button">
                 Cancelar
             </button>
-            <button
-                class="ml-4"
-                mat-flat-button
-                type="button"
-                [color]="'primary'">Guardar
+            <button class="ml-4" mat-flat-button type="button" [color]="'primary'" (click)="cambiarContrasena()">Guardar
             </button>
         </div>
     </form>

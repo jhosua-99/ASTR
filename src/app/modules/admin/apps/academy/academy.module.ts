@@ -27,6 +27,7 @@ import { MatDialogModule } from '@angular/material/dialog';
 import { PolizaDialogComponent } from './dialog/poliza-dialog/poliza-dialog.component';
 import { ModernComponent } from './invoice/modern.component';
 import { MatSortModule } from '@angular/material/sort';
+import {NgxPrintModule} from 'ngx-print';
 
 @NgModule({
     declarations: [
@@ -44,6 +45,7 @@ import { MatSortModule } from '@angular/material/sort';
         MatDatepickerModule,
         MatSortModule,
         MatIconModule,
+        NgxPrintModule,
         MatInputModule,
         MatProgressBarModule,
         MatSelectModule,

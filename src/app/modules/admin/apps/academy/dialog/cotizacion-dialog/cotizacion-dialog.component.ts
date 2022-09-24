@@ -1,5 +1,5 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Compania, Ramo, Producto } from 'app/services/cotizacion/compania.type';
 import { CotizacionService } from 'app/services/cotizacion/cotizacion.service';
 import { Observable, Subject, takeUntil } from 'rxjs';
@@ -49,7 +49,7 @@ export class CotizacionDialogComponent implements OnInit, OnDestroy {
         ramo: [cot.ramo],
         producto: [cot.producto],
         numero_cotizacion: [cot.numero_cotizacion],
-        valor: [cot.valor]
+        valor: [cot.valor,[Validators.required, Validators.pattern("^[0-9]*$")]]
       })
 
     } else {
@@ -59,7 +59,7 @@ export class CotizacionDialogComponent implements OnInit, OnDestroy {
         ramo: [''],
         producto: [''],
         numero_cotizacion: [''],
-        valor: ['']
+        valor: ['',[Validators.required, Validators.pattern("^[0-9]*$")]]
       })
     }
 

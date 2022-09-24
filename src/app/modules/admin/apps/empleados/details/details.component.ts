@@ -211,11 +211,11 @@ export class EmpleadoDetailsComponent implements OnInit, OnDestroy
     {
         // Open the confirmation dialog
         const confirmation = this._fuseConfirmationService.open({
-            title  : 'Delete contact',
-            message: 'Are you sure you want to delete this contact? This action cannot be undone!',
+            title  : 'Eliminar empleado',
+            message: 'Esta seguro de que desea eliminar este empleado?',
             actions: {
                 confirm: {
-                    label: 'Delete'
+                    label: 'Borrar'
                 }
             }
         });

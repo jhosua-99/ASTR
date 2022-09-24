@@ -3,7 +3,9 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { FuseConfirmationService } from '@fuse/services/confirmation';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.types';
-import { Subject, takeUntil } from 'rxjs';
+import { EmpleadoService } from 'app/modules/admin/apps/empleados/empleado.service';
+import { Empleado } from 'app/modules/admin/apps/empleados/empleados.types';
+import { Observable, Subject, takeUntil } from 'rxjs';
 
 @Component({
     selector       : 'settings-account',
@@ -18,7 +20,6 @@ export class SettingsAccountComponent implements OnInit, OnDestroy
     user: User;
     successConfigForm: FormGroup;
     errorConfigForm: FormGroup;
-
     /**
      * Constructor
      */
@@ -41,6 +42,7 @@ export class SettingsAccountComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        
         // Subscribe to the user service
         this._userService.user$
             .pipe((takeUntil(this._unsubscribeAll)))

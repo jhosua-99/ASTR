@@ -74,6 +74,15 @@ export class EmpleadoService
         );
     }
 
+    getUsers(): Observable<UserResponseModel>
+    {        
+        return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}`+'api/user/').pipe(
+            tap((contacts) => {
+                this._contacts.next(contacts.body);
+            })
+        );
+    }
+
     /**
      * Search contacts with given query
      *
@@ -429,6 +438,17 @@ export class EmpleadoService
                     })
                 ))
             ))
+        );
+    }
+
+    updateUserPassword(req:any): Observable<UserResponseModel>
+    {
+        return this._httpClient.put<UserResponseModel>(`${environment.APIEndpoint}`+'api/user/password/',{
+            req
+        }).pipe(
+            tap((contacts) => {
+                
+            })
         );
     }
 }

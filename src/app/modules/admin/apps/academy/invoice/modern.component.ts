@@ -22,6 +22,8 @@ import { EmpleadoService } from '../../empleados/empleado.service';
 import { User } from 'app/core/user/user.types';
 import { UserService } from 'app/core/user/user.service';
 
+import * as html2pdf from 'html2pdf.js'
+
 @Component({
     selector: 'modern',
     templateUrl: './modern.component.html',
@@ -213,6 +215,20 @@ export class ModernComponent implements OnInit, OnDestroy {
         // Unsubscribe from all subscriptions
         this._unsubscribeAll.next(null);
         this._unsubscribeAll.complete();
+    }
+
+    export(){
+        const options = {
+            filename : "invoice.pdf",
+            image : { type : 'jpeg' },
+            html2canvas : {},
+            jsPDF: {
+                orientation : "portrait"
+            }
+        }
+        const content: Element = document.getElementById("element-to-export")
+
+        html2pdf().from(content).set(options).save();
     }
 
     /**
