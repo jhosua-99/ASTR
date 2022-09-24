@@ -8,6 +8,8 @@ import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
 import { Contact, Country, ContactExport } from 'app/modules/admin/apps/contacts/contacts.types';
 import { ContactsService } from 'app/modules/admin/apps/contacts/contacts.service';
 import * as XLSX from 'xlsx';
+import { UserService } from 'app/core/user/user.service';
+import { User } from 'app/core/user/user.types';
 
 
 @Component({
@@ -31,6 +33,7 @@ export class ContactsListComponent implements OnInit, OnDestroy
     searchInputControl: FormControl = new FormControl();
     selectedContact: Contact;
     private _unsubscribeAll: Subject<any> = new Subject<any>();
+    showExport = false
 
     /**
      * Constructor
@@ -41,7 +44,8 @@ export class ContactsListComponent implements OnInit, OnDestroy
         private _contactsService: ContactsService,
         @Inject(DOCUMENT) private _document: any,
         private _router: Router,
-        private _fuseMediaWatcherService: FuseMediaWatcherService
+        private _fuseMediaWatcherService: FuseMediaWatcherService,
+        private _userService :UserService
     )
     {
     }
@@ -68,6 +72,17 @@ export class ContactsListComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+
+        this._userService.user$
+            .pipe((takeUntil(this._unsubscribeAll)))
+            .subscribe((user: User) => {
+
+                
+                if(user.tipo_usuario == null || user.tipo_usuario == 1){
+                    this.showExport = true
+                }
+                
+            });
         // Get contacts to export
         
         this._contactsService.getContactsExport().subscribe(resp => {

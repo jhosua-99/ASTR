@@ -57,7 +57,7 @@
                 </div>
 
                 <!-- Name -->
-                <div class="mt-3 text-4xl font-bold truncate">{{contact.nom_usuario}}</div>
+                <div class="mt-3 text-4xl font-bold sm:block">{{contact.nom_usuario}} {{contact.apellido_usuario}}</div>
 
                 <!-- Tags 
                 <ng-container *ngIf="contact.tags.length">
@@ -72,29 +72,38 @@
                 </ng-container>-->
 
                 <div class="flex flex-col mt-4 pt-6 border-t space-y-8">
-                    <!-- nombre -->
+                    <!-- nombre
                     <ng-container *ngIf="contact.nom_usuario">
                         <div class="flex sm:items-center">
                             <mat-icon [svgIcon]="'heroicons_outline:briefcase'"></mat-icon>
                             <div class="ml-6 leading-6">{{contact.nom_usuario}}</div>
                         </div>
+                    </ng-container> -->
+
+                    <!-- correo -->
+                    <ng-container *ngIf="contact.email">
+                        <div class="flex sm:items-center">
+                            <mat-icon [svgIcon]="'heroicons_outline:mail'"></mat-icon>
+                            <div class="ml-6 leading-6">{{contact.email}}</div>
+                        </div>
+                        
                     </ng-container>
 
-                    <!-- Apellido -->
+                    <!-- Apellido 
                     <ng-container *ngIf="contact.apellido_usuario">
                         <div class="flex sm:items-center">
                             <mat-icon [svgIcon]="'heroicons_outline:office-building'"></mat-icon>
                             <div class="ml-6 leading-6">{{contact.apellido_usuario}}</div>
                         </div>
-                    </ng-container>
+                    </ng-container>-->
 
-                    <!-- Celular -->
+                    <!-- Celular 
                     <ng-container *ngIf="contact.apellido_usuario">
                         <div class="flex sm:items-center">
                             <mat-icon [svgIcon]="'heroicons_outline:office-building'"></mat-icon>
                             <div class="ml-6 leading-6">{{contact.celular}}</div>
                         </div>
-                    </ng-container>
+                    </ng-container>-->
 
                 </div>
 
@@ -136,35 +145,7 @@
                         <div class="relative flex items-center justify-center w-32 h-32 rounded-full overflow-hidden ring-4 ring-bg-card">
                             <!-- Upload / Remove avatar -->
                             <div class="absolute inset-0 bg-black bg-opacity-50 z-10"></div>
-                            <div class="absolute inset-0 flex items-center justify-center z-20">
-                                <div>
-                                    <input
-                                        id="avatar-file-input"
-                                        class="absolute h-0 w-0 opacity-0 invisible pointer-events-none"
-                                        type="file"
-                                        [multiple]="false"
-                                        [accept]="'image/jpeg, image/png'"
-                                        (change)="uploadAvatar(avatarFileInput.files)"
-                                        #avatarFileInput>
-                                    <label
-                                        class="flex items-center justify-center w-10 h-10 rounded-full cursor-pointer hover:bg-hover"
-                                        for="avatar-file-input"
-                                        matRipple>
-                                        <mat-icon
-                                            class="text-white"
-                                            [svgIcon]="'heroicons_outline:camera'"></mat-icon>
-                                    </label>
-                                </div>
-                                <div>
-                                    <button
-                                        mat-icon-button
-                                        (click)="removeAvatar()">
-                                        <mat-icon
-                                            class="text-white"
-                                            [svgIcon]="'heroicons_outline:trash'"></mat-icon>
-                                    </button>
-                                </div>
-                            </div>
+                            
                             <!-- Image/Letter -->
                             <img
                                 class="object-cover w-full h-full"
@@ -181,7 +162,7 @@
                     <!-- Name -->
                     <div class="mt-8">
                         <mat-form-field class="fuse-mat-no-subscript w-full">
-                            <mat-label>Nombre</mat-label>
+                            <mat-label>Nombres</mat-label>
                             <mat-icon
                                 matPrefix
                                 class="hidden sm:flex icon-size-5"
@@ -189,7 +170,7 @@
                             <input
                                 matInput
                                 [formControlName]="'nom_usuario'"
-                                [placeholder]="'Name'"
+                                [placeholder]="'Nombres'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div>
@@ -197,7 +178,7 @@
                     <!-- Apellido -->
                     <div class="mt-8">
                         <mat-form-field class="fuse-mat-no-subscript w-full">
-                            <mat-label>Apellido</mat-label>
+                            <mat-label>Apellidos</mat-label>
                             <mat-icon
                                 matPrefix
                                 class="hidden sm:flex icon-size-5"
@@ -205,7 +186,7 @@
                             <input
                                 matInput
                                 [formControlName]="'apellido_usuario'"
-                                [placeholder]="'Apellido'"
+                                [placeholder]="'Apellidos'"
                                 [spellcheck]="false">
                         </mat-form-field>
                     </div>
@@ -239,14 +220,14 @@
 
                     <!-- Actions -->
                     <div class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent">
-                        <!-- Delete -->
+                        <!-- Delete 
                         <button
                             mat-button
                             [color]="'warn'"
                             [matTooltip]="'Delete'"
                             (click)="deleteContact()">
                             Borrar
-                        </button>
+                        </button>-->
                         <!-- Cancel -->
                         <button
                             class="ml-auto"

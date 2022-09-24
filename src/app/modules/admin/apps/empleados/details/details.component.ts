@@ -70,6 +70,7 @@ export class EmpleadoDetailsComponent implements OnInit, OnDestroy
             avatar      : [null],            
             nom_usuario        : ['', [Validators.required]],  
             apellido_usuario : [''],         
+            email : [''],         
             tipo_usuario: [''],
             celular:['']
         });
@@ -193,6 +194,7 @@ export class EmpleadoDetailsComponent implements OnInit, OnDestroy
         console.log(contact);
 
         console.log(contact.cod_usuario+"<-- cod")
+        
 
          //Update the contact on the server
         this._contactsService.updateContact(contact.cod_usuario, contact).subscribe(() => {

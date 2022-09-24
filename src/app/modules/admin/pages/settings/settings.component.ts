@@ -2,6 +2,8 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnIni
 import { MatDrawer } from '@angular/material/sidenav';
 import { Subject, takeUntil } from 'rxjs';
 import { FuseMediaWatcherService } from '@fuse/services/media-watcher';
+import { UserService } from 'app/core/user/user.service';
+import { User } from 'app/core/user/user.types';
 
 @Component({
     selector       : 'settings',
@@ -23,7 +25,8 @@ export class SettingsComponent implements OnInit, OnDestroy
      */
     constructor(
         private _changeDetectorRef: ChangeDetectorRef,
-        private _fuseMediaWatcherService: FuseMediaWatcherService
+        private _fuseMediaWatcherService: FuseMediaWatcherService,
+        private _userService :UserService
     )
     {
     }
@@ -37,40 +40,58 @@ export class SettingsComponent implements OnInit, OnDestroy
      */
     ngOnInit(): void
     {
+        // Subscribe to the user service
+        this._userService.user$
+            .pipe((takeUntil(this._unsubscribeAll)))
+            .subscribe((user: User) => {
+                
+                if(user.tipo_usuario == null || user.tipo_usuario == 0){
+                    this.panels = [
+                        {
+                            id         : 'account',
+                            icon       : 'heroicons_outline:user-circle',
+                            title      : 'Cuenta',
+                            description: 'Administra tu perfil'
+                        }
+                    ];
+                }else{
+                    this.panels = [
+                        {
+                            id         : 'account',
+                            icon       : 'heroicons_outline:user-circle',
+                            title      : 'Cuenta',
+                            description: 'Administra tu perfil'
+                        },
+                        {
+                            id         : 'security',
+                            icon       : 'heroicons_outline:lock-closed',
+                            title      : 'Seguridad',
+                            description: 'Administra tu contraseña'
+                        }
+                        /*,
+                        {
+                            id         : 'plan-billing',
+                            icon       : 'heroicons_outline:credit-card',
+                            title      : 'Plan & Billing',
+                            description: 'Manage your subscription plan, payment method and billing information'
+                        },
+                        {
+                            id         : 'notifications',
+                            icon       : 'heroicons_outline:bell',
+                            title      : 'Notifications',
+                            description: 'Manage when you\'ll be notified on which channels'
+                        },
+                        {
+                            id         : 'team',
+                            icon       : 'heroicons_outline:user-group',
+                            title      : 'Team',
+                            description: 'Manage your existing team and change roles/permissions'
+                        }*/
+                    ];
+                }
+            });
         // Setup available panels
-        this.panels = [
-            {
-                id         : 'account',
-                icon       : 'heroicons_outline:user-circle',
-                title      : 'Cuenta',
-                description: 'Administra tu perfil'
-            },
-            {
-                id         : 'security',
-                icon       : 'heroicons_outline:lock-closed',
-                title      : 'Seguridad',
-                description: 'Administra tu contraseña'
-            }
-            /*,
-            {
-                id         : 'plan-billing',
-                icon       : 'heroicons_outline:credit-card',
-                title      : 'Plan & Billing',
-                description: 'Manage your subscription plan, payment method and billing information'
-            },
-            {
-                id         : 'notifications',
-                icon       : 'heroicons_outline:bell',
-                title      : 'Notifications',
-                description: 'Manage when you\'ll be notified on which channels'
-            },
-            {
-                id         : 'team',
-                icon       : 'heroicons_outline:user-group',
-                title      : 'Team',
-                description: 'Manage your existing team and change roles/permissions'
-            }*/
-        ];
+       
 
         // Subscribe to media changes
         this._fuseMediaWatcherService.onMediaChange$

@@ -23,6 +23,8 @@ import * as XLSX from 'xlsx';
 
 import { Anexo } from 'app/services/anexo/anexo.type';
 import { AnexoService } from 'app/services/anexo/anexo.service';
+import { UserService } from 'app/core/user/user.service';
+import { User } from 'app/core/user/user.types';
 
 
 @Component({
@@ -56,7 +58,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     private _unsubscribeAll: Subject<any> = new Subject<any>();
 
     empForm: FormGroup;
-
+    showExport = false
 
     /**
      * formularios por fases
@@ -84,7 +86,8 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         private _polizaService: PolizaService,
         private _anexoService: AnexoService,
         private matDialog: MatDialog,
-        private _cotizacionService: CotizacionService
+        private _cotizacionService: CotizacionService,
+        private _userService :UserService
     ) {
     }
 
@@ -96,6 +99,17 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
      * On init
      */
     ngOnInit(): void {
+
+        this._userService.user$
+            .pipe((takeUntil(this._unsubscribeAll)))
+            .subscribe((user: User) => {
+
+                
+                if(user.tipo_usuario == null || user.tipo_usuario == 1){
+                    this.showExport = true
+                }
+                
+            });
 
         this._cotizacion_service.getAuditoriaCotizacion().subscribe(resp => {
             console.log(resp.body);           

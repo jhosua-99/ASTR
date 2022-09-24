@@ -184,21 +184,7 @@
                                         </ul>
                                     </div>
                                 </div>
-                                <hr>
-                                <div class="flex sm:items-center">
-                                    <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
-                                    <div class="ml-6 leading-6">
-                                        <strong>Empleados Encargados</strong>
-
-                                        <ul>
-                                            <li>Mr Clind - Iniciación</li>
-                                            <li>Mr Clind - Cotización</li>
-                                            <li>Mr Rosalia - Negociación</li>
-                                            <li>Mr Perez - Recabación de documentos</li>
-                                            <li>Mr Suerex - Seguimineto</li>
-                                        </ul>
-                                    </div>
-                                </div>
+                                
                                 <hr>
 
                                 <div class="flex sm:items-center">
@@ -208,9 +194,9 @@
                                         <strong>Fecha de Inicio</strong>
 
                                         <ul>
-                                            <li>10/15/2022</li>
+                                            <li>{{course.proceso.fecha_inicio | date: 'shortDate'}}</li>
                                         </ul>
-                                    
+
                                     </div>
                                 </div>
                                 <hr>
@@ -234,7 +220,7 @@
                                     Se recolectara los documentos necesarios para realizar la cotización.
 
                                 </p>
-                               
+
                                 <hr>
 
                                 <div class="flex sm:items-center">
@@ -262,8 +248,8 @@
                                 </div>
                                 <hr>
 
-                                
-                                
+
+
 
                                 <!--listoooooooooooo-->
 
@@ -282,7 +268,7 @@
 
                                 <h2 class="text-2xl sm:text-3xl">Cotización</h2>
 
-                                
+
 
                                 <p class="lead">
                                     Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus aperiam
@@ -290,78 +276,77 @@
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
 
-                                
+
 
                                 <form [formGroup]="empForm">
                                     <div class="flex sm:items-center">
                                         <mat-icon [svgIcon]="'heroicons_outline:user-circle'"></mat-icon>
                                         <div class="ml-6 leading-6">
                                             <strong>Empleado quien Realizo la cotización</strong>
-    
+
                                         </div>
-    
+
                                     </div>
-    
+
                                     <br>
-                                    <div class="flex" >
-                                        <mat-form-field class="flex-auto"  >
-                              
-                                            <mat-select  [formControlName]="'idEmpCotizacion'" [placeholder]="'Seleccionar'"
-                                                required>
-                                                
+                                    <div class="flex">
+                                        <mat-form-field class="flex-auto">
+
+                                            <mat-select [formControlName]="'idEmpCotizacion'"
+                                                [placeholder]="'Seleccionar'" required>
+
                                                 <mat-option *ngFor="let emp of empleados$" value="{{emp.cod_usuario}}">
                                                     {{emp.nom_usuario}}
 
-                                                    
-                                                    
-                                                </mat-option>
-                                               
-                                            </mat-select>
-                                            
-                                            
-                                            
-                                        </mat-form-field>
-                                        
 
-                                        
+
+                                                </mat-option>
+
+                                            </mat-select>
+
+
+
+                                        </mat-form-field>
+
+
+
                                     </div>
-    
+
                                     <hr>
-    
+
                                     <div class="flex sm:items-center">
                                         <mat-icon [svgIcon]="'heroicons_outline:identification'"></mat-icon>
                                         <div class="ml-6 leading-6">
                                             <strong>Empleado quien Ingresa la Cotización</strong>
-    
+
                                         </div>
-    
+
                                     </div>
-    
+
                                     <br>
                                     <div class="flex">
                                         <mat-form-field class="flex-auto">
-                                            <mat-select [formControlName]="'idEmpAsignado'" [placeholder]="'Seleccionar'"
-                                                required>
+                                            <mat-select [formControlName]="'idEmpAsignado'"
+                                                [placeholder]="'Seleccionar'" required>
                                                 <mat-option *ngFor="let emp of empleados$" value="{{emp.cod_usuario}}">
                                                     {{emp.nom_usuario}}</mat-option>
-    
+
                                             </mat-select>
-    
+
                                         </mat-form-field>
-                                       
-                                        
+
+
                                     </div>
 
-                                    <button class="flex items-center justify-center" mat-flat-button
-                                                    [color]="'primary'" [matTooltip]="'Save'"
-                                                    (click)="empAsignado()">
-                                                    Asignar
-                                        </button>
-                                     
-    
+                                    <button class="flex items-center justify-center" mat-flat-button [color]="'primary'"
+                                        [matTooltip]="'Save'" (click)="empAsignado()">
+                                        Asignar
+                                    </button>
+
+
                                 </form>
                                 <br>
-                                
+
                                 <hr>
                                 <form [formGroup]="phaseCotizacionForm">
                                     <ng-container
@@ -461,16 +446,21 @@
                                             Cotización</span>
                                     </div>
 
-                                    <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
-                                        (click)="export()">
-                                        <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
-                                        </mat-icon>
-                                        <span class="ml-2 font-medium text-secondary group-hover:underline">Auditoria Cotización</span>
-                                    </div>
+                                    <ng-container *ngIf="showExport">
+                                        <div class="group inline-flex items-center mt-2 -ml-4 py-2 px-4 rounded cursor-pointer"
+                                            (click)="export()">
+                                            <mat-icon class="icon-size-5" [svgIcon]="'heroicons_solid:plus-circle'">
+                                            </mat-icon>
+                                            <span
+                                                class="ml-2 font-medium text-secondary group-hover:underline">Auditoria
+                                                Cotización</span>
+                                        </div>
+                                    </ng-container>
 
-                                  
 
-                                    
+
+
+
                                 </form>
 
                             </div>
@@ -504,19 +494,16 @@
                                 <h6 class="">Progreso</h6>
                                 <!-- Course progress -->
                                 <div class="relative h-0.5">
-                                    <div
-                                        class="z-10 absolute inset-x-0 h-6 -mt-3"
+                                    <div class="z-10 absolute inset-x-0 h-6 -mt-3"
                                         [matTooltip]="course.proceso.porcentaje | percent"
-                                        [matTooltipPosition]="'above'"
-                                        [matTooltipClass]="'-mb-0.5'"></div>
-                                    <mat-progress-bar
-                                        class="h-0.5"
-                                        [value]="course.proceso.porcentaje * 100"></mat-progress-bar>
+                                        [matTooltipPosition]="'above'" [matTooltipClass]="'-mb-0.5'"></div>
+                                    <mat-progress-bar class="h-0.5" [value]="course.proceso.porcentaje * 100">
+                                    </mat-progress-bar>
                                 </div>
 
                                 <br><br>
-                                
-                                
+
+
                                 <div class="flex"
                                     *ngFor="let camp of phaseRecabacionForm.get('campos')['controls']; let i = index; let first = first; let last = last; trackBy: trackByFn">
                                     <mat-form-field class="fuse-mat-no-subscript flex-auto">
@@ -567,7 +554,7 @@
                                     voluptatem. Culpa deleniti explica nisi quod soluta.
                                 </p>
 
-                                
+
                                 <hr>
                                 <form [formGroup]="phaseSeguimientoForm">
                                     <ng-container
@@ -667,7 +654,7 @@
                                         </mat-form-field>
 
                                         <div class="flex">
-                                            
+
                                             <mat-form-field class="w-full">
                                                 <mat-label>Link de póliza</mat-label>
                                                 <input matInput [formControl]="poliza.get('link')" [readonly]="true">
@@ -676,7 +663,7 @@
                                         <div class="flex">
                                             <!-- Save -->
                                             <button class="w-full" mat-flat-button [color]="'primary'"
-                                                [matTooltip]="'Renovar'" (click) = "openEditPoliDialog()">
+                                                [matTooltip]="'Renovar'" (click)="openEditPoliDialog()">
                                                 Renovar
                                             </button>
 
@@ -684,7 +671,7 @@
 
                                         <hr>
 
-                                        
+
                                     </ng-container>
 
                                     <ng-container *ngIf="phaseSeguimientoForm.get('poliza').length == 0">
