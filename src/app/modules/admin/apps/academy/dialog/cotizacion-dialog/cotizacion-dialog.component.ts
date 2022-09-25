@@ -97,7 +97,9 @@ export class CotizacionDialogComponent implements OnInit, OnDestroy {
     
     let aud = {
       idEmpCotizacion: window['idEmpCotizacion'] ,
-      idEmpAsignado: window['idEmpAsignado']
+      idEmpAsignado: window['idEmpAsignado'],
+      cod_proceso: this.data.dataKey,
+      numero_cotizacion: stepForm.numero_cotizacion
     }
 
     this._cotizacion_service.auditoriaCotizacion(aud).subscribe((resp=>{
