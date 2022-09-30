@@ -30,16 +30,98 @@
             <div class="hidden lg:flex h-8 mx-8 border-l-2"></div>-->
 
             
-
             
 
         </div>
 
     </div>
+<!-- Main -->
+<div class="flex flex-auto justify-center w-full max-w-5xl mx-auto p-6 sm:p-8">
 
-    <!-- @formatter:on -->
-    <div class="mt-12 sm:mt-24 text-4xl md:text-7xl font-extrabold tracking-tight leading-tight md:leading-none text-center">Bienvenido a ASTR!</div>
-    <div class="mt-2 text-lg md:text-xl font-medium tracking-tight text-center text-secondary">Esquivia seguros.</div>
-    
+    <!-- Column -->
+    <div class="hidden lg:flex flex-col items-start mr-8">
+
+        <!-- About me -->
+        <fuse-card class="flex flex-col max-w-80 w-full p-8">
+            <div class="text-2xl font-semibold leading-tight">Bienvenido a ASTR!</div>
+            <div class="mt-4">
+                Esquivia seguros.
+                <br><br>
+                
+            </div>
+            <hr class="w-full border-t my-6">
+            
+        </fuse-card>
+
+        
+
+    </div>
+
+    <!-- Column -->
+    <div class="flex flex-col items-start">
+
+        <ng-container *ngIf="data.length > 0" >
+            <div
+                class="sm:col-span-2 md:col-span-4 lg:col-span-4 flex flex-col flex-auto p-6 bg-card shadow rounded-2xl overflow-hidden">
+                <div class="flex flex-col sm:flex-row items-start justify-between">
+                    <div class="text-lg font-medium tracking-tight leading-6 sm:block">Procesos
+                        próximos
+                        a renovar</div>
+        
+                </div>
+                <div class="flex flex-col mt-2 divide-y">
+                    <ng-container *ngFor="let scheduleItem of data; trackBy: trackByFn">
+                        <div class="flex flex-row items-center justify-between py-4 px-0.5">
+                            <div class="flex flex-col">
+                                <div class="font-medium">{{scheduleItem.nom_tipo_seguro}}</div>
+                                <div
+                                    class="flex flex-col sm:flex-row sm:items-center -ml-0.5 mt-2 sm:mt-1 space-y-1 sm:space-y-0 sm:space-x-3">
+                                    <ng-container *ngIf="scheduleItem.nom_cliente">
+                                        <div class="flex items-center">
+                                            <mat-icon class="icon-size-5 text-hint"
+                                                [svgIcon]="'heroicons_outline:user'"></mat-icon>
+                                            <div class="ml-1.5 text-md text-secondary">
+                                                {{scheduleItem.nom_cliente}}
+                                                {{scheduleItem.apellido_cliente}}</div>
+                                        </div>
+                                    </ng-container>
+        
+                                </div>
+                                <hr>
+                                <div class="flex items-center">
+                                    <ng-container *ngIf="scheduleItem.numero_poliza">
+                                        <mat-icon class="icon-size-5 text-hint"
+                                            [svgIcon]="'heroicons_solid:bookmark'"></mat-icon>
+                                        <div class="ml-1.5 text-md text-secondary  pr-2">
+                                            {{scheduleItem.numero_poliza}}</div>
+                                    </ng-container>
+        
+                                    <ng-container *ngIf="scheduleItem.fecha_vigencia_hasta">
+                                        <mat-icon class="icon-size-5 text-hint"
+                                            [svgIcon]="'heroicons_solid:calendar'"></mat-icon>
+                                        <div class="ml-1.5 text-md text-secondary">
+                                            {{scheduleItem.fecha_vigencia_hasta| date: 'shortDate'}}</div>
+                                    </ng-container>
+        
+                                </div>
+                            </div>
+                            <button mat-icon-button (click)="redirect(scheduleItem.cod_proceso)">
+                                <mat-icon [svgIcon]="'heroicons_solid:chevron-right'"></mat-icon>
+                            </button>
+                        </div>
+        
+                        
+                        
+                    </ng-container>
+        
+                </div>
+            </div>
+        </ng-container>
+
+        
+
+    </div>
+
+</div>
 
 </div>

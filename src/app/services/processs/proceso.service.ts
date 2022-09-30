@@ -115,6 +115,18 @@ export class ProcesoService {
         );
     }
 
+    
+    getProcesosPorRenovarPorEmpleado(cod_user): Observable<UserResponseModel> {        //cambiar url
+
+
+        return this._httpClient.get<UserResponseModel>(`${environment.APIEndpoint}` + 'api/procesos/renovar/'+cod_user).pipe(
+            tap((result) => {
+                this._procesosPorRenovar.next(result.body);
+                console.log('renovacion ' + result);
+            })
+        );
+    }
+
     getPanelData(): Observable<UserResponseModel> {        //cambiar url
 
 

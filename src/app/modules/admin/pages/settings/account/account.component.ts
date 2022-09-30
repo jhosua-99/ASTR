@@ -124,7 +124,7 @@ export class SettingsAccountComponent implements OnInit, OnDestroy
         console.log(data);
         let auxUser : User = {
             cod_usuario : this.user.cod_usuario,
-            email : this.user.email,
+            email : data.email,
             contrasena : this.user.contrasena,
             nom_usuario : data.name,
             apellido_usuario : data.lastName,
