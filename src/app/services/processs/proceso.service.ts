@@ -161,4 +161,26 @@ export class ProcesoService {
         );
 
     }
+
+    deleteProceso(id: any) : Observable<any> {
+        return this._procesos.pipe(
+            take(1),
+            switchMap(contacts => this._httpClient.delete(`${environment.APIEndpoint}`+'api/procesos/', {params: {id}}).pipe(
+                map((result: UserResponseModel) => {
+
+                    // Find the index of the deleted contact
+                    const index = contacts.findIndex(item => item.cod_proceso === id);
+
+                    // Delete the contact
+                    contacts.splice(index, 1);
+
+                    // Update the contacts
+                    this._procesos.next(contacts);
+
+                    // Return the deleted status
+                    return result.body.isDeleted;;
+                })
+            ))
+        );
+    }
 }

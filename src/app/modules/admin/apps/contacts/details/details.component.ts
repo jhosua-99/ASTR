@@ -420,6 +420,9 @@ export class ContactsDetailsComponent implements OnInit, OnDestroy
             actions: {
                 confirm: {
                     label: 'Eliminar'
+                },
+                cancel : {
+                    label : 'Cancelar'
                 }
             }
         });

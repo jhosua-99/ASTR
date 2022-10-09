@@ -25,6 +25,8 @@ import { Anexo } from 'app/services/anexo/anexo.type';
 import { AnexoService } from 'app/services/anexo/anexo.service';
 import { UserService } from 'app/core/user/user.service';
 import { User } from 'app/core/user/user.types';
+import { FuseConfirmationService } from '@fuse/services/confirmation';
+import { ActivatedRoute, Router } from '@angular/router';
 
 
 @Component({
@@ -78,6 +80,7 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         private _empleadoService: EmpleadoService,
         private _academyService: AcademyService,
         private _changeDetectorRef: ChangeDetectorRef,
+        private _fuseConfirmationService: FuseConfirmationService,
         private _elementRef: ElementRef,
         private _formBuilder: FormBuilder,
         private _fuseMediaWatcherService: FuseMediaWatcherService,
@@ -87,7 +90,9 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
         private _anexoService: AnexoService,
         private matDialog: MatDialog,
         private _cotizacionService: CotizacionService,
-        private _userService :UserService
+        private _userService :UserService,
+        private _activatedRoute: ActivatedRoute,
+        private _router: Router
     ) {
     }
 
@@ -339,6 +344,51 @@ export class AcademyDetailsComponent implements OnInit, OnDestroy {
     // -----------------------------------------------------------------------------------------------------
     // @ Public methods
     // -----------------------------------------------------------------------------------------------------
+
+
+    deleteProcess(): void
+    {
+        // Open the confirmation dialog
+        const confirmation = this._fuseConfirmationService.open({
+            title  : 'Borrar proceso',
+            message: '¿Está seguro de que desea eliminar este proceso? ¡Esta acción no se puede deshacer!',
+            actions: {
+                confirm: {
+                    label: 'Eliminar'
+                },
+                cancel : {
+                    label : 'Cancelar'
+                }
+            }
+        });
+
+        // Subscribe to the confirmation dialog closed action
+        confirmation.afterClosed().subscribe((result) => {
+
+            // If the confirm button pressed...
+            if ( result === 'confirmed' )
+            {
+                
+                this._procesoService.deleteProceso(this.course.proceso.cod_proceso).subscribe((isDeleted) => {
+
+                    // Return if the contact wasn't deleted...
+                    
+
+                    // Navigate to the next contact if available
+                    // if ( nextContactId )
+                    // {
+                    //     this._router.navigate(['../', nextContactId], {relativeTo: this._activatedRoute});
+                    // }
+                    // Otherwise, navigate to the parent
+                    this._router.navigate(['../'], {relativeTo: this._activatedRoute});
+
+                    
+                });
+            }
+        });
+
+    }
+
     /**
          * Add the email field
          */
