@@ -77,7 +77,7 @@
                                     <mat-select [formControlName]="'empleadoSeleccionado'"
                                         [placeholder]="'Usuario Asignado'" required>
                                         <mat-option *ngFor="let user of users; let i = index; trackBy: trackByFn"
-                                            [value]="user.cod_usuario">{{user.nom_usuario}}{{user.apellido_usuario}}
+                                            [value]="user.cod_usuario">{{user.nom_usuario}} {{user.apellido_usuario}}
                                         </mat-option>
 
                                     </mat-select>

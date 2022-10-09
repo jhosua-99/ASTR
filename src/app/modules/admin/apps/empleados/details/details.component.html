@@ -191,6 +191,22 @@
                         </mat-form-field>
                     </div>
 
+                    <!-- Correo -->
+                    <div class="mt-8">
+                        <mat-form-field class="fuse-mat-no-subscript w-full">
+                            <mat-label>Email</mat-label>
+                            <mat-icon
+                                matPrefix
+                                class="hidden sm:flex icon-size-5"
+                                [svgIcon]="'heroicons_solid:mail'"></mat-icon>
+                            <input
+                                matInput
+                                [formControlName]="'email'"
+                                [placeholder]="'ejemplo@ejemplo.com'"
+                                [spellcheck]="false">
+                        </mat-form-field>
+                    </div>
+
 
                     <!-- Celular 
                     <div class="mt-8">
@@ -220,14 +236,14 @@
 
                     <!-- Actions -->
                     <div class="flex items-center mt-10 -mx-6 sm:-mx-12 py-4 pr-4 pl-1 sm:pr-12 sm:pl-7 border-t bg-gray-50 dark:bg-transparent">
-                        <!-- Delete 
+                        <!-- Delete -->
                         <button
                             mat-button
                             [color]="'warn'"
                             [matTooltip]="'Delete'"
                             (click)="deleteContact()">
                             Borrar
-                        </button>-->
+                        </button>
                         <!-- Cancel -->
                         <button
                             class="ml-auto"

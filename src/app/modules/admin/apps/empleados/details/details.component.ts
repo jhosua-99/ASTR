@@ -218,6 +218,9 @@ export class EmpleadoDetailsComponent implements OnInit, OnDestroy
             actions: {
                 confirm: {
                     label: 'Borrar'
+                },
+                cancel : {
+                    label : 'Cancelar'
                 }
             }
         });
