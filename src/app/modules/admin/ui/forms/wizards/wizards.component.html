@@ -248,22 +248,31 @@
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartNewVsReturning.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Afinidad</div>
+                                        <div class="ml-3 sm:block">
+                                            <P>Afinidad</P>
+                                        </div>
                                     </div>
 
-                                    <div class="text-right text-secondary">{{(recomendation[1].similarity*100) | number
-                                        : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        <p style="color:#3182CE">{{(recomendation[1].similarity*100) | number: '1.0-0' }}%</p>    
+                                    </div>
+
                                 </div>
 
                                 <div class="grid grid-cols-3 py-3">
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartNewVsReturning.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Disimilitud</div>
+                                        <div class="ml-3 sm:block">
+                                            
+                                            <P>Disimilitud</P>
+                                        </div>
+
                                     </div>
 
-                                    <div class="text-right text-secondary">{{((1 - recomendation[1].similarity)*100) |
-                                        number : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        <P style="color:#63B3ED">{{((1 - recomendation[1].similarity)*100) | number : '1.0-0' }}%</P>
+                                    </div>
                                 </div>
                             </div>
                         </div>
@@ -289,22 +298,33 @@
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartGender.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Afinidad</div>
+                                        <div class="ml-3 sm:block">
+                                            <P>Afinidad</P>
+                                            </div>
                                     </div>
 
-                                    <div class="text-right text-secondary">{{((recomendation[2].similarity)*100) |
-                                        number : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        <P style="color:#319795">{{((recomendation[2].similarity)*100) |
+                                            number : '1.0-0' }}%</P>
+                                        </div>
                                 </div>
 
                                 <div class="grid grid-cols-3 py-3">
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartGender.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Disimilitud</div>
+                                        <div class="ml-3 sm:block">
+                                            
+                                            <P>Disimilitud</P>
+                                            </div>
                                     </div>
 
-                                    <div class="text-right text-secondary">{{((1 - recomendation[2].similarity)*100) |
-                                        number : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        
+                                        <P style="color:#4FD1C5">{{((1 - recomendation[2].similarity)*100) |
+                                            number : '1.0-0' }}%</P>
+                                        
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -330,21 +350,30 @@
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartAge.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Afinidad</div>
+                                        <div class="ml-3 sm:block">
+                                            <P>Afinidad</P>
+                                            </div>
                                     </div>
 
-                                    <div class="text-right text-secondary">{{((recomendation[3].similarity)*100) |
-                                        number : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        <P style="color:#DD6B20">{{((recomendation[3].similarity)*100) |
+                                            number : '1.0-0' }}%</P>
+                                        </div>
                                 </div>
                                 <div class="grid grid-cols-3 py-3">
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartAge.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Disimilitud</div>
+                                        <div class="ml-3 sm:block">
+                                            
+                                            <P>Disimilitud</P>
+                                            </div>
                                     </div>
 
-                                    <div class="text-right text-secondary">{{((1 - recomendation[3].similarity)*100) |
-                                        number : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        <P style="color:#F6AD55">{{((1 - recomendation[3].similarity)*100) |
+                                            number : '1.0-0' }}%</P>
+                                        </div>
                                 </div>
                             </div>
                         </div>
@@ -371,22 +400,30 @@
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartLanguage.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Afinidad</div>
+                                        <div class="ml-3 sm:block">
+                                            <P>Afinidad</P>
+                                            </div>
                                     </div>
 
-                                    <div class="text-right text-secondary">{{((recomendation[4].similarity)*100) |
-                                        number : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        <P style="color:#805AD5">{{((recomendation[4].similarity)*100) |
+                                            number : '1.0-0' }}%</P>
+                                        </div>
                                 </div>
 
                                 <div class="grid grid-cols-3 py-3">
                                     <div class="flex items-center">
                                         <div class="flex-0 w-2 h-2 rounded-full"
                                             [style.backgroundColor]="chartLanguage.colors[i]"></div>
-                                        <div class="ml-3 sm:block">Disimilitud</div>
+                                        <div class="ml-3 sm:block">
+                                            <P>Disimilitud</P>
+                                            </div>
                                     </div>
 
-                                    <div class="text-right text-secondary">{{((1 - recomendation[4].similarity)*100) |
-                                        number : '1.0-0' }}%</div>
+                                    <div class="text-right text-secondary">
+                                        <P style="color:#B794F4">{{((1 - recomendation[4].similarity)*100) |
+                                            number : '1.0-0' }}%</P>
+                                        </div>
                                 </div>
                             </div>
                         </div>
